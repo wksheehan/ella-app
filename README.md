@@ -66,3 +66,19 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `yarn build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+### Steps to get yarn start working
+
+cd api
+python3 -m venv venv
+source venv/bin/activate 
+==> you should now see (venv) at the begginning of the command line prompt
+pip install flask python-dotenv
+cd ..
+yarn start
+
+## Steps to get yarn start-api working
+
+Follow above steps in a new terminal window while yarn start is already running
+There should be a way to automate this instead of going through the steps every time
+

@@ -1,5 +1,12 @@
 .App {
   text-align: center;
+
+.container {
+  text-align: center;
+}
+.container > h1 {
+  color: steelblue;
+}
 }
 
 .App-logo {
@@ -27,6 +34,7 @@
 .App-link {
   color: #61dafb;
 }
+
 
 @keyframes App-logo-spin {
   from {

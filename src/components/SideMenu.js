@@ -5,6 +5,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import StarIcon from '@material-ui/icons/Star';
+import WbSunnyIcon from '@material-ui/icons/WbSunny';
 import ExitToApp from '@material-ui/icons/ExitToApp';
 import { makeStyles } from '@material-ui/core/styles';
 import { Avatar } from '@material-ui/core';
@@ -49,10 +51,13 @@ function SideMenu() {
         />
       </Grid>
       <List>
-        {['Profile', 'Sign Out'].map((text, index) => (
+        {['Profile', 'Closet', 'Weather', 'Sign Out'].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>
-              {index % 2 === 0 ? <AccountCircle /> : <ExitToApp />}
+              {index  === 0 ? <AccountCircle /> : 
+              index === 1 ? <StarIcon /> : 
+              index == 2 ? <WbSunnyIcon /> : 
+              <ExitToApp />}
             </ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>

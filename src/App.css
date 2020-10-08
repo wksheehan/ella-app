@@ -1,12 +1,5 @@
 .App {
   text-align: center;
-
-.container {
-  text-align: center;
-}
-.container > h1 {
-  color: steelblue;
-}
 }
 
 .App-logo {
@@ -35,6 +28,12 @@
   color: #61dafb;
 }
 
+.container {
+  text-align: center;
+}
+.container > h1 {
+  color: steelblue;
+}
 
 @keyframes App-logo-spin {
   from {

@@ -26,13 +26,11 @@ function MainContent() {
     <main className={classes.fullWidth}>
       <div className={classes.toolbar} />
       <div className={classes.title}>
-        <Typography variant='h6'>Title</Typography>
+        <Typography variant='h6'>ELLA APP</Typography>
       </div>
       <div className={classes.content}>
         <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus,
-          nulla ut commodo sagittis, sapien dui mattis dui, non pulvinar lorem
-          felis nec erat
+          Welcome to Ella App, Your closet simplified. Please upload pictures of your clothing items.
         </Typography>
       </div>
     </main>

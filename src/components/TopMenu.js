@@ -21,10 +21,6 @@ const useStyles = makeStyles(theme => ({
   title: {
     flexGrow: 1,
   },
-  // Link: {
-  //   color: 'white',
-  //   textDecoration: 'none'
-  // }
 }));
 
 function TopMenu() {
@@ -42,13 +38,18 @@ function TopMenu() {
           <MenuIcon />
         </IconButton>
         <MenuItem>
-          <Link to="/" >
+          <Link to="/" style={{color: 'white', textDecoration: 'none'}}>
             Home
           </Link>
         </MenuItem>
         <MenuItem>
-          <Link to="/about" >
+          <Link to="/about" style={{color: 'white', textDecoration: 'none'}}>
             About
+          </Link>
+        </MenuItem>
+        <MenuItem>
+          <Link to="/signup" style={{color: 'white', textDecoration: 'none'}}>
+            Sign Up!
           </Link>
         </MenuItem>
       </Toolbar>

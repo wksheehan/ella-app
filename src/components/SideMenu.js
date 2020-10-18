@@ -56,7 +56,7 @@ function SideMenu() {
             <ListItemIcon>
               {index  === 0 ? <AccountCircle /> : 
               index === 1 ? <StarIcon /> : 
-              index == 2 ? <WbSunnyIcon /> : 
+              index === 2 ? <WbSunnyIcon /> : 
               <ExitToApp />}
             </ListItemIcon>
             <ListItemText primary={text} />

@@ -23,7 +23,3 @@ class User(db.Model):
 class UserSchema(ma.Schema):
   class Meta:
     fields = ('id', 'username', 'password', 'first_name', 'last_name', 'location')
-
-@login.user_loader
-def load_user(id):
-    return User.query.get(int(id))

@@ -18,7 +18,8 @@ function About() {
     <div className={classes.root}>
       <TopMenu />
       <SideMenu />
-      <AboutContent />
+      <AboutContent/>
+      <img src={process.env.PUBLIC_URL + '/public/ella.jpeg'} /> 
       <Footer />
     </div>
   );

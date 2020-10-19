@@ -11,6 +11,11 @@ const useStyles = makeStyles(theme => ({
     fontSize: 30, 
     textAlign: "center", 
   },
+  image: {
+    paddingTop: "0px",
+    paddingLeft: "295px",
+    alignContent: "center",
+  },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
@@ -26,9 +31,8 @@ function AboutContent() {
   return (
     <main className={classes.fullWidth}>
       <div className={classes.toolbar} />
-      <div className={classes.title}>
-        <Typography variant='h6'>ABOUT ELLA</Typography>
-      </div>
+    
+      <img className ={classes.image} src={process.env.PUBLIC_URL + 'ella.jpeg'}/>
       <div className={classes.content}>
         <Typography paragraph>
           Hello! This is the about page. More info to come!

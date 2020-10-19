@@ -14,6 +14,7 @@ const useStyles = makeStyles(theme => ({
     textAlign: "center", 
   },
   content: {
+    textAlign: "center",
     flexGrow: 1,
     padding: theme.spacing(3),
   },
@@ -21,15 +22,38 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
   },
   labels: {
+    alignContent: "center",
+    textAlign: "center",
     marginLeft: 10,
     marginBottom: 10,
     display: 'block',
   },
   inputs: {
-    marginLeft: 10,
+    margin: "auto",
+    //width: "50%",
+    alignContent: "center",
+    textAlign: "center",
+    //marginLeft: 150,
     marginBottom: 10,
     display: 'block',
-  }
+  },
+  cancelbtn:{
+    fontSize: 20,
+    marginLeft: 300, 
+    marginRight: 20,
+
+  },
+  signupbtn:{
+    fontSize: 20,
+    marginLeft: 50, 
+    //marginRight: 20,
+
+  },
+  image: {
+    paddingTop: "0px",
+    paddingLeft: "295px",
+    alignContent: "center",
+  },
 }));
 
 
@@ -40,12 +64,10 @@ function SignUpContent() {
   return (
     <main className={classes.fullWidth}>
       <div className={classes.toolbar} />
-      <div className={classes.title}>
-        <Typography variant='h6'>SIGN UP</Typography>
-      </div>
+      <img className ={classes.image} src={process.env.PUBLIC_URL + 'ella.jpeg'}/>
       <div className={classes.content}>
         <Typography paragraph>
-          Sign up for ELLA below! Please fill out each form.
+          Sign up for ELLA below!
         </Typography>
       </div>
 
@@ -73,8 +95,8 @@ function SignUpContent() {
         <input type="text" className={classes.inputs} placeholder="Enter Location" name="location" required></input>
 
         <div class="clearfix">
-            <button type="button" class="cancelbtn">Cancel</button>
-            <button type="submit" class="signupbtn">Sign Up</button>
+            <button type="button" className={classes.cancelbtn}>Cancel</button>
+            <button type="submit" className={classes.signupbtn}>Sign Up</button>
         </div>
 
       </form>

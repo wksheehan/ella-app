@@ -7,7 +7,9 @@
 venv
 /api.egg-info
 yarn-error.log
-/.yarn
+.yarn/build-state.yml
+.yarn/cache
+.yarn/unplugged
 /build
 
 # testing

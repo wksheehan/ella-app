@@ -7,7 +7,6 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Face';
 import { MenuItem } from '@material-ui/core';
 import {Link} from "react-router-dom";
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
@@ -38,6 +37,7 @@ function TopMenu() {
           <MenuIcon />
         </IconButton>
         <MenuItem>
+
           <Link to="/" style={{color: 'white', textDecoration: 'none'}}>
             Home
           </Link>

@@ -12,13 +12,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Home() {
-  const [currentTime, setCurrentTime] = useState(0);
-
-  useEffect(() => {
-    fetch('/time').then(res => res.json()).then(data => {
-      setCurrentTime(data.time);
-    });
-  }, [])
   const classes = useStyles();
 
   return (
@@ -26,9 +19,6 @@ function Home() {
       <TopMenu />
       <SideMenu />
       <MainContent />
-      <div>
-        <p>The current time is {currentTime}.</p>
-      </div>
       <Footer />
     </div>
   );

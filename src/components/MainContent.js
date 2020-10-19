@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import {Users} from '../components/Users';
+import {LoginForm} from '../components/LoginForm';
 
 const useStyles = makeStyles(theme => ({
   toolbar: theme.mixins.toolbar,
@@ -42,10 +43,13 @@ function MainContent() {
         <Typography variant='h6'>ELLA APP</Typography>
       </div>
       <div className={classes.content}>
-        <Users users={users} />
         <Typography paragraph>
-          Welcome to Ella App, Your closet simplified. Please upload pictures of your clothing items.
+        Welcome to Ella App, Your closet simplified. Please upload pictures of your clothing items.
         </Typography>
+        <h2>Add a user:</h2>
+        <LoginForm></LoginForm>
+        <h2>All users:</h2>
+        <Users users={users} />
       </div>
     </main>
   );

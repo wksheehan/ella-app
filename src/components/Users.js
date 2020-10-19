@@ -5,12 +5,13 @@ export const Users = ( {users} ) => {
         <ul>
         {users.map(user => {
             return (
-                <li value={user.id}>
+                <li key={user.id}>
                 <p>
                     First name: {user.first_name},
                     Last name: {user.last_name},
                     Username: {user.username},
                     Location: {user.location},
+                    Password: {user.password},
                     User id: {user.id}
                 </p>
                 </li>

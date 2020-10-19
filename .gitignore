@@ -5,6 +5,12 @@
 /.pnp
 .pnp.js
 venv
+/api.egg-info
+yarn-error.log
+.yarn/build-state.yml
+.yarn/cache
+.yarn/unplugged
+/build
 
 # testing
 /coverage

@@ -96,3 +96,27 @@ There should be a way to automate this instead of going through the steps every 
   * Key: Content-Type
   * Value: application/json
 * Watch this tutorial for complete advice on how to execute HTTP calls: https://www.youtube.com/watch?v=PTZiDnuC86g
+
+## Git Best Practices
+
+### branches
+
+Do all of your work in your own development branch as we have set them up. It is important to pull from master
+(`git pull origin master`) frequently/daily to avoid large merge conflicts from other people's features. Likewise, whenever you
+complete a new feature, merge to master. Below is a section on merging.
+
+### merging
+Merging can be accomplished by setting up a pull request on the GitHub website or merging via the command line.
+* GitHub Website Steps
+  * Go to your branch and select "pull request"
+  * The base branch should be master and the compare branch should be your feature branch
+  * Select "create pull request"
+  * If there are merge conflicts, resolve them. Consult other team members if you are unsure which code
+  segments to choose. *IMPORTANT: the yarn.lock and package-lock.json files are extremely important. Be very
+  careful when you are resolving merge conflicts in these files. Even improper line spacing/newlines can cause big problems
+  
+* Command line Steps
+  * In your feature branch (i.e. daniel) run `git pull origin master`. This will ensure your local branch is up to date with master
+  * Run `git add .`, `git commit -m <msg>`, `git push origin <your_branch>` to update the remote branch
+  * Run `git checkout master`
+  * Run `git merge <your_branch>` and resolve merge conflicts in your text editor (i.e. Atom, Sublime, etc). Atom is great for this

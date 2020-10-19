@@ -70,11 +70,17 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 ## Steps to get yarn start working
 
 cd api
+
 python3 -m venv venv
+
 source venv/bin/activate
+
 ==> you should now see (venv) at the begginning of the command line prompt
+
 pip install flask python-dotenv
+
 cd ..
+
 yarn start
 
 ## Steps to get yarn start-api working

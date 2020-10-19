@@ -16,7 +16,14 @@ class User(db.Model):
         self.last_name = last_name
         self.location = location
 
+    def __repr__(self):
+        return '<User {}>'.format(self.username)
+
 # User schema
 class UserSchema(ma.Schema):
   class Meta:
     fields = ('id', 'username', 'password', 'first_name', 'last_name', 'location')
+
+@login.user_loader
+def load_user(id):
+    return User.query.get(int(id))

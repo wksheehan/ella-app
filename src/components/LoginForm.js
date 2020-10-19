@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { Form, Input, Button } from 'semantic-ui-react';
 
-export const LoginForm = () => {
+export const LoginForm = ({onNewUser}) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [first_name, setFirstName] = useState("");
@@ -49,6 +49,12 @@ export const LoginForm = () => {
                         });
                         if (response.ok) {
                             console.log('success');
+                            onNewUser(user);
+                            setLastName("");
+                            setFirstName("");
+                            setUsername("");
+                            setPassword("");
+                            setLocation("");
                         }
                 }}> Submit </Button>
             </Form.Field>

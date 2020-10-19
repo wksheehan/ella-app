@@ -47,7 +47,7 @@ function MainContent() {
         Welcome to Ella App, Your closet simplified. Please upload pictures of your clothing items.
         </Typography>
         <h2>Add a user:</h2>
-        <LoginForm></LoginForm>
+        <LoginForm onNewUser={user => getUsers(currentUsers => [...currentUsers, user])}></LoginForm>
         <h2>All users:</h2>
         <Users users={users} />
       </div>

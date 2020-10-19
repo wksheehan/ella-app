@@ -49,7 +49,7 @@ function TopMenu() {
         </MenuItem>
         <MenuItem>
           <Link to="/signup" style={{color: 'white', textDecoration: 'none'}}>
-            Sign Up!
+            Sign Up
           </Link>
         </MenuItem>
       </Toolbar>

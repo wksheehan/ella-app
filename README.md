@@ -114,9 +114,14 @@ Merging can be accomplished by setting up a pull request on the GitHub website o
   * If there are merge conflicts, resolve them. Consult other team members if you are unsure which code
   segments to choose. *IMPORTANT: the yarn.lock and package-lock.json files are extremely important. Be very
   careful when you are resolving merge conflicts in these files. Even improper line spacing/newlines can cause big problems
-  
+
 * Command line Steps
   * In your feature branch (i.e. daniel) run `git pull origin master`. This will ensure your local branch is up to date with master
   * Run `git add .`, `git commit -m <msg>`, `git push origin <your_branch>` to update the remote branch
   * Run `git checkout master`
   * Run `git merge <your_branch>` and resolve merge conflicts in your text editor (i.e. Atom, Sublime, etc). Atom is great for this
+
+### troubleshooting other's features
+Ideally, we will have well-formed, up-to-date package-lock.json and yarn.lock files. This will ensure that whenever you pull new features that
+aren't yours, all you will need to do is run `yarn install` and `npm install` to get any packages that others installed on their machines. This is why
+maintaining the package-lock.json and yarn.lock files will be uber-important.

@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
@@ -19,17 +18,19 @@ const useStyles = makeStyles(theme => ({
   fullWidth: {
     width: '100%',
   },
+  image: {
+    paddingTop: "0px",
+    paddingLeft: "295px",
+    alignContent: "center",
+  },
 }));
 
 function MainContent() {
-  const classes = useStyles();
-
+  const classes = useStyles()
   return (
     <main className={classes.fullWidth}>
       <div className={classes.toolbar} />
-      <div className={classes.title}>
-        <Typography variant='h6'>ELLA APP</Typography>
-      </div>
+      <img className ={classes.image} src={process.env.PUBLIC_URL + 'ella.jpeg'}/>
       <div className={classes.content}>
         <Typography paragraph>
           Welcome to Ella App, Your closet simplified. Please upload pictures of your clothing items.

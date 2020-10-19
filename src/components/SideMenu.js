@@ -46,7 +46,7 @@ function SideMenu() {
     >
       <Grid container justify='center' alignItems='center'>
         <Avatar
-         //src='https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual-reverse-image-search/jcr_content/main-pars/image/visual-reverse-image-search-v2_intro.jpg'
+         src={process.env.PUBLIC_URL + 'defaultuser.png'}
           className={classes.bigAvatar}
         />
       </Grid>
@@ -56,7 +56,7 @@ function SideMenu() {
             <ListItemIcon>
               {index  === 0 ? <AccountCircle /> : 
               index === 1 ? <StarIcon /> : 
-              index == 2 ? <WbSunnyIcon /> : 
+              index === 2 ? <WbSunnyIcon /> : 
               <ExitToApp />}
             </ListItemIcon>
             <ListItemText primary={text} />

@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
-### `yarn start` 
+### `yarn start`
 
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -73,7 +73,7 @@ cd api
 
 python3 -m venv venv
 
-source venv/bin/activate 
+source venv/bin/activate
 
 ==> you should now see (venv) at the begginning of the command line prompt
 
@@ -88,3 +88,11 @@ yarn start
 Follow above steps in a new terminal window while yarn start is already running
 There should be a way to automate this instead of going through the steps every time
 
+## Using Postman
+
+* Download Postman: https://www.postman.com/downloads/
+* Create new request [GET, POST, DELETE, etc.]
+* For testing GET/POST requests, navigate to Headers tab and add a key/value header:
+  * Key: Content-Type
+  * Value: application/json
+* Watch this tutorial for complete advice on how to execute HTTP calls: https://www.youtube.com/watch?v=PTZiDnuC86g

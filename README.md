@@ -125,3 +125,13 @@ Merging can be accomplished by setting up a pull request on the GitHub website o
 Ideally, we will have well-formed, up-to-date package-lock.json and yarn.lock files. This will ensure that whenever you pull new features that
 aren't yours, all you will need to do is run `yarn install` and `npm install` to get any packages that others installed on their machines. This is why
 maintaining the package-lock.json and yarn.lock files will be uber-important.
+
+## venv troubleshooting
+
+### pip packages and "module not found" errors
+If you have a "module not found error", it's likely because you need to install that package on the venv within your ella-app/api folder. To do this,
+open a new terminal window, navigate to your api folder, THEN run `source venv/bin/activate`. Then, run `pip install <package_listed_in_error>` to
+install that package.
+
+The list of packages that you will need to install using pip in your virtual environment can be found in the flask files (anything ending in .py). If you
+see an import statement in one of those files and suspect you haven't installed the package being imported, install it using pip on your start-api venv.

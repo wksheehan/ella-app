@@ -44,16 +44,10 @@ const useStyles = makeStyles(theme => ({
     marginRight: 20,
 
   },
-  signupbtn:{
-    fontSize: 20,
-    marginLeft: 50,
-    //marginRight: 20,
-
-  },
-  image: {
-    paddingTop: "0px",
-    paddingLeft: "295px",
-    alignContent: "center",
+  centered: {
+    display: 'block',
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
 }));
 
@@ -70,7 +64,7 @@ function SignUpContent({onNewUser}) {
   return (
     <main className={classes.fullWidth}>
       <div className={classes.toolbar} />
-      <img className ={classes.image} src={process.env.PUBLIC_URL + 'ella.jpeg'}/>
+      <img className ={classes.centered} src={process.env.PUBLIC_URL + 'ella.jpeg'}/>
       <div className={classes.content}>
         <Typography paragraph>
           Sign up for ELLA below!
@@ -115,33 +109,28 @@ function SignUpContent({onNewUser}) {
             onChange={e => setLocation(e.target.value)}
             ></input>
 
-            <Button onClick={async() => {
-                    const user = {username, password, first_name, last_name, location};
-                    const response = await fetch("/user", {
-                        method: 'POST',
-                        headers: {
-                            'Content-type': 'application/json'
-                        },
-                        body: JSON.stringify(user)
-                    });
-                    if (response.ok) {
-                        console.log('success');
-                        onNewUser(user);
-                        setLastName("");
-                        setFirstName("");
-                        setUsername("");
-                        setPassword("");
-                        setLocation("");
-                    }
-            }}> Submit </Button>
-
-        <div class="clearfix">
-            <button type="button" className={classes.cancelbtn}>Cancel</button>
-            <button type="submit" className={classes.signupbtn}>Sign Up</button>
-        </div>
+        <Button className={classes.centered} onClick={async() => {
+            const user = {username, password, first_name, last_name, location};
+            const response = await fetch("/user", {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(user)
+            });
+            if (response.ok) {
+                console.log('success');
+                onNewUser(user);
+                setLastName("");
+                setFirstName("");
+                setUsername("");
+                setPassword("");
+                setLocation("");
+            }}}>
+            Sign Up
+        </Button>
 
       </form>
-
 
     </main>
   );

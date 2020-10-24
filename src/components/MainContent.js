@@ -20,10 +20,10 @@ const useStyles = makeStyles(theme => ({
   fullWidth: {
     width: '100%',
   },
-  image: {
-    paddingTop: "0px",
-    paddingLeft: "295px",
-    alignContent: "center",
+  centered: {
+    display: 'block',
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
 }));
 
@@ -43,7 +43,7 @@ function MainContent() {
   return (
     <main className={classes.fullWidth}>
       <div className={classes.toolbar} />
-      <img className ={classes.image} src={process.env.PUBLIC_URL + 'ella.jpeg'}/>
+      <img className ={classes.centered} src={process.env.PUBLIC_URL + 'ella.jpeg'}/>
       <div className={classes.content}>
         <Typography paragraph>
         Welcome to Ella App, Your closet simplified. Please upload pictures of your clothing items.

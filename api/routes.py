@@ -72,10 +72,24 @@ def delete_user(id):
 
     return user_schema.jsonify(user)
 
+# GET/POST: Login a user
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    else:
+        user = User.query.filter_by(username=request.json['username']).first()
+        if user is None or not user.check_password(request.json['password']):
+            flash('Invalid username or password')
+            return redirect(url_for('login'))
+        login_user(user, remember=request.json['remember_me'])
+        return redirect(url_for('home'))
+
+# Logout a user
 @app.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('index'))
+    return redirect(url_for('home'))
 
 # Run Server
 if __name__ == '__main__':

@@ -12,12 +12,13 @@ users_schema = UserSchema(many=True)
 @app.route('/user', methods=['POST'])
 def add_user():
     username = request.json['username']
+    email = request.json['email']
     password = request.json['password']
     first_name = request.json['first_name']
     last_name = request.json['last_name']
     location = request.json['location']
 
-    user = User(username=username)
+    user = User(username=username, email=email)
     user.set_password(password)
     user.first_name = first_name
     user.last_name = last_name
@@ -47,12 +48,14 @@ def update_user(id):
     user = User.query.get(id)
 
     username = request.json['username']
+    email = request.json['email']
     password = request.json['password']
     first_name = request.json['first_name']
     last_name = request.json['last_name']
     location = request.json['location']
 
     user.username = username
+    user.email = email
     user.set_password(password)
     user.first_name = first_name
     user.last_name = last_name
@@ -71,6 +74,18 @@ def delete_user(id):
     db.session.commit()
 
     return user_schema.jsonify(user)
+
+# GET/POST: Login a user
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    else:
+        user = User(username=request.json['username'], email=request.json['email'])
+        db.session.add(user)
+        db.session.commit()
+        login_user(user, remember=request.json['remember_me'])
+        return redirect(url_for('home'))
 
 # GET/POST: Login a user
 @app.route('/login', methods=['GET', 'POST'])

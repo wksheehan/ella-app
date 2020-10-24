@@ -6,6 +6,7 @@ from flask_login import UserMixin
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), unique=True)
+    email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
     first_name = db.Column(db.String(100))
     last_name = db.Column(db.String(100))
@@ -47,7 +48,7 @@ class Belongs(db.Model):
 
 class UserSchema(ma.Schema):
     class Meta:
-        fields = ('id', 'username', 'password', 'first_name', 'last_name', 'location')
+        fields = ('id', 'username', 'email', 'password', 'first_name', 'last_name', 'location')
 
 class OutfitSchema(ma.Schema):
     class Meta:

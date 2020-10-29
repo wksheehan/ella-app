@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, flash, redirect, url_for
 from api import app, db
 from api.models import User, UserSchema
 from flask_login import current_user, login_user, logout_user
@@ -7,6 +7,10 @@ from werkzeug.urls import url_parse
 # Init schema
 user_schema = UserSchema()
 users_schema = UserSchema(many=True)
+
+@app.route('/')
+def index():
+    return 'index'
 
 # POST: Create a user
 @app.route('/user', methods=['POST'])
@@ -54,8 +58,7 @@ def update_user(id):
     last_name = request.json['last_name']
     location = request.json['location']
 
-    user.username = username
-    user.email = email
+    user = User(username=username, email=email)
     user.set_password(password)
     user.first_name = first_name
     user.last_name = last_name
@@ -75,36 +78,45 @@ def delete_user(id):
 
     return user_schema.jsonify(user)
 
-# GET/POST: Login a user
+# GET/POST: Signup a user
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    if current_user.is_authenticated:
-        return redirect(url_for('home'))
-    else:
-        user = User(username=request.json['username'], email=request.json['email'])
-        db.session.add(user)
-        db.session.commit()
-        login_user(user, remember=request.json['remember_me'])
-        return redirect(url_for('home'))
+    username = request.json['username']
+    email = request.json['email']
+    password = request.json['password']
+    first_name = request.json['first_name']
+    last_name = request.json['last_name']
+    location = request.json['location']
+
+    user = User(username=username, email=email)
+    user.set_password(password)
+    user.first_name = first_name
+    user.last_name = last_name
+    user.location = location
+
+    db.session.add(user)
+    db.session.commit()
+
+    return user_schema.jsonify(user)
 
 # GET/POST: Login a user
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/signin', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('home'))
+        return redirect(url_for('index'))
     else:
         user = User.query.filter_by(username=request.json['username']).first()
         if user is None or not user.check_password(request.json['password']):
             flash('Invalid username or password')
             return redirect(url_for('login'))
-        login_user(user, remember=request.json['remember_me'])
-        return redirect(url_for('home'))
+        login_user(user)
+        return redirect(url_for('index'))
 
 # Logout a user
 @app.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('home'))
+    return redirect(url_for('index'))
 
 # Run Server
 if __name__ == '__main__':

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
-import {Users} from '../components/Users';
-import {LoginForm} from '../components/LoginForm';
+import { Users } from '../components/Users';
+import { LoginForm } from '../components/LoginForm';
 
 const useStyles = makeStyles(theme => ({
   toolbar: theme.mixins.toolbar,

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import './SignUpContent.css';
+import { useHistory } from 'react-router-dom';
+import './FormContent.css';
 import { makeStyles } from '@material-ui/core/styles';
-// import { Grid } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import { Form, Input, Button } from 'semantic-ui-react';
 
@@ -31,10 +31,8 @@ const useStyles = makeStyles(theme => ({
   },
   inputs: {
     margin: "auto",
-    //width: "50%",
     alignContent: "center",
     textAlign: "center",
-    //marginLeft: 150,
     marginBottom: 10,
     display: 'block',
   },
@@ -52,14 +50,19 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-
 function SignUpContent({onNewUser}) {
   const classes = useStyles();
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");
   const [location, setLocation] = useState("");
+
+  let history = useHistory();
+  const redirect = () => {
+    history.push('/about')
+  }
 
   return (
     <main className={classes.fullWidth}>
@@ -71,7 +74,7 @@ function SignUpContent({onNewUser}) {
         </Typography>
       </div>
 
-      <form action="">
+      <form onsubmit="redirect;">
 
         <label for="email" className={classes.labels}><b>Username: </b></label>
         <input type="text" className={classes.inputs} placeholder="Enter Username" name="username" required
@@ -101,7 +104,10 @@ function SignUpContent({onNewUser}) {
             ></input>
 
         <label for="email" className={classes.labels}><b>Email: </b></label>
-        <input type="text" className={classes.inputs} placeholder="Enter Email" name="email" required></input>
+        <input type="text" className={classes.inputs} placeholder="Enter Email" name="email" required
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            ></input>
 
         <label for="location" className={classes.labels}><b>Location: </b></label>
         <input type="text" className={classes.inputs} placeholder="Enter Location" name="location" required
@@ -110,12 +116,10 @@ function SignUpContent({onNewUser}) {
             ></input>
 
         <Button className={classes.centered} onClick={async() => {
-            const user = {username, password, first_name, last_name, location};
-            const response = await fetch("/user", {
+            const user = {username, email, password, first_name, last_name, location};
+            const response = await fetch("/signup", {
                 method: 'POST',
-                headers: {
-                    'Content-type': 'application/json'
-                },
+                headers: { 'Content-type': 'application/json' },
                 body: JSON.stringify(user)
             });
             if (response.ok) {
@@ -124,6 +128,7 @@ function SignUpContent({onNewUser}) {
                 setLastName("");
                 setFirstName("");
                 setUsername("");
+                setEmail("");
                 setPassword("");
                 setLocation("");
             }}}>

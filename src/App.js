@@ -1,4 +1,3 @@
-
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -8,6 +7,7 @@ import {
 import Home from "./pages/Home"
 import About from "./pages/About"
 import SignUp from "./pages/SignUp"
+import SignIn from "./pages/SignIn"
 import Closet from "./pages/Closet"
 
 const App = () => {
@@ -18,21 +18,10 @@ const App = () => {
         <Route path="/about"><About /></Route>
         <Route path="/signup"><SignUp /></Route>
         <Route path="/closet"><Closet /></Route>
+        <Route path="/signin"><SignIn /></Route>
       </Switch>
     </Router>
   );
 }
-
-//class App extends Component {
-  //render() {
-    //return (
-      //<div classname="container">
-        //<h1>Ella App </h1>
-        //<p>Your closet simplified</p>
-      //</div>
-   // );
- // }/
-//}
-
 
 export default App;

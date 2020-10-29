@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import './SignUpContent.css';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import { Form, Input, Button, Rating, Dropdown } from 'semantic-ui-react';
+import { Clothes } from '../components/Clothes';
 
 const useStyles = makeStyles(theme => ({
   toolbar: theme.mixins.toolbar,
@@ -155,12 +155,22 @@ const typeOptions = [
   }
 ];
 
-function AddClothing() {
+function AddClothing({onNewClothing}) {
     const classes = useStyles();
     const [name, setName] = useState("");
     const [color, setColor] = useState("");
     const [occasion, setOccasion] = useState("");
     const [type, setType] = useState("");
+    const [clothes, getClothes] = useState([]);
+
+    useEffect(() => {
+        fetch("/clothing").then(response =>
+            response.json().then(data => {
+                getClothes(data);
+        })
+    );
+    }, []);
+    console.log(clothes);
 
     return (
         <main className={classes.fullWidth}>
@@ -182,6 +192,7 @@ function AddClothing() {
                             selection
                             options={colorOptions}
                             onChange={(e,data) => setColor(data.value)}
+                            value={color}
                         />
                     </Form.Field>
                     <Form.Field>
@@ -191,6 +202,7 @@ function AddClothing() {
                             selection
                             options={occasionOptions}
                             onChange={(e,data) => setOccasion(data.value)}
+                            value={occasion}
                         />
                     </Form.Field>
                     <Form.Field>
@@ -200,6 +212,7 @@ function AddClothing() {
                             selection
                             options={typeOptions}
                             onChange={(e, data) => setType(data.value)}
+                            value={type}
                         />
                     </Form.Field>
                 </Form>
@@ -215,12 +228,17 @@ function AddClothing() {
                     });
                     if (response.ok) {
                         console.log('success');
+                        onNewClothing(clothing);
                         setName("");
                         setColor("");
                         setOccasion("");
                         setType("");
                     }
             }}> Submit </Button>
+
+            <h2>All clothes:</h2>
+            <Clothes clothes={clothes} />
+
                 </div>
                 </main>
     );

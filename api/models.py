@@ -1,23 +1,29 @@
-from api import db, ma
+from api import db, ma, login
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
 
 # User class/model
-class User(db.Model):
+class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), unique=True)
+    email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
     first_name = db.Column(db.String(100))
     last_name = db.Column(db.String(100))
     location = db.Column(db.String(100))
 
-    def __init__(self, username, password, first_name, last_name, location):
-        self.username = username
-        self.password = password
-        self.first_name = first_name
-        self.last_name = last_name
-        self.location = location
-
     def __repr__(self):
         return '<User {}>'.format(self.username)
+
+    def set_password(self, password):
+        self.password = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
+
+@login.user_loader
+def load_user(id):
+    return User.query.get(int(id))
 
 class Clothing(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -32,14 +38,36 @@ class Clothing(db.Model):
         self.occasion = occasion
         self.type = type
 
-    def __repr__(self):
-        return '<Clothing {}>'.format(self.name)
+class Outfit(db.Model):
+    name = db.Column(db.String(100), primary_key=True)
+    username = db.Column(db.String(100), db.ForeignKey('user.username'), primary_key=True)
+    top_id = db.Column(db.Integer, db.ForeignKey('clothing.id'))
+    bottom_id = db.Column(db.Integer, db.ForeignKey('clothing.id'))
 
-# User schema
+class Matches(db.Model):
+    clothing_id1 = db.Column(db.Integer, db.ForeignKey('clothing.id'), primary_key=True)
+    clothing_id2 = db.Column(db.Integer, db.ForeignKey('clothing.id'), primary_key=True)
+
+class Belongs(db.Model):
+    clothing_id = db.Column(db.Integer, db.ForeignKey('clothing.id'), primary_key=True)
+    username = db.Column(db.String(100), db.ForeignKey('user.username'))
+
 class UserSchema(ma.Schema):
     class Meta:
-        fields = ('id', 'username', 'password', 'first_name', 'last_name', 'location')
+        fields = ('id', 'username', 'email', 'password', 'first_name', 'last_name', 'location')
+
+class OutfitSchema(ma.Schema):
+    class Meta:
+        fields = ('name', 'username', 'top_id', 'bottom_id', 'last_name', 'location')
 
 class ClothingSchema(ma.Schema):
     class Meta:
         fields = ('id', 'name', 'color', 'occasion', 'type')
+
+class MatchesSchema(ma.Schema):
+    class Meta:
+        fields = ('clothing_id1', 'clothing_id2')
+
+class BelongsSchema(ma.Schema):
+    class Meta:
+        fields = ('clothing_id', 'username')

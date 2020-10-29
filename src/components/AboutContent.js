@@ -8,13 +8,13 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing(3),
-    fontSize: 30, 
-    textAlign: "center", 
+    fontSize: 30,
+    textAlign: "center",
   },
-  image: {
-    paddingTop: "0px",
-    paddingLeft: "295px",
-    alignContent: "center",
+  centered: {
+    display: 'block',
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
   content: {
     flexGrow: 1,
@@ -31,8 +31,8 @@ function AboutContent() {
   return (
     <main className={classes.fullWidth}>
       <div className={classes.toolbar} />
-    
-      <img className ={classes.image} src={process.env.PUBLIC_URL + 'ella.jpeg'}/>
+
+      <img className ={classes.centered} src={process.env.PUBLIC_URL + 'ella.jpeg'}/>
       <div className={classes.content}>
         <Typography paragraph>
           Hello! This is the about page. More info to come!

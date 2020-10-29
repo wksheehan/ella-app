@@ -9,6 +9,7 @@ export const Users = ( {users} ) => {
                 <p>
                     First name: {user.first_name},
                     Last name: {user.last_name},
+                    Email: {user.email}
                     Username: {user.username},
                     Location: {user.location},
                     Password: {user.password},

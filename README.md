@@ -135,3 +135,18 @@ install that package.
 
 The list of packages that you will need to install using pip in your virtual environment can be found in the flask files (anything ending in .py). If you
 see an import statement in one of those files and suspect you haven't installed the package being imported, install it using pip on your start-api venv.
+
+
+## Make a local connection to the VCM server 
+
+* pgAdmin4 Steps
+  * Click object, create, server 
+  * In the popup window: 	
+	* name: ella-server 
+	* hostname: vcm-17601.vm.duke.edu
+	* PORT: 5432 
+	* username: ella 
+	* password: ella 
+
+* You should now be able to see your server in the Browser tab on the left 
+* Click on the server, database, and right click on a table to view table. 

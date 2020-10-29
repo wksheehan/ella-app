@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import './SignUpContent.css';
+import { useHistory } from 'react-router-dom';
+import './FormContent.css';
 import { makeStyles } from '@material-ui/core/styles';
-// import { Grid } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import { Form, Input, Button } from 'semantic-ui-react';
 
@@ -31,10 +31,8 @@ const useStyles = makeStyles(theme => ({
   },
   inputs: {
     margin: "auto",
-    //width: "50%",
     alignContent: "center",
     textAlign: "center",
-    //marginLeft: 150,
     marginBottom: 10,
     display: 'block',
   },
@@ -44,40 +42,39 @@ const useStyles = makeStyles(theme => ({
     marginRight: 20,
 
   },
-  signupbtn:{
-    fontSize: 20,
-    marginLeft: 50,
-    //marginRight: 20,
-
-  },
-  image: {
-    paddingTop: "0px",
-    paddingLeft: "295px",
-    alignContent: "center",
+  centered: {
+    display: 'block',
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
 }));
-
 
 
 function SignUpContent({onNewUser}) {
   const classes = useStyles();
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");
   const [location, setLocation] = useState("");
 
+  let history = useHistory();
+  const redirect = () => {
+    history.push('/about')
+  }
+
   return (
     <main className={classes.fullWidth}>
       <div className={classes.toolbar} />
-      <img className ={classes.image} src={process.env.PUBLIC_URL + 'ella.jpeg'}/>
+      <img className ={classes.centered} src={process.env.PUBLIC_URL + 'ella.jpeg'}/>
       <div className={classes.content}>
         <Typography paragraph>
           Sign up for ELLA below!
         </Typography>
       </div>
 
-      <form action="">
+      <form onsubmit="redirect;">
 
         <label for="email" className={classes.labels}><b>Username: </b></label>
         <input type="text" className={classes.inputs} placeholder="Enter Username" name="username" required
@@ -107,7 +104,10 @@ function SignUpContent({onNewUser}) {
             ></input>
 
         <label for="email" className={classes.labels}><b>Email: </b></label>
-        <input type="text" className={classes.inputs} placeholder="Enter Email" name="email" required></input>
+        <input type="text" className={classes.inputs} placeholder="Enter Email" name="email" required
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            ></input>
 
         <label for="location" className={classes.labels}><b>Location: </b></label>
         <input type="text" className={classes.inputs} placeholder="Enter Location" name="location" required
@@ -115,33 +115,27 @@ function SignUpContent({onNewUser}) {
             onChange={e => setLocation(e.target.value)}
             ></input>
 
-            <Button onClick={async() => {
-                    const user = {username, password, first_name, last_name, location};
-                    const response = await fetch("/user", {
-                        method: 'POST',
-                        headers: {
-                            'Content-type': 'application/json'
-                        },
-                        body: JSON.stringify(user)
-                    });
-                    if (response.ok) {
-                        console.log('success');
-                        onNewUser(user);
-                        setLastName("");
-                        setFirstName("");
-                        setUsername("");
-                        setPassword("");
-                        setLocation("");
-                    }
-            }}> Submit </Button>
-
-        <div class="clearfix">
-            <button type="button" className={classes.cancelbtn}>Cancel</button>
-            <button type="submit" className={classes.signupbtn}>Sign Up</button>
-        </div>
+        <Button className={classes.centered} onClick={async() => {
+            const user = {username, email, password, first_name, last_name, location};
+            const response = await fetch("/signup", {
+                method: 'POST',
+                headers: { 'Content-type': 'application/json' },
+                body: JSON.stringify(user)
+            });
+            if (response.ok) {
+                console.log('success');
+                onNewUser(user);
+                setLastName("");
+                setFirstName("");
+                setUsername("");
+                setEmail("");
+                setPassword("");
+                setLocation("");
+            }}}>
+            Sign Up
+        </Button>
 
       </form>
-
 
     </main>
   );

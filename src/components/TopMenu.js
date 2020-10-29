@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Face';
 import { MenuItem } from '@material-ui/core';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
@@ -49,7 +49,12 @@ function TopMenu() {
         </MenuItem>
         <MenuItem>
           <Link to="/signup" style={{color: 'white', textDecoration: 'none'}}>
-            Sign Up!
+            Sign Up
+          </Link>
+        </MenuItem>
+        <MenuItem>
+          <Link to="/signin" style={{color: 'white', textDecoration: 'none'}}>
+            Sign In
           </Link>
         </MenuItem>
       </Toolbar>

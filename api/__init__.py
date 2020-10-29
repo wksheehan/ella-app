@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from flask_migrate import Migrate
+from flask_login import LoginManager
 from config import Config
 
 # Init flask
@@ -18,5 +19,8 @@ ma = Marshmallow(app)
 
 # Init migrate
 migrate = Migrate(app, db)
+
+# Init login
+login = LoginManager(app)
 
 from api import routes, models

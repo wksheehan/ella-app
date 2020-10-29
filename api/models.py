@@ -19,7 +19,27 @@ class User(db.Model):
     def __repr__(self):
         return '<User {}>'.format(self.username)
 
+class Clothing(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    color = db.Column(db.String(100))
+    occasion = db.Column(db.String(100))
+    type = db.Column(db.String(100))
+
+    def __init__(self, name, color, occasion, type):
+        self.name = name
+        self.color = color
+        self.occasion = occasion
+        self.type = type
+
+    def __repr__(self):
+        return '<Clothing {}>'.format(self.name)
+
 # User schema
 class UserSchema(ma.Schema):
-  class Meta:
-    fields = ('id', 'username', 'password', 'first_name', 'last_name', 'location')
+    class Meta:
+        fields = ('id', 'username', 'password', 'first_name', 'last_name', 'location')
+
+class ClothingSchema(ma.Schema):
+    class Meta:
+        fields = ('id', 'name', 'color', 'occasion', 'type')

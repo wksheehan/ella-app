@@ -11,6 +11,8 @@ import ExitToApp from '@material-ui/icons/ExitToApp';
 import { makeStyles } from '@material-ui/core/styles';
 import { Avatar } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
+import {Link} from "react-router-dom";
+
 
 const drawerWidth = 240;
 
@@ -54,12 +56,14 @@ function SideMenu() {
         {['Profile', 'Closet', 'Weather', 'Sign Out'].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>
-              {index  === 0 ? <AccountCircle /> : 
-              index === 1 ? <StarIcon /> : 
-              index === 2 ? <WbSunnyIcon /> : 
+              {index  === 0 ? <AccountCircle /> :
+              index === 1 ? <StarIcon /> :
+              index === 2 ? <WbSunnyIcon /> :
               <ExitToApp />}
             </ListItemIcon>
-            <ListItemText primary={text} />
+            <Link to={text} style={{textDecoration: 'none'}}>
+              {text}
+            </Link>
           </ListItem>
         ))}
       </List>

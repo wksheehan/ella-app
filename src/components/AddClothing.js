@@ -161,16 +161,6 @@ function AddClothing({onNewClothing}) {
     const [color, setColor] = useState("");
     const [occasion, setOccasion] = useState("");
     const [type, setType] = useState("");
-    const [clothes, getClothes] = useState([]);
-
-    useEffect(() => {
-        fetch("/clothing").then(response =>
-            response.json().then(data => {
-                getClothes(data);
-        })
-    );
-    }, []);
-    console.log(clothes);
 
     return (
         <main className={classes.fullWidth}>
@@ -235,9 +225,6 @@ function AddClothing({onNewClothing}) {
                         setType("");
                     }
             }}> Submit </Button>
-
-            <h2>All clothes:</h2>
-            <Clothes clothes={clothes} />
 
                 </div>
                 </main>

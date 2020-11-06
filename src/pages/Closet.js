@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TopMenu from '../components/TopMenu';
 import SideMenu from '../components/SideMenu';
 import Footer from '../components/Footer';
+import ClothingContent from '../components/ClothingContent'
 import AddClothing from '../components/AddClothing'
 
 const useStyles = makeStyles(theme => ({
@@ -18,7 +19,7 @@ function Closet() {
     <div className={classes.root}>
       <TopMenu />
       <SideMenu />
-      <AddClothing />
+      <ClothingContent />
       <Footer />
     </div>
   );

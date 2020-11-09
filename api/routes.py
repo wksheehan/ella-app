@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify, flash, redirect, url_for
 from api import app, db
 from api.models import User, UserSchema
 from api.models import Clothing, ClothingSchema
-from flask_login import current_user, login_user, logout_user
+from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 
 # Init schema
@@ -84,6 +84,9 @@ def delete_user(id):
 # GET/POST: Signup a user
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
+    if current_user.is_authenticated:
+        return redirect('/')
+
     username = request.json['username']
     email = request.json['email']
     password = request.json['password']
@@ -106,20 +109,41 @@ def signup():
 @app.route('/signin', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect('/')
     else:
         user = User.query.filter_by(username=request.json['username']).first()
         if user is None or not user.check_password(request.json['password']):
             flash('Invalid username or password')
-            return redirect(url_for('login'))
+            return redirect('/login')
         login_user(user)
-        return redirect(url_for('index'))
+        return redirect('/')
 
 # Logout a user
 @app.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('index'))
+    return redirect('/')
+
+@app.route('/edit_profile', methods=['PUT'])
+@login_required
+def edit_profile():
+    username = request.json['username']
+    email = request.json['email']
+    password = request.json['password']
+    first_name = request.json['first_name']
+    last_name = request.json['last_name']
+    location = request.json['location']
+
+    user = User(username=username, email=email)
+    user.set_password(password)
+    user.first_name = first_name
+    user.last_name = last_name
+    user.location = location
+
+    db.session.commit()
+    flash('Your changes have been saved.')
+
+    return redirect(url_for('edit_profile'))
 
 ########## CLOTHING ##########
 

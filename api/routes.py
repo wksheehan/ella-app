@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify, flash, redirect, url_for
 from api import app, db
 from api.models import User, UserSchema
 from api.models import Clothing, ClothingSchema
-from flask_login import current_user, login_user, logout_user
+from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 
 # Init schema

@@ -137,7 +137,7 @@ The list of packages that you will need to install using pip in your virtual env
 see an import statement in one of those files and suspect you haven't installed the package being imported, install it using pip on your start-api venv.
 
 
-## Make a local connection to the VCM server 
+## Use a GUI to view the VCM Postgres server
 
 * pgAdmin4 Steps
   * Click object, create, server 

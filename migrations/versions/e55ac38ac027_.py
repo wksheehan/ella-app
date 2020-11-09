@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 4fc98a74debe
-Revises: 0e9bca9f632d
-Create Date: 2020-10-24 17:56:54.273070
+Revision ID: e55ac38ac027
+Revises: 
+Create Date: 2020-11-08 21:30:01.410966
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '4fc98a74debe'
-down_revision = '0e9bca9f632d'
+revision = 'e55ac38ac027'
+down_revision = None
 branch_labels = None
 depends_on = None
 
@@ -28,9 +28,9 @@ def upgrade():
     )
     op.create_table('user',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('username', sa.String(length=100), nullable=True),
-    sa.Column('email', sa.String(length=100), nullable=True),
-    sa.Column('password', sa.String(length=100), nullable=True),
+    sa.Column('username', sa.String(length=64), nullable=True),
+    sa.Column('email', sa.String(length=120), nullable=True),
+    sa.Column('password', sa.String(length=128), nullable=True),
     sa.Column('first_name', sa.String(length=100), nullable=True),
     sa.Column('last_name', sa.String(length=100), nullable=True),
     sa.Column('location', sa.String(length=100), nullable=True),
@@ -40,7 +40,7 @@ def upgrade():
     )
     op.create_table('belongs',
     sa.Column('clothing_id', sa.Integer(), nullable=False),
-    sa.Column('username', sa.String(length=100), nullable=True),
+    sa.Column('username', sa.String(length=64), nullable=True),
     sa.ForeignKeyConstraint(['clothing_id'], ['clothing.id'], ),
     sa.ForeignKeyConstraint(['username'], ['user.username'], ),
     sa.PrimaryKeyConstraint('clothing_id')
@@ -54,7 +54,7 @@ def upgrade():
     )
     op.create_table('outfit',
     sa.Column('name', sa.String(length=100), nullable=False),
-    sa.Column('username', sa.String(length=100), nullable=False),
+    sa.Column('username', sa.String(length=64), nullable=False),
     sa.Column('top_id', sa.Integer(), nullable=True),
     sa.Column('bottom_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['bottom_id'], ['clothing.id'], ),

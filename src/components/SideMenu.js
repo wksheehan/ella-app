@@ -54,9 +54,9 @@ function SideMenu() {
         {['Profile', 'Closet', 'Weather', 'Sign Out'].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>
-              {index  === 0 ? <AccountCircle /> : 
-              index === 1 ? <StarIcon /> : 
-              index === 2 ? <WbSunnyIcon /> : 
+              {index  === 0 ? <AccountCircle /> :
+              index === 1 ? <StarIcon /> :
+              index === 2 ? <WbSunnyIcon /> :
               <ExitToApp />}
             </ListItemIcon>
             <ListItemText primary={text} />

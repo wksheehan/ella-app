@@ -1,20 +1,20 @@
 import React from 'react';
+import { Card } from 'semantic-ui-react'
 
 export const Clothes = ( {clothes} ) => {
     return (
-        <ul>
+        <Card.Group itemsPerRow={6}>
         {clothes.map(clothing => {
             return (
-                <li key={clothing.id}>
-                <p>
-                    Name: {clothing.name},
-                    Color: {clothing.color},
-                    Occsaion: {clothing.occasion}
-                    Type: {clothing.type}
-                </p>
-                </li>
+                <Card key={clothing.id}
+                    header={clothing.name}
+                    color={clothing.color}
+                    description={clothing.occasion}
+                    extra={clothing.type}
+                  />
+              
             );
         })}
-        </ul>
+    </Card.Group>
     )
 }

@@ -59,49 +59,49 @@ const colorOptions = [
   {
     key: 'Blue',
     text: 'Blue',
-    value: 'Blue',
+    value: 'blue',
     label: {color: 'blue', empty: true, circular: true}
   },
   {
     key: 'Red',
     text: 'Red',
-    value: 'Red',
+    value: 'red',
     label: {color: 'red', empty: true, circular: true}
   },
   {
     key: 'Yellow',
     text: 'Yellow',
-    value: 'Yellow',
+    value: 'yellow',
     label: {color: 'yellow', empty: true, circular: true}
   },
   {
     key: 'Green',
     text: 'Green',
-    value: 'Green',
+    value: 'green',
     label: {color: 'green', empty: true, circular: true}
   },
   {
     key: 'Orange',
     text: 'Orange',
-    value: 'Orange',
+    value: 'orange',
     label: {color: 'orange', empty: true, circular: true}
   },
   {
     key: 'Black',
     text: 'Black',
-    value: 'Black',
+    value: 'black',
     label: {color: 'black', empty: true, circular: true}
   },
   {
     key: 'White',
     text: 'White',
-    value: 'White',
+    value: 'white',
     label: {color: 'white', empty: true, circular: true}
   },
   {
     key: 'Grey',
     text: 'Grey',
-    value: 'Grey',
+    value: 'grey',
     label: {color: 'grey', empty: true, circular: true}
   },
 ];

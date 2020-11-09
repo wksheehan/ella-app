@@ -145,6 +145,16 @@ def get_clothing():
   result = clothings_schema.dump(all_clothing)
   return jsonify(result)
 
+# DELETE: Delete a clothing item
+@app.route('/clothing/<id>', methods=['DELETE'])
+def delete_clothing(id):
+    clothing = Clothing.query.get(id)
+
+    db.session.delete(clothing)
+    db.session.commit()
+
+    return user_schema.jsonify(clothing)
+
 # Run Server
 if __name__ == '__main__':
     app.run(debug=True)

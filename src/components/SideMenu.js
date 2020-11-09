@@ -11,6 +11,8 @@ import ExitToApp from '@material-ui/icons/ExitToApp';
 import { makeStyles } from '@material-ui/core/styles';
 import { Avatar } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
+import {Link} from "react-router-dom";
+
 
 const drawerWidth = 240;
 
@@ -59,7 +61,9 @@ function SideMenu() {
               index === 2 ? <WbSunnyIcon /> :
               <ExitToApp />}
             </ListItemIcon>
-            <ListItemText primary={text} />
+            <Link to={text} style={{textDecoration: 'none'}}>
+              {text}
+            </Link>
           </ListItem>
         ))}
       </List>

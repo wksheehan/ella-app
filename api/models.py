@@ -28,9 +28,15 @@ def load_user(user_id):
 class Clothing(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
-    primary_color = db.Column(db.String(100))
+    color = db.Column(db.String(100))
     occasion = db.Column(db.String(100))
     type = db.Column(db.String(100))
+
+    def __init__(self, name, color, occasion, type):
+        self.name = name
+        self.color = color
+        self.occasion = occasion
+        self.type = type
 
 class Outfit(db.Model):
     name = db.Column(db.String(100), primary_key=True)
@@ -56,7 +62,7 @@ class OutfitSchema(ma.Schema):
 
 class ClothingSchema(ma.Schema):
     class Meta:
-        fields = ('id', 'name', 'primary_color', 'occasion', 'type')
+        fields = ('id', 'name', 'color', 'occasion', 'type')
 
 class MatchesSchema(ma.Schema):
     class Meta:

@@ -1,12 +1,15 @@
 from flask import Flask, request, jsonify, flash, redirect, url_for
 from api import app, db
 from api.models import User, UserSchema
-from flask_login import current_user, login_user, logout_user, login_required
+from api.models import Clothing, ClothingSchema
+from flask_login import current_user, login_user, logout_user
 from werkzeug.urls import url_parse
 
 # Init schema
 user_schema = UserSchema()
+clothing_schema = ClothingSchema();
 users_schema = UserSchema(many=True)
+clothings_schema = ClothingSchema(many=True);
 
 @app.route('/')
 def index():
@@ -141,6 +144,40 @@ def edit_profile():
     flash('Your changes have been saved.')
 
     return redirect(url_for('edit_profile'))
+
+########## CLOTHING ##########
+
+# POST: Create a clothing item
+@app.route('/clothing', methods=['POST'])
+def add_clothing():
+    name = request.json['name']
+    color = request.json['color']
+    occasion = request.json['occasion']
+    type = request.json['type']
+
+    new_clothing = Clothing(name, color, occasion, type)
+
+    db.session.add(new_clothing)
+    db.session.commit()
+
+    return clothing_schema.jsonify(new_clothing)
+
+# GET: Get all clothing
+@app.route('/clothing', methods=['GET'])
+def get_clothing():
+  all_clothing = Clothing.query.all()
+  result = clothings_schema.dump(all_clothing)
+  return jsonify(result)
+
+# DELETE: Delete a clothing item
+@app.route('/clothing/<id>', methods=['DELETE'])
+def delete_clothing(id):
+    clothing = Clothing.query.get(id)
+
+    db.session.delete(clothing)
+    db.session.commit()
+
+    return user_schema.jsonify(clothing)
 
 # Run Server
 if __name__ == '__main__':

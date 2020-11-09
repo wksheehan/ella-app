@@ -8,6 +8,7 @@ import Home from "./pages/Home"
 import About from "./pages/About"
 import SignUp from "./pages/SignUp"
 import SignIn from "./pages/SignIn"
+import Closet from "./pages/Closet"
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         <Route exact path="/" ><Home /></Route>
         <Route path="/about"><About /></Route>
         <Route path="/signup"><SignUp /></Route>
+        <Route path="/closet"><Closet /></Route>
         <Route path="/signin"><SignIn /></Route>
       </Switch>
     </Router>

@@ -5481,7 +5481,7 @@ __metadata:
     react-router-dom: ^5.2.0
     react-scripts: 3.4.3
     semantic-ui-css: ^2.4.1
-    semantic-ui-react: ^2.0.0
+    semantic-ui-react: ^2.0.1
     yarn: ^1.22.10
   languageName: unknown
   linkType: soft
@@ -13190,9 +13190,9 @@ resolve@1.15.0:
   languageName: node
   linkType: hard
 
-"semantic-ui-react@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "semantic-ui-react@npm:2.0.0"
+"semantic-ui-react@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "semantic-ui-react@npm:2.0.1"
   dependencies:
     "@babel/runtime": ^7.10.5
     "@fluentui/react-component-event-listener": ~0.51.1
@@ -13210,7 +13210,7 @@ resolve@1.15.0:
   peerDependencies:
     react: ^16.8.0
     react-dom: ^16.8.0
-  checksum: 3547a6a55db29db152a66bc33287fd2b26403c97d612dea34f1ca1e9a86422083d26d0d4b7e24ef1f06c87ea69d33d0d46a6bcc3df0007871ebb9cf19c44a07d
+  checksum: 5380bcbafb9fa0f9623306d1ca192c343704b29b892e5d40af8025b3fb3c729a592684281b95650f837ca80a75beec9311dd229e3cd263f33dd6f140fb5acc21
   languageName: node
   linkType: hard
 

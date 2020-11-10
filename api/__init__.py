@@ -21,6 +21,6 @@ ma = Marshmallow(app)
 migrate = Migrate(app, db)
 
 # Init login
-login = LoginManager(app)
+login_manager = LoginManager(app)
 
 from api import routes, models

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
-import { Users } from '../components/Users';
+import { Clothes } from '../components/Clothes';
+import AddClothing from '../components/AddClothing';
 
 const useStyles = makeStyles(theme => ({
   toolbar: theme.mixins.toolbar,
@@ -26,18 +27,18 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function MainContent() {
+function ClothingContent() {
   const classes = useStyles();
-  const [users, getUsers] = useState([]);
+  const [clothes, getClothes] = useState([]);
 
   useEffect(() => {
-      fetch("/user").then(response =>
+      fetch("/clothing").then(response =>
           response.json().then(data => {
-              getUsers(data);
+              getClothes(data);
       })
   );
   }, []);
-  console.log(users);
+  console.log(clothes);
 
   return (
     <main className={classes.fullWidth}>
@@ -45,13 +46,16 @@ function MainContent() {
       <img className ={classes.centered} src={process.env.PUBLIC_URL + 'ella.jpeg'}/>
       <div className={classes.content}>
         <Typography paragraph>
-        Welcome to Ella App, Your closet simplified. Please upload pictures of your clothing items.
+        Welcome to the clothing page.
         </Typography>
-        <h2>All users:</h2>
-        <Users users={users} />
+        <h2>All clothing:</h2>
+        <Clothes clothes={clothes} />
+        <AddClothing onNewClothing = {
+            clothing => getClothes(currentClothes => [...currentClothes, clothing])
+        }/>
       </div>
     </main>
   );
 }
 
-export default MainContent;
+export default ClothingContent;

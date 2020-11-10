@@ -3,7 +3,7 @@ import { useHistory, withRouter, BrowserRouter } from 'react-router-dom';
 import './FormContent.css';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
-import { Form, Input, Button } from 'semantic-ui-react';
+import { Form, Input, Header, Button } from 'semantic-ui-react';
 
 const useStyles = makeStyles(theme => ({
   toolbar: theme.mixins.toolbar,
@@ -49,8 +49,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-
-function SignUpContent({onNewUser}) {
+function SignUpContent() {
   const classes = useStyles();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -58,6 +57,7 @@ function SignUpContent({onNewUser}) {
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");
   const [location, setLocation] = useState("");
+  const [error, setError] = useState("");
 
   let history = useHistory();
   const submitForm = () => {
@@ -72,72 +72,76 @@ function SignUpContent({onNewUser}) {
         <Typography paragraph>
           Sign up for ELLA below!
         </Typography>
-
-      <form>
-
-        <label for="email" className={classes.labels}><b>Username: </b></label>
-        <input type="text" className={classes.inputs} placeholder="Enter Username" name="username" required
-            value={username}
-            onChange={e => setUsername(e.target.value)}
-            ></input>
-
-        <label for="psw" className={classes.labels}><b>Password: </b></label>
-        <input type="password" className={classes.inputs} placeholder="Enter Password" name="psw" required
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            ></input>
-
-        <label for="psw-repeat" className={classes.labels}><b>Repeat Password: </b></label>
-        <input type="password" className={classes.inputs} placeholder="Repeat Password" name="psw-repeat" required></input>
-
-        <label for="firstname" className={classes.labels}><b>First Name: </b></label>
-        <input type="text" className={classes.inputs} placeholder="Enter First Name" name="firstname" required
-            value={first_name}
-            onChange={e => setFirstName(e.target.value)}
-            ></input>
-
-        <label for="lastname" className={classes.labels}><b>Last Name: </b></label>
-        <input type="text" className={classes.inputs} placeholder="Enter Last Name" name="lastname" required
-            value={last_name}
-            onChange={e => setLastName(e.target.value)}
-            ></input>
-
-        <label for="email" className={classes.labels}><b>Email: </b></label>
-        <input type="text" className={classes.inputs} placeholder="Enter Email" name="email" required
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            ></input>
-
-        <label for="location" className={classes.labels}><b>Location: </b></label>
-        <input type="text" className={classes.inputs} placeholder="Enter Location" name="location" required
-            value={location}
-            onChange={e => setLocation(e.target.value)}
-            ></input>
-
-        <Button className={classes.centered} onClick={async() => {
-            const user = {username, email, password, first_name, last_name, location};
-            const response = await fetch("/signup", {
-                method: 'POST',
-                headers: { 'Content-type': 'application/json' },
-                body: JSON.stringify(user)
-            });
-            if (response.ok) {
-                console.log('success');
-                onNewUser(user);
-                setLastName("");
-                setFirstName("");
-                setUsername("");
-                setEmail("");
-                setPassword("");
-                setLocation("");
-                submitForm();
-            }}}>
-            Sign Up
-        </Button>
-
-      </form>
-      </div>
-
+        <Form>
+            <Form.Field>
+                <Input
+                    placeholder="Username"
+                    value={username}
+                    onChange={(e,data) => setUsername(data.value)}
+                ></Input>
+            </Form.Field>
+            <Form.Field>
+                <Input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e,data) => setPassword(data.value)}
+                ></Input>
+            </Form.Field>
+            <Form.Field>
+                <Input
+                    placeholder="First name"
+                    value={first_name}
+                    onChange={(e,data) => setFirstName(data.value)}
+                ></Input>
+            </Form.Field>
+            <Form.Field>
+                <Input
+                    placeholder="Last name"
+                    value={last_name}
+                    onChange={(e,data) => setLastName(data.value)}
+                ></Input>
+            </Form.Field>
+            <Form.Field>
+                <Input
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e,data) => setEmail(data.value)}
+                ></Input>
+            </Form.Field>
+            <Form.Field>
+                <Input
+                        placeholder="Location"
+                        value={location}
+                        onChange={(e,data) => setLocation(data.value)}
+                ></Input>
+            </Form.Field>
+            <Button primary className={classes.centered} onClick={async() => {
+                const user = {username, email, password, first_name, last_name, location};
+                const response = await fetch("/signup", {
+                    method: 'POST',
+                    headers: { 'Content-type': 'application/json' },
+                    body: JSON.stringify(user)
+                });
+                if (response.ok) {
+                    console.log('success');
+                    console.log(user);
+                    setLastName("");
+                    setFirstName("");
+                    setUsername("");
+                    setEmail("");
+                    setPassword("");
+                    setLocation("");
+                }
+                else {
+                    setError("Problem signing up. Please try again");
+                }
+            }}>
+                Sign Up
+            </Button>
+            { {error} && <Header as='h4' color='red'> {error} </Header> }
+        </Form>
+    </div>
     </main>
   );
 }

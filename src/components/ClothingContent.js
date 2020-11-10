@@ -38,7 +38,6 @@ function ClothingContent() {
       })
   );
   }, []);
-  console.log(clothes);
 
   return (
     <main className={classes.fullWidth}>
@@ -49,7 +48,9 @@ function ClothingContent() {
         Welcome to the clothing page.
         </Typography>
         <h2>All clothing:</h2>
-        <Clothes clothes={clothes} />
+        <Clothes clothes={clothes} onDeleteClothing={
+                deletedClothing => getClothes(currentClothes => currentClothes.filter(clothing => clothing.id !== deletedClothing.id))
+            } />
         <AddClothing onNewClothing = {
             clothing => getClothes(currentClothes => [...currentClothes, clothing])
         }/>

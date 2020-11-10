@@ -11,6 +11,8 @@ import SignIn from "./pages/SignIn"
 import Closet from "./pages/Closet"
 import Profile from "./pages/Profile"
 import Logout from "./pages/Logout"
+import Matches from "./pages/Matches"
+import Weather from "./pages/Weather"
 
 const App = () => {
   return (
@@ -22,6 +24,8 @@ const App = () => {
         <Route path="/closet"><Closet /></Route>
         <Route path="/signin"><SignIn /></Route>
         <Route path="/profile"><Profile /></Route>
+        <Route path="/matches"><Matches /></Route>
+        <Route path="/weather"><Weather /></Route>
         <Route path="/logout"><Logout /></Route>
       </Switch>
     </Router>

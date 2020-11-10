@@ -208,7 +208,6 @@ function AddClothing({onNewClothing}) {
                 </Form>
                 <Button onClick={async() => {
                     const clothing = {name, color, occasion, type};
-                    console.log(clothing);
                     const response = await fetch("/clothing", {
                         method: 'POST',
                         headers: {

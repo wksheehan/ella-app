@@ -1,8 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './FormContent.css';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import { Form, Input, Button } from 'semantic-ui-react';
+import { Clothes } from '../components/Clothes';
+import AddClothing from '../components/AddClothing';
+import { MatchCards } from '../components/MatchCards';
 
 const useStyles = makeStyles(theme => ({
   toolbar: theme.mixins.toolbar,
@@ -53,6 +56,15 @@ function MatchesContent({onNewUser}) {
   const classes = useStyles();
   const [id1, setId1] = useState("");
   const [id2, setId2] = useState("");
+  const [matches, getMatches] = useState([]);
+
+  useEffect(() => {
+      fetch("/matches").then(response =>
+          response.json().then(data => {
+              getMatches(data);
+      })
+  );
+  }, []);
 
   return (
     <main className={classes.fullWidth}>
@@ -62,6 +74,8 @@ function MatchesContent({onNewUser}) {
         <Typography paragraph>
           Make matches below!
         </Typography>
+        <MatchCards matches={matches}/>
+        <br />
         <Form>
               <Form.Field>
                   <Input

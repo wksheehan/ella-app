@@ -1,14 +1,16 @@
 from flask import Flask, request, jsonify, flash, redirect, url_for
 from api import app, db
-from api.models import User, UserSchema, Clothing, ClothingSchema
+from api.models import User, UserSchema, Clothing, ClothingSchema, Matches, MatchesSchema
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 
 # Init schema
 user_schema = UserSchema()
 clothing_schema = ClothingSchema();
+# match_schema = MatchesSchema();
 users_schema = UserSchema(many=True)
 clothings_schema = ClothingSchema(many=True);
+matches_schema = MatchesSchema(many=True);
 
 @app.route('/')
 def index():
@@ -192,6 +194,15 @@ def delete_clothing(id):
     db.session.commit()
 
     return user_schema.jsonify(clothing)
+
+########## MATCHES ##########
+
+# GET: Get all matches
+@app.route('/matches', methods=['GET'])
+def get_matches():
+  all_matches = Matches.query.all()
+  result = matches_schema.dump(all_matches)
+  return jsonify(result)
 
 # Run Server
 if __name__ == '__main__':

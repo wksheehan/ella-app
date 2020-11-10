@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, withRouter, BrowserRouter } from 'react-router-dom';
 import './FormContent.css';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
@@ -60,8 +60,8 @@ function SignUpContent({onNewUser}) {
   const [location, setLocation] = useState("");
 
   let history = useHistory();
-  const redirect = () => {
-    history.push('/about')
+  const submitForm = () => {
+    this.props.history.push('/profile')
   }
 
   return (
@@ -72,9 +72,8 @@ function SignUpContent({onNewUser}) {
         <Typography paragraph>
           Sign up for ELLA below!
         </Typography>
-      </div>
 
-      <form onsubmit="redirect;">
+      <form>
 
         <label for="email" className={classes.labels}><b>Username: </b></label>
         <input type="text" className={classes.inputs} placeholder="Enter Username" name="username" required
@@ -131,14 +130,16 @@ function SignUpContent({onNewUser}) {
                 setEmail("");
                 setPassword("");
                 setLocation("");
+                submitForm();
             }}}>
             Sign Up
         </Button>
 
       </form>
+      </div>
 
     </main>
   );
 }
 
-export default SignUpContent;
+export default withRouter(SignUpContent);

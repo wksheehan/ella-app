@@ -62,7 +62,6 @@ function SignInContent({onNewUser}) {
         <Typography paragraph>
           Sign up for ELLA below!
         </Typography>
-      </div>
 
       <form action="">
 
@@ -94,6 +93,7 @@ function SignInContent({onNewUser}) {
         </Button>
 
       </form>
+      </div>
 
     </main>
   );

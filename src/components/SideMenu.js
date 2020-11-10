@@ -53,7 +53,7 @@ function SideMenu() {
         />
       </Grid>
       <List>
-        {['Profile', 'Closet', 'Weather', 'Sign Out'].map((text, index) => (
+        {['Profile', 'Closet', 'Weather', 'logout'].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>
               {index  === 0 ? <AccountCircle /> :

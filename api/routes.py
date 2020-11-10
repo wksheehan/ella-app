@@ -1,8 +1,7 @@
 from flask import Flask, request, jsonify, flash, redirect, url_for
 from api import app, db
-from api.models import User, UserSchema
-from api.models import Clothing, ClothingSchema
-from flask_login import current_user, login_user, logout_user
+from api.models import User, UserSchema, Clothing, ClothingSchema
+from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 
 # Init schema
@@ -14,6 +13,8 @@ clothings_schema = ClothingSchema(many=True);
 @app.route('/')
 def index():
     return 'index'
+
+########## USERS ##########
 
 # POST: Create a user
 @app.route('/user', methods=['POST'])
@@ -43,10 +44,18 @@ def get_users():
     result = users_schema.dump(all_users)
     return jsonify(result)
 
-# GET: Get single user
+# GET: Get a user
 @app.route('/user/<id>', methods=['GET'])
 def get_user(id):
     user = User.query.get(id)
+    return user_schema.jsonify(user)
+
+# GET: Get current user
+@app.route('/currentuser', methods=['GET'])
+@login_required
+def get_current_user():
+    user_id = current_user.get_id()
+    user = User.query.get(user_id)
     return user_schema.jsonify(user)
 
 # PUT: Update a user
@@ -84,6 +93,9 @@ def delete_user(id):
 # GET/POST: Signup a user
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
+    if current_user.is_authenticated:
+        return redirect('/')
+
     username = request.json['username']
     email = request.json['email']
     password = request.json['password']
@@ -100,26 +112,52 @@ def signup():
     db.session.add(user)
     db.session.commit()
 
+    login_user(user)
+
     return user_schema.jsonify(user)
 
 # GET/POST: Login a user
 @app.route('/signin', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect('/')
     else:
         user = User.query.filter_by(username=request.json['username']).first()
         if user is None or not user.check_password(request.json['password']):
             flash('Invalid username or password')
-            return redirect(url_for('login'))
+            return redirect('/login')
         login_user(user)
-        return redirect(url_for('index'))
+        return user_schema.jsonify(user)
 
 # Logout a user
-@app.route('/logout')
+@app.route('/logout', methods=['GET', 'POST'])
+@login_required
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+########## PROFILE ##########
+
+@app.route('/edit_profile', methods=['PUT'])
+@login_required
+def edit_profile():
+    username = request.json['username']
+    email = request.json['email']
+    password = request.json['password']
+    first_name = request.json['first_name']
+    last_name = request.json['last_name']
+    location = request.json['location']
+
+    user = User(username=username, email=email)
+    user.set_password(password)
+    user.first_name = first_name
+    user.last_name = last_name
+    user.location = location
+
+    db.session.commit()
+    flash('Your changes have been saved.')
+
+    return redirect(url_for('edit_profile'))
 
 ########## CLOTHING ##########
 

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, withRouter, BrowserRouter } from 'react-router-dom';
 import './FormContent.css';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
@@ -60,8 +60,8 @@ function SignUpContent() {
   const [error, setError] = useState("");
 
   let history = useHistory();
-  const redirect = () => {
-    history.push('/about')
+  const submitForm = () => {
+    this.props.history.push('/profile')
   }
 
   return (
@@ -146,4 +146,4 @@ function SignUpContent() {
   );
 }
 
-export default SignUpContent;
+export default withRouter(SignUpContent);

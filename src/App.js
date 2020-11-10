@@ -9,6 +9,8 @@ import About from "./pages/About"
 import SignUp from "./pages/SignUp"
 import SignIn from "./pages/SignIn"
 import Closet from "./pages/Closet"
+import Profile from "./pages/Profile"
+import Logout from "./pages/Logout"
 
 const App = () => {
   return (
@@ -19,6 +21,8 @@ const App = () => {
         <Route path="/signup"><SignUp /></Route>
         <Route path="/closet"><Closet /></Route>
         <Route path="/signin"><SignIn /></Route>
+        <Route path="/profile"><Profile /></Route>
+        <Route path="/logout"><Logout /></Route>
       </Switch>
     </Router>
   );

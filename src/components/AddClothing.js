@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
-import { Form, Input, Button, Rating, Dropdown } from 'semantic-ui-react';
+import { Form, Input, Header, Button, Dropdown } from 'semantic-ui-react';
 import { Clothes } from '../components/Clothes';
 
 const useStyles = makeStyles(theme => ({
@@ -161,6 +161,7 @@ function AddClothing({onNewClothing}) {
     const [color, setColor] = useState("");
     const [occasion, setOccasion] = useState("");
     const [type, setType] = useState("");
+    const [error, setError] = useState("");
 
     return (
         <main className={classes.fullWidth}>
@@ -170,9 +171,9 @@ function AddClothing({onNewClothing}) {
                 <Form>
                     <Form.Field>
                         <Input
-                                placeholder="Name this clothing"
-                                value={name}
-                                onChange={(e,data) => setName(data.value)}
+                            placeholder="Name this clothing"
+                            value={name}
+                            onChange={(e,data) => setName(data.value)}
                         ></Input>
                     </Form.Field>
                     <Form.Field>
@@ -205,29 +206,31 @@ function AddClothing({onNewClothing}) {
                             value={type}
                         />
                     </Form.Field>
-                </Form>
-                <Button onClick={async() => {
-                    const clothing = {name, color, occasion, type};
-                    console.log(clothing);
-                    const response = await fetch("/clothing", {
-                        method: 'POST',
-                        headers: {
-                            'Content-type': 'application/json'
-                        },
-                        body: JSON.stringify(clothing)
-                    });
-                    if (response.ok) {
-                        console.log('success');
-                        onNewClothing(clothing);
-                        setName("");
-                        setColor("");
-                        setOccasion("");
-                        setType("");
-                    }
-            }}> Submit </Button>
-
-                </div>
-                </main>
+                    <Button primary onClick={async() => {
+                        const clothing = {name, color, occasion, type};
+                        const response = await fetch("/clothing", {
+                            method: 'POST',
+                            headers: {
+                                'Content-type': 'application/json'
+                            },
+                            body: JSON.stringify(clothing)
+                        });
+                        if (response.ok) {
+                            console.log('success');
+                            onNewClothing(clothing);
+                            setName("");
+                            setColor("");
+                            setOccasion("");
+                            setType("");
+                        }
+                        else {
+                            setError("Invalid clothing, please try again!");
+                        }
+                }}> Submit </Button>
+            { {error} && <Header as='h4' color='red'> {error} </Header> }
+            </Form>
+        </div>
+    </main>
     );
 }
 

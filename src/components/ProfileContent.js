@@ -78,7 +78,7 @@ function ProfileContent() {
           Welcome, {currentuser.first_name}. Hope you're enjoying {currentuser.location}! Oops here's your password {currentuser.password}.
         </Typography>
 
-        <form onsubmit="redirect;">
+        <form>
 
           <label for="email" className={classes.labels}><b>Username: </b></label>
           <input type="text" className={classes.inputs} placeholder="Enter Username" name="username" required

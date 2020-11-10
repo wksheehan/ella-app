@@ -59,11 +59,6 @@ function SignUpContent({onNewUser}) {
   const [last_name, setLastName] = useState("");
   const [location, setLocation] = useState("");
 
-  let history = useHistory();
-  const submitForm = () => {
-    this.props.history.push('/profile')
-  }
-
   return (
     <main className={classes.fullWidth}>
       <div className={classes.toolbar} />
@@ -130,7 +125,6 @@ function SignUpContent({onNewUser}) {
                 setEmail("");
                 setPassword("");
                 setLocation("");
-                submitForm();
             }}}>
             Sign Up
         </Button>

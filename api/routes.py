@@ -109,10 +109,10 @@ def signup():
     user.last_name = last_name
     user.location = location
 
+    login_user(user)
+
     db.session.add(user)
     db.session.commit()
-
-    login_user(user)
 
     return user_schema.jsonify(user)
 

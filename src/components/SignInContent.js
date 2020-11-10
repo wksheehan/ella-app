@@ -63,7 +63,7 @@ function SignInContent({onNewUser}) {
           Sign up for ELLA below!
         </Typography>
 
-      <form action="">
+      <form>
 
         <label for="username" className={classes.labels}><b>Username: </b></label>
         <input type="text" className={classes.inputs} placeholder="Enter Username" name="username" required
@@ -88,6 +88,8 @@ function SignInContent({onNewUser}) {
             });
             if (response.ok) {
                 console.log('success');
+                setUsername("");
+                setPassword("");
             }}}>
             Sign In
         </Button>

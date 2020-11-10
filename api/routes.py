@@ -200,8 +200,8 @@ def delete_clothing(id):
 # POST: Create a match
 @app.route('/matches', methods=['POST'])
 def add_match():
-    id1 = request.json['id1']
-    id2 = request.json['id2']
+    id1 = request.json['clothing_id1']
+    id2 = request.json['clothing_id2']
 
     new_match = Matches(id1, id2)
 

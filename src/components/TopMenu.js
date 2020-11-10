@@ -50,14 +50,11 @@ function TopMenu() {
         <MenuItem>
           <Link to="/signup" style={{color: 'white', textDecoration: 'none'}}>
             Sign Up
-<<<<<<< HEAD
-=======
           </Link>
         </MenuItem>
         <MenuItem>
           <Link to="/signin" style={{color: 'white', textDecoration: 'none'}}>
             Sign In
->>>>>>> 4c196964934a532a64e510f80db72629b4370971
           </Link>
         </MenuItem>
       </Toolbar>

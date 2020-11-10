@@ -1920,7 +1920,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@popperore@npm:^2.5.2":
+"@popperjs/core@npm:^2.5.2":
   version: 2.5.3
   resolution: "@popperjs/core@npm:2.5.3"
   checksum: 53a693e058732f6f38773ea3a9e498e9578b375e5352899eff63a9cb9906c54f141dc0b544a7789652303ce342be769e0d76420a8066f9ec973dda4086de2b55

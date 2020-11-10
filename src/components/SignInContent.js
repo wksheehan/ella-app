@@ -60,41 +60,42 @@ function SignInContent({onNewUser}) {
       <img className ={classes.centered} src={process.env.PUBLIC_URL + 'ella.jpeg'}/>
       <div className={classes.content}>
         <Typography paragraph>
-          Sign up for ELLA below!
+          Sign in to Ella below!
         </Typography>
-      </div>
+        <Form>
+              <Form.Field>
+                  <Input
+                      width={3}
+                      placeholder="Username"
+                      value={username}
+                      onChange={(e,data) => setUsername(data.value)}
+                  ></Input>
+              </Form.Field>
+              <Form.Field>
+                  <Input
+                      type="password"
+                      placeholder="Password"
+                      value={password}
+                      onChange={(e,data) => setPassword(data.value)}
+                  ></Input>
+              </Form.Field>
 
-      <form action="">
-
-        <label for="username" className={classes.labels}><b>Username: </b></label>
-        <input type="text" className={classes.inputs} placeholder="Enter Username" name="username" required
-            value={username}
-            onChange={e => setUsername(e.target.value)}
-            ></input>
-
-        <label for="psw" className={classes.labels}><b>Password: </b></label>
-        <input type="password" className={classes.inputs} placeholder="Enter Password" name="psw" required
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            ></input>
-
-        <Button className={classes.centered} onClick={async() => {
-            const user = {username, password};
-            const response = await fetch("/signin", {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json'
-                },
-                body: JSON.stringify(user)
-            });
-            if (response.ok) {
-                console.log('success');
-            }}}>
-            Sign In
-        </Button>
-
-      </form>
-
+            <Button primary onClick={async() => {
+                const user = {username, password};
+                const response = await fetch("/signin", {
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json'
+                    },
+                    body: JSON.stringify(user)
+                });
+                if (response.ok) {
+                    console.log('success');
+                }}}>
+                Sign In
+            </Button>
+        </Form>
+    </div>
     </main>
   );
 }

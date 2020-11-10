@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify, flash, redirect, url_for
 from api import app, db
-from api.models import User, UserSchema
-from api.models import Clothing, ClothingSchema
+from api.models import User, UserSchema, Clothing, ClothingSchema
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 
@@ -14,6 +13,8 @@ clothings_schema = ClothingSchema(many=True);
 @app.route('/')
 def index():
     return 'index'
+
+########## USERS ##########
 
 # POST: Create a user
 @app.route('/user', methods=['POST'])
@@ -43,10 +44,18 @@ def get_users():
     result = users_schema.dump(all_users)
     return jsonify(result)
 
-# GET: Get single user
+# GET: Get a user
 @app.route('/user/<id>', methods=['GET'])
 def get_user(id):
     user = User.query.get(id)
+    return user_schema.jsonify(user)
+
+# GET: Get current user
+@app.route('/currentuser', methods=['GET'])
+@login_required
+def get_current_user():
+    user_id = current_user.get_id()
+    user = User.query.get(user_id)
     return user_schema.jsonify(user)
 
 # PUT: Update a user
@@ -103,6 +112,8 @@ def signup():
     db.session.add(user)
     db.session.commit()
 
+    login_user(user)
+
     return user_schema.jsonify(user)
 
 # GET/POST: Login a user
@@ -116,13 +127,16 @@ def login():
             flash('Invalid username or password')
             return redirect('/login')
         login_user(user)
-        return redirect('/')
+        return user_schema.jsonify(user)
 
 # Logout a user
-@app.route('/logout')
+@app.route('/logout', methods=['GET', 'POST'])
+@login_required
 def logout():
     logout_user()
-    return redirect('/')
+    return redirect(url_for('index'))
+
+########## PROFILE ##########
 
 @app.route('/edit_profile', methods=['PUT'])
 @login_required

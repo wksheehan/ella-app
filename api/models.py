@@ -15,6 +15,18 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return '<User {}>'.format(self.username)
 
+    def to_dict(self):
+        data = {
+            'id': self.id,
+            'username': self.username,
+            'email': self.email,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'location': self.location
+        }
+
+        return data
+
     def set_password(self, password):
         self.password = generate_password_hash(password)
 

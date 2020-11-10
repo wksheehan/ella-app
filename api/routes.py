@@ -7,7 +7,7 @@ from werkzeug.urls import url_parse
 # Init schema
 user_schema = UserSchema()
 clothing_schema = ClothingSchema();
-# match_schema = MatchesSchema();
+match_schema = MatchesSchema();
 users_schema = UserSchema(many=True)
 clothings_schema = ClothingSchema(many=True);
 matches_schema = MatchesSchema(many=True);
@@ -196,6 +196,19 @@ def delete_clothing(id):
     return user_schema.jsonify(clothing)
 
 ########## MATCHES ##########
+
+# POST: Create a match
+@app.route('/matches', methods=['POST'])
+def add_match():
+    id1 = request.json['id1']
+    id2 = request.json['id2']
+
+    new_match = Matches(id1, id2)
+
+    db.session.add(new_match)
+    db.session.commit()
+
+    return match_schema.jsonify(new_match)
 
 # GET: Get all matches
 @app.route('/matches', methods=['GET'])

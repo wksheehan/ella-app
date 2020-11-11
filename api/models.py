@@ -35,16 +35,21 @@ class User(UserMixin, db.Model):
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(user_id)
+    try:
+        return User.query.get(user_id)
+    except:
+        return None
 
 class Clothing(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     name = db.Column(db.String(100))
     color = db.Column(db.String(100))
     occasion = db.Column(db.String(100))
     type = db.Column(db.String(100))
 
-    def __init__(self, name, color, occasion, type):
+    def __init__(self, user_id, name, color, occasion, type):
+        self.user_id = user_id
         self.name = name
         self.color = color
         self.occasion = occasion
@@ -52,21 +57,23 @@ class Clothing(db.Model):
 
 class Outfit(db.Model):
     name = db.Column(db.String(100), primary_key=True)
-    username = db.Column(db.String(64), db.ForeignKey('user.username'), primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
     top_id = db.Column(db.Integer, db.ForeignKey('clothing.id'))
     bottom_id = db.Column(db.Integer, db.ForeignKey('clothing.id'))
 
 class Matches(db.Model):
     clothing_id1 = db.Column(db.Integer, db.ForeignKey('clothing.id'), primary_key=True)
     clothing_id2 = db.Column(db.Integer, db.ForeignKey('clothing.id'), primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    def __init__(self, clothing_id1, clothing_id2):
+    def __init__(self, user_id, clothing_id1, clothing_id2):
         self.clothing_id1 = clothing_id1
         self.clothing_id2 = clothing_id2
+        self.user_id = user_id
 
 class Belongs(db.Model):
     clothing_id = db.Column(db.Integer, db.ForeignKey('clothing.id'), primary_key=True)
-    username = db.Column(db.String(64), db.ForeignKey('user.username'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 class UserSchema(ma.Schema):
     class Meta:
@@ -74,16 +81,16 @@ class UserSchema(ma.Schema):
 
 class OutfitSchema(ma.Schema):
     class Meta:
-        fields = ('name', 'username', 'top_id', 'bottom_id', 'last_name', 'location')
+        fields = ('name', 'user_id', 'top_id', 'bottom_id', 'last_name', 'location')
 
 class ClothingSchema(ma.Schema):
     class Meta:
-        fields = ('id', 'name', 'color', 'occasion', 'type')
+        fields = ('id', 'user_id', 'name', 'color', 'occasion', 'type')
 
 class MatchesSchema(ma.Schema):
     class Meta:
-        fields = ('clothing_id1', 'clothing_id2')
+        fields = ('clothing_id1', 'clothing_id2', 'user_id')
 
 class BelongsSchema(ma.Schema):
     class Meta:
-        fields = ('clothing_id', 'username')
+        fields = ('clothing_id', 'user_id')

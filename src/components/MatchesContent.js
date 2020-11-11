@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
-import './FormContent.css';
+import React, {useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
-import { Form, Input, Button } from 'semantic-ui-react';
+import { MatchCards } from '../components/MatchCards';
+import AddMatch from '../components/AddMatch';
+
 
 const useStyles = makeStyles(theme => ({
   toolbar: theme.mixins.toolbar,
@@ -51,8 +52,15 @@ const useStyles = makeStyles(theme => ({
 
 function MatchesContent({onNewUser}) {
   const classes = useStyles();
-  const [id1, setId1] = useState("");
-  const [id2, setId2] = useState("");
+  const [matches, getMatches] = useState([]);
+
+  useEffect(() => {
+      fetch("/matches").then(response =>
+          response.json().then(data => {
+              getMatches(data);
+      })
+  );
+  }, []);
 
   return (
     <main className={classes.fullWidth}>
@@ -60,30 +68,10 @@ function MatchesContent({onNewUser}) {
       <img className ={classes.centered} src={process.env.PUBLIC_URL + 'ella.jpeg'}/>
       <div className={classes.content}>
         <Typography paragraph>
-          Make matches below!
+          Welcome to your matches page.
         </Typography>
-        <Form>
-              <Form.Field>
-                  <Input
-                      width={3}
-                      placeholder="Clothing ID 1 "
-                      value={id1}
-                      onChange={(e,data) => setId1(data.value)}
-                  ></Input>
-              </Form.Field>
-              <Form.Field>
-                  <Input
-                      type="id2"
-                      placeholder="Clothing ID 2 "
-                      value={id2}
-                      onChange={(e,data) => setId2(data.value)}
-                  ></Input>
-              </Form.Field>
-
-            <Button >
-                Make Match
-            </Button>
-        </Form>
+        <MatchCards matches={matches}/>
+        <AddMatch onNewMatch={matches => getMatches(currentMatches => [...currentMatches, matches])}/>
     </div>
     </main>
   );

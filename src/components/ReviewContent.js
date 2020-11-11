@@ -2,7 +2,7 @@ import React, { useState, useEffect, Component } from 'react';
 import './FormContent.css';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
-import {Form, Input, Header, Button, Dropdown } from 'semantic-ui-react';
+import {Form, Rating, Input, Header, Button, Dropdown } from 'semantic-ui-react';
 import { useHistory, withRouter, BrowserRouter } from 'react-router-dom';
 
 var angryEmoji = String.fromCodePoint(0x1F621); 
@@ -158,6 +158,9 @@ const useStyles = makeStyles(theme => ({
                               value={name}
                               onChange={(e,data) => setName(data.value)}
                           ></Input>
+                      </Form.Field>
+                      <Form.Field>
+                        <Rating icon='star' defaultRating={3} maxRating={5}/>
                       </Form.Field>
                    
                       <Button primary onClick={async() => {

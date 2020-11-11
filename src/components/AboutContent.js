@@ -64,8 +64,8 @@ function AboutContent() {
           in addition to two honorary mentions!
         </Typography>
         
-        <div className={classes.centered} display='block' >
-          <Typography variant='h3' align='left'>
+        <div className={classes.centered} >
+          <Typography variant='h3' align='left' >
             Founders:
           </Typography>
           <div className ={classes.gallery}>
@@ -105,7 +105,7 @@ function AboutContent() {
         </div>
         
 
-        <div className={classes.centered} display='block' >
+        <div className={classes.centered} >
           <Typography variant='h3' align='left'>
             Honorable Mentions:
           </Typography>

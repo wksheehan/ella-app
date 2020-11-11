@@ -59,6 +59,14 @@ function SignUpContent() {
   const [location, setLocation] = useState("");
   const [error, setError] = useState("");
 
+  let history = useHistory();
+  const submitForm = () => {
+    history.push('/profile')
+  }
+  const redirectToSignIn = () => {
+    history.push('signin')
+  }
+
   return (
     <main className={classes.fullWidth}>
       <div className={classes.toolbar} />

@@ -66,7 +66,7 @@ class Matches(db.Model):
     clothing_id2 = db.Column(db.Integer, db.ForeignKey('clothing.id'), primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    def __init__(self, user_id, clothing_id1, clothing_id2):
+    def __init__(self, clothing_id1, clothing_id2, user_id):
         self.clothing_id1 = clothing_id1
         self.clothing_id2 = clothing_id2
         self.user_id = user_id

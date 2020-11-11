@@ -21,6 +21,7 @@ const useStyles = makeStyles(theme => ({
   },
   centered: {
     display: 'block',
+    backgroundColor: "red",
     marginLeft: 'auto',
     marginRight: 'auto',
   },

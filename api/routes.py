@@ -132,6 +132,8 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
+
+
 ########## PROFILE ##########
 
 @app.route('/edit_profile', methods=['PUT'])

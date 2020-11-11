@@ -55,12 +55,6 @@ const useStyles = makeStyles(theme => ({
 function ProfileContent() {
   const classes = useStyles();
   const [currentuser, getCurrentUser] = useState([]);
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [first_name, setFirstName] = useState("");
-  const [last_name, setLastName] = useState("");
-  const [location, setLocation] = useState("");
 
   useEffect(() => {
       fetch("/currentuser").then(response =>
@@ -69,6 +63,18 @@ function ProfileContent() {
       })
   );
   }, []);
+
+  const [clothes, getClothes] = useState([]);
+
+  useEffect(() => {
+      fetch("/clothing").then(response =>
+          response.json().then(data => {
+              getClothes(data);
+      })
+  );
+  }, []);
+
+  const numOfClothes = clothes.length;
   console.log(currentuser);
 
   return (
@@ -79,6 +85,10 @@ function ProfileContent() {
       <div className={classes.content}>
         <Typography paragraph>
           Welcome, {currentuser.first_name}. Hope you're enjoying {currentuser.location}! Oops here's your password {currentuser.password}.
+        </Typography>
+        <Typography paragraph>
+          So far, you have uploaded {numOfClothes} different clothing item(s). Make sure to update your matches
+          so that we can generate your favorite outfits!
         </Typography>
 
 

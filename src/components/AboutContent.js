@@ -23,6 +23,25 @@ const useStyles = makeStyles(theme => ({
   fullWidth: {
     width: '100%',
   },
+  gallery: {
+    margin: 5,
+    border: 1,
+    float: 'left',
+    width: 180,
+  },
+  
+  picture: {
+    width: '100%',
+    height: 'auto',
+  },
+  
+  desc: {
+    padding: 10,
+    paddingTop: 0,
+    paddingBottom: 30,
+    marginTop: 5,
+    textAlign: "center",
+  }
 }));
 
 function AboutContent() {
@@ -35,8 +54,79 @@ function AboutContent() {
       <img className ={classes.centered} src={process.env.PUBLIC_URL + 'ella.jpeg'}/>
       <div className={classes.content}>
         <Typography paragraph>
-          Hello! This is the about page. More info to come!
+          Hello, thanks for coming! We are excited that you would like to learn more about the history of this
+          groundbreaking and revolutionary website which is disrupting a trillion-dollar industry.
         </Typography>
+        <Typography paragraph>
+          Ella was founded in September 2020 by a group of five students from Duke University. While their primary 
+          impetus for creating this website was to change the world, they were also concerned about getting an exemplary
+          grade in their Computer Science 316 class, Introduction to Databases. Here is a look at the five founders,
+          in addition to two honorary mentions!
+        </Typography>
+        
+        <div className={classes.centered} >
+          <Typography variant='h3' align='left' >
+            Founders:
+          </Typography>
+          <div className ={classes.gallery}>
+            <a target="_blank" >
+              <img className ={classes.picture} src={process.env.PUBLIC_URL + 'kate.jpg'} width="600" height="400"/>
+            </a>
+            <div className ={classes.desc}>This is Kate Straneva! Hay Kate!</div>
+          </div>
+
+          <div className ={classes.gallery}>
+            <a target="_blank">
+              <img className ={classes.picture} src={process.env.PUBLIC_URL + 'dan.jpg'} width="600" height="400"/>
+            </a>
+            <div className ={classes.desc}>This is Dan Berlin! Berlin, Germany!</div>
+          </div>
+
+          <div className ={classes.gallery}>
+            <a target="_blank" >
+              <img className ={classes.picture} src={process.env.PUBLIC_URL + 'will.jpg'} width="600" height="400"/>
+            </a>
+            <div className ={classes.desc}>This is Will Sheehan! Must have been cold!</div>
+          </div>
+
+          <div className ={classes.gallery}>
+            <a target="_blank" >
+              <img className ={classes.picture} src={process.env.PUBLIC_URL + 'danny.jpg'} width="600" height="400"/>
+            </a>
+            <div className ={classes.desc}>This is Danny Wu! He looks like he lost!</div>
+          </div>
+
+          <div className ={classes.gallery} >
+            <a target="_blank">
+              <img className ={classes.picture} src={process.env.PUBLIC_URL + 'brandon.jpg'} width="600" height="400"/>
+            </a>
+            <div className ={classes.desc}>This is Brandon! What a dork!</div>
+          </div>
+        </div>
+        
+
+        <div className={classes.centered} >
+          <Typography variant='h3' align='left'>
+            Honorable Mentions:
+          </Typography>
+          <div className ={classes.gallery}>
+            <a target="_blank" >
+              <img className ={classes.picture} src={process.env.PUBLIC_URL + 'jane.jpg'} width="600" height="400"/>
+            </a>
+            <div className ={classes.desc}>This is our TA, Jane Li! Jane is the goat! Thanks, Jain!</div>
+          </div>
+
+          <div className ={classes.gallery}>
+            <a target="_blank">
+              <img className ={classes.picture} src={process.env.PUBLIC_URL + 'sudeepa.jpg'} width="600" height="400"/>
+            </a>
+            <div className ={classes.desc}>This is Sudeepa Roy, our fearless leader! We'll follow you anywhere!</div>
+          </div>
+        </div>
+
+        
+        
+        
       </div>
     </main>
   );

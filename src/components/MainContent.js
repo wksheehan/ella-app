@@ -9,7 +9,6 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing(3),
-    fontSize: 30,
     textAlign: "center",
   },
   content: {
@@ -21,7 +20,6 @@ const useStyles = makeStyles(theme => ({
   },
   centered: {
     display: 'block',
-    backgroundColor: "red",
     marginLeft: 'auto',
     marginRight: 'auto',
   },

@@ -23,11 +23,6 @@ const useStyles = makeStyles(theme => ({
   fullWidth: {
     width: '100%',
   },
-  
-  /* Create two equal columns that sits next to each other */
-  column: {
-    padding: 4,
-  },
   gallery: {
     margin: 5,
     border: 1,
@@ -59,7 +54,8 @@ function AboutContent() {
       <img className ={classes.centered} src={process.env.PUBLIC_URL + 'ella.jpeg'}/>
       <div className={classes.content}>
         <Typography paragraph>
-          Hello! This is the about page. More info to come!
+          Hello, thanks for coming! We are excited that you would like to learn more about the history of this
+          groundbreaking and revolutionary website which is disrupting a trillion-dollar industry.
         </Typography>
         <Typography paragraph>
           Ella was founded in September 2020 by a group of five students from Duke University. While their primary 
@@ -68,7 +64,7 @@ function AboutContent() {
           in addition to two honorary mentions!
         </Typography>
         
-        <div className={classes.content} >
+        <div className={classes.centered} display='block' >
           <Typography variant='h3' align='left'>
             Founders:
           </Typography>
@@ -109,7 +105,7 @@ function AboutContent() {
         </div>
         
 
-        <div className={classes.content} >
+        <div className={classes.centered} display='block' >
           <Typography variant='h3' align='left'>
             Honorable Mentions:
           </Typography>

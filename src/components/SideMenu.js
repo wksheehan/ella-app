@@ -6,6 +6,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import StarIcon from '@material-ui/icons/Star';
+import CheckBox from '@material-ui/icons/CheckBox';
 import WbSunnyIcon from '@material-ui/icons/WbSunny';
 import ExitToApp from '@material-ui/icons/ExitToApp';
 import { makeStyles } from '@material-ui/core/styles';
@@ -53,12 +54,13 @@ function SideMenu() {
         />
       </Grid>
       <List>
-        {['Profile', 'Closet', 'Weather', 'logout'].map((text, index) => (
+        {['Profile', 'Closet', 'Weather', 'Matches','logout'].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>
               {index  === 0 ? <AccountCircle /> :
               index === 1 ? <StarIcon /> :
-              index === 2 ? <WbSunnyIcon /> :
+              index === 2 ? <WbSunnyIcon />: 
+              index === 3 ? <CheckBox /> :
               <ExitToApp />}
             </ListItemIcon>
             <Link to={text} style={{textDecoration: 'none'}}>

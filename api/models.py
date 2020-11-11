@@ -60,6 +60,10 @@ class Matches(db.Model):
     clothing_id1 = db.Column(db.Integer, db.ForeignKey('clothing.id'), primary_key=True)
     clothing_id2 = db.Column(db.Integer, db.ForeignKey('clothing.id'), primary_key=True)
 
+    def __init__(self, clothing_id1, clothing_id2):
+        self.clothing_id1 = clothing_id1
+        self.clothing_id2 = clothing_id2
+
 class Belongs(db.Model):
     clothing_id = db.Column(db.Integer, db.ForeignKey('clothing.id'), primary_key=True)
     username = db.Column(db.String(64), db.ForeignKey('user.username'))

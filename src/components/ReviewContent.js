@@ -160,7 +160,7 @@ const useStyles = makeStyles(theme => ({
                           ></Input>
                       </Form.Field>
                       <Form.Field>
-                        <Rating icon='star' defaultRating={3} maxRating={5}/>
+                        <Rating icon='star' defaultRating={3} maxRating={5} size='huge'/>
                       </Form.Field>
                    
                       <Button primary onClick={async() => {

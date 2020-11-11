@@ -116,7 +116,7 @@ function WeatherContent() {
         <div className={classes.toolbar} />
         <img className ={classes.centered} src={process.env.PUBLIC_URL + 'ella.jpeg'}/>
         <div className = {classes.title}> 
-              Current Weather
+              Weather
               </div>
         <div className={classes.content}>  
             City: {city}
@@ -136,7 +136,8 @@ function WeatherContent() {
         </div>
        
             <div className = {classes.content}>
-                < img src={"http://openweathermap.org/img/wn/" + iconID + "@2x.png"}/>
+                < img src={"http://openweathermap.org/img/wn/" + iconID + "@2x.png"}
+                />
     
             
       

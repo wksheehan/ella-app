@@ -13,6 +13,7 @@ import Profile from "./pages/Profile"
 import Logout from "./pages/Logout"
 import Matches from "./pages/Matches"
 import Weather from "./pages/Weather"
+import Reviews from "./pages/Reviews"
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
         <Route path="/profile"><Profile /></Route>
         <Route path="/matches"><Matches /></Route>
         <Route path="/weather"><Weather /></Route>
+        <Route path="/reviews"><Reviews /></Route>
         <Route path="/logout"><Logout /></Route>
       </Switch>
     </Router>

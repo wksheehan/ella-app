@@ -54,13 +54,14 @@ function SideMenu() {
         />
       </Grid>
       <List>
-        {['Profile', 'Closet', 'Weather', 'Matches','logout'].map((text, index) => (
+        {['Profile', 'Closet', 'Weather', 'Matches','Reviews','logout'].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>
               {index  === 0 ? <AccountCircle /> :
               index === 1 ? <StarIcon /> :
               index === 2 ? <WbSunnyIcon />: 
               index === 3 ? <CheckBox /> :
+              index == 4? <StarIcon /> : 
               <ExitToApp />}
             </ListItemIcon>
             <Link to={text} style={{textDecoration: 'none'}}>

@@ -165,15 +165,15 @@ function EditProfile() {
 //         isGoing: true,
 //         numberOfGuests: 2
 //       };
-  
+
 //       this.handleInputChange = this.handleInputChange.bind(this);
 //     }
-  
+
 //     handleInputChange(event) {
 //       const target = event.target;
 //       const value = target.value;
 //       const name = target.name;
-  
+
 //       this.setState({
 //         [name]: value
 //       });
@@ -183,11 +183,11 @@ function EditProfile() {
 //         alert('A name was submitted: ' + this.state.value);
 //         event.preventDefault();
 //       }
-  
+
 //     render() {
-        
+
 //       return (
-//         <form onSubmit={this.handleSubmit}>          
+//         <form onSubmit={this.handleSubmit}>
 //           <label>
 //             Username:
 //             <input
@@ -211,5 +211,3 @@ function EditProfile() {
 //     }
 //   }
 export default EditProfile;
-
-

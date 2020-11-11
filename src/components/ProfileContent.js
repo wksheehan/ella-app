@@ -80,7 +80,7 @@ function ProfileContent() {
         <Typography paragraph>
           Welcome, {currentuser.first_name}. Hope you're enjoying {currentuser.location}! Oops here's your password {currentuser.password}.
         </Typography>
-      
+
 
       </div>
     </main>

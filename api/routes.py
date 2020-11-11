@@ -56,8 +56,8 @@ def get_user(id):
 @app.route('/currentuser', methods=['GET'])
 @login_required
 def get_current_user():
-    user_id = current_user.get_id()
-    user = User.query.get(user_id)
+    id = current_user.get_id()
+    user = User.query.get(id)
     return user_schema.jsonify(user)
 
 # PUT: Update a user
@@ -95,9 +95,6 @@ def delete_user(id):
 # GET/POST: Signup a user
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    if current_user.is_authenticated:
-        return redirect('/')
-
     username = request.json['username']
     email = request.json['email']
     password = request.json['password']
@@ -121,15 +118,12 @@ def signup():
 # GET/POST: Login a user
 @app.route('/signin', methods=['GET', 'POST'])
 def login():
-    if current_user.is_authenticated:
-        return redirect('/')
-    else:
-        user = User.query.filter_by(username=request.json['username']).first()
-        if user is None or not user.check_password(request.json['password']):
-            flash('Invalid username or password')
-            return redirect('/login')
-        login_user(user)
-        return user_schema.jsonify(user)
+    user = User.query.filter_by(username=request.json['username']).first()
+    if user is None or not user.check_password(request.json['password']):
+        flash('Invalid username or password')
+        return redirect('/login')
+    login_user(user)
+    return user_schema.jsonify(user)
 
 # Logout a user
 @app.route('/logout', methods=['GET', 'POST'])
@@ -165,23 +159,26 @@ def edit_profile():
 
 # POST: Create a clothing item
 @app.route('/clothing', methods=['POST'])
+@login_required
 def add_clothing():
+    user_id = current_user.get_id()
     name = request.json['name']
     color = request.json['color']
     occasion = request.json['occasion']
     type = request.json['type']
 
-    new_clothing = Clothing(name, color, occasion, type)
+    new_clothing = Clothing(user_id, name, color, occasion, type)
 
     db.session.add(new_clothing)
     db.session.commit()
 
     return clothing_schema.jsonify(new_clothing)
 
-# GET: Get all clothing
+# GET: Get all clothing for the logged in user
 @app.route('/clothing', methods=['GET'])
+@login_required
 def get_clothing():
-  all_clothing = Clothing.query.all()
+  all_clothing = Clothing.query.filter_by(user_id = current_user.get_id())
   result = clothings_schema.dump(all_clothing)
   return jsonify(result)
 
@@ -193,17 +190,19 @@ def delete_clothing(id):
     db.session.delete(clothing)
     db.session.commit()
 
-    return user_schema.jsonify(clothing)
+    return clothing_schema.jsonify(clothing)
 
 ########## MATCHES ##########
 
 # POST: Create a match
 @app.route('/matches', methods=['POST'])
+@login_required
 def add_match():
+    user_id = current_user.get_id()
     id1 = request.json['clothing_id1']
     id2 = request.json['clothing_id2']
 
-    new_match = Matches(id1, id2)
+    new_match = Matches(id1, id2, user_id)
 
     db.session.add(new_match)
     db.session.commit()
@@ -212,8 +211,9 @@ def add_match():
 
 # GET: Get all matches
 @app.route('/matches', methods=['GET'])
+@login_required
 def get_matches():
-  all_matches = Matches.query.all()
+  all_matches = Matches.query.filter_by(user_id = current_user.get_id())
   result = matches_schema.dump(all_matches)
   return jsonify(result)
 

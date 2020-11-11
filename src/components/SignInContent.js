@@ -3,6 +3,8 @@ import './FormContent.css';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import { Form, Input, Button } from 'semantic-ui-react';
+import { Link, useHistory } from "react-router-dom";
+
 
 const useStyles = makeStyles(theme => ({
   toolbar: theme.mixins.toolbar,
@@ -54,6 +56,15 @@ function SignInContent({onNewUser}) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+
+  let history = useHistory();
+  const submitForm = () => {
+    history.push('/profile')
+  }
+  const redirectToSignUp = () => {
+    history.push('signup')
+  }
+
   return (
     <main className={classes.fullWidth}>
       <div className={classes.toolbar} />
@@ -80,8 +91,9 @@ function SignInContent({onNewUser}) {
                   ></Input>
               </Form.Field>
 
-            <Button primary onClick={async() => {
+            <Button primary className={classes.centered} onClick={async() => {
                 const user = {username, password};
+
                 const response = await fetch("/signin", {
                     method: 'POST',
                     headers: {
@@ -91,8 +103,16 @@ function SignInContent({onNewUser}) {
                 });
                 if (response.ok) {
                     console.log('success');
+                    submitForm();
+
+
                 }}}>
                 Sign In
+            </Button>
+            <Button secondary className={classes.centered} onClick={async() => {
+              redirectToSignUp();
+              }}>
+                Don't have an account? Create one here.
             </Button>
         </Form>
     </div>

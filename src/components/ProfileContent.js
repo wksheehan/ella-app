@@ -49,6 +49,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+
+
+
 function ProfileContent() {
   const classes = useStyles();
   const [currentuser, getCurrentUser] = useState([]);
@@ -77,68 +80,7 @@ function ProfileContent() {
         <Typography paragraph>
           Welcome, {currentuser.first_name}. Hope you're enjoying {currentuser.location}! Oops here's your password {currentuser.password}.
         </Typography>
-
-        <form onsubmit="redirect;">
-
-          <label for="email" className={classes.labels}><b>Username: </b></label>
-          <input type="text" className={classes.inputs} placeholder="Enter Username" name="username" required
-              value={username}
-              onChange={e => setUsername(e.target.value)}
-              ></input>
-
-          <label for="psw" className={classes.labels}><b>Password: </b></label>
-          <input type="password" className={classes.inputs} placeholder="Enter Password" name="psw" required
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              ></input>
-
-          <label for="psw-repeat" className={classes.labels}><b>Repeat Password: </b></label>
-          <input type="password" className={classes.inputs} placeholder="Repeat Password" name="psw-repeat" required></input>
-
-          <label for="firstname" className={classes.labels}><b>First Name: </b></label>
-          <input type="text" className={classes.inputs} placeholder="Enter First Name" name="firstname" required
-              value={first_name}
-              onChange={e => setFirstName(e.target.value)}
-              ></input>
-
-          <label for="lastname" className={classes.labels}><b>Last Name: </b></label>
-          <input type="text" className={classes.inputs} placeholder="Enter Last Name" name="lastname" required
-              value={last_name}
-              onChange={e => setLastName(e.target.value)}
-              ></input>
-
-          <label for="email" className={classes.labels}><b>Email: </b></label>
-          <input type="text" className={classes.inputs} placeholder="Enter Email" name="email" required
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              ></input>
-
-          <label for="location" className={classes.labels}><b>Location: </b></label>
-          <input type="text" className={classes.inputs} placeholder="Enter Location" name="location" required
-              value={location}
-              onChange={e => setLocation(e.target.value)}
-              ></input>
-
-          <Button className={classes.centered} onClick={async() => {
-              const user = {username, email, password, first_name, last_name, location};
-              const response = await fetch("/edit_profile", {
-                  method: 'PUT',
-                  headers: { 'Content-type': 'application/json' },
-                  body: JSON.stringify(user)
-              });
-              if (response.ok) {
-                  console.log('success');
-                  setLastName("");
-                  setFirstName("");
-                  setUsername("");
-                  setEmail("");
-                  setPassword("");
-                  setLocation("");
-              }}}>
-              Edit Profile
-          </Button>
-
-        </form>
+      
 
       </div>
     </main>

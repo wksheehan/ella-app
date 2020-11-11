@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { useHistory, withRouter, BrowserRouter } from 'react-router-dom';
 import './FormContent.css';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
-import { Form, Input, Header, Button } from 'semantic-ui-react';
+import { Form, Input, Button, Header } from 'semantic-ui-react';
+import ToggleBox from '../components/ToggleBox'
+
 
 const useStyles = makeStyles(theme => ({
   toolbar: theme.mixins.toolbar,
@@ -49,8 +51,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function SignUpContent() {
+
+
+
+function EditProfile() {
   const classes = useStyles();
+  const [currentuser, getCurrentUser] = useState([]);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -59,26 +65,26 @@ function SignUpContent() {
   const [location, setLocation] = useState("");
   const [error, setError] = useState("");
 
-  let history = useHistory();
-  const submitForm = () => {
-    history.push('/profile')
-  }
-  const redirectToSignIn = () => {
-    history.push('signin')
-  }
+
+  useEffect(() => {
+      fetch("/currentuser").then(response =>
+          response.json().then(data => {
+              getCurrentUser(data);
+      })
+  );
+  }, []);
+  console.log(currentuser);
 
   return (
     <main className={classes.fullWidth}>
       <div className={classes.toolbar} />
-      <img className ={classes.centered} src={process.env.PUBLIC_URL + 'ella.jpeg'}/>
+
       <div className={classes.content}>
-        <Typography paragraph>
-          Sign up for ELLA below!
-        </Typography>
-        <Form>
+
+      <Form>
             <Form.Field>
                 <Input
-                    placeholder="Username"
+                    placeholder={currentuser.username}
                     value={username}
                     onChange={(e,data) => setUsername(data.value)}
                 ></Input>
@@ -86,35 +92,35 @@ function SignUpContent() {
             <Form.Field>
                 <Input
                     type="password"
-                    placeholder="Password"
+                    placeholder={currentuser.password}
                     value={password}
                     onChange={(e,data) => setPassword(data.value)}
                 ></Input>
             </Form.Field>
             <Form.Field>
                 <Input
-                    placeholder="First name"
+                    placeholder={currentuser.first_name}
                     value={first_name}
                     onChange={(e,data) => setFirstName(data.value)}
                 ></Input>
             </Form.Field>
             <Form.Field>
                 <Input
-                    placeholder="Last name"
+                    placeholder={currentuser.last_name}
                     value={last_name}
                     onChange={(e,data) => setLastName(data.value)}
                 ></Input>
             </Form.Field>
             <Form.Field>
                 <Input
-                        placeholder="Email"
+                        placeholder={currentuser.email}
                         value={email}
                         onChange={(e,data) => setEmail(data.value)}
                 ></Input>
             </Form.Field>
             <Form.Field>
                 <Input
-                        placeholder="Location"
+                        placeholder={currentuser.location}
                         value={location}
                         onChange={(e,data) => setLocation(data.value)}
                 ></Input>
@@ -135,7 +141,6 @@ function SignUpContent() {
                     setEmail("");
                     setPassword("");
                     setLocation("");
-                    submitForm();
                 }
                 else {
                     setError("Problem signing up. Please try again");
@@ -143,16 +148,68 @@ function SignUpContent() {
             }}>
                 Sign Up
             </Button>
-            <Button secondary className={classes.centered} onClick={async() => {
-              redirectToSignIn();
-              }}>
-                Already have an account? Sign in here.
-            </Button>
             { {error} && <Header as='h4' color='red'> {error} </Header> }
         </Form>
-    </div>
+
+      </div>
     </main>
   );
 }
 
-export default withRouter(SignUpContent);
+
+
+// class EditProfile extends React.Component {
+//     constructor(props) {
+//       super(props);
+//       this.state = {
+//         isGoing: true,
+//         numberOfGuests: 2
+//       };
+  
+//       this.handleInputChange = this.handleInputChange.bind(this);
+//     }
+  
+//     handleInputChange(event) {
+//       const target = event.target;
+//       const value = target.value;
+//       const name = target.name;
+  
+//       this.setState({
+//         [name]: value
+//       });
+//     }
+
+//     handleSubmit(event) {
+//         alert('A name was submitted: ' + this.state.value);
+//         event.preventDefault();
+//       }
+  
+//     render() {
+        
+//       return (
+//         <form onSubmit={this.handleSubmit}>          
+//           <label>
+//             Username:
+//             <input
+//               name="username"
+//               type="text"
+//               value={this.state.username}
+//               onChange={this.handleInputChange} />
+//           </label>
+//           <br />
+//           <label>
+//             Password:
+//             <input
+//               name="password"
+//               type="text"
+//               value={this.state.password}
+//               onChange={this.handleInputChange} />
+//           </label>
+//           <input type="submit" value="Submit" />
+//         </form>
+//       );
+//     }
+//   }
+export default EditProfile;
+
+

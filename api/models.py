@@ -61,6 +61,12 @@ class Outfit(db.Model):
     top_id = db.Column(db.Integer, db.ForeignKey('clothing.id'))
     bottom_id = db.Column(db.Integer, db.ForeignKey('clothing.id'))
 
+    def __init__(self, name, user_id, clothing_id1, clothing_id2):
+        self.name = name
+        self.clothing_id1 = clothing_id1
+        self.clothing_id2 = clothing_id2
+        self.user_id = user_id
+
 class Matches(db.Model):
     clothing_id1 = db.Column(db.Integer, db.ForeignKey('clothing.id'), primary_key=True)
     clothing_id2 = db.Column(db.Integer, db.ForeignKey('clothing.id'), primary_key=True)
@@ -81,7 +87,7 @@ class UserSchema(ma.Schema):
 
 class OutfitSchema(ma.Schema):
     class Meta:
-        fields = ('name', 'user_id', 'top_id', 'bottom_id', 'last_name', 'location')
+        fields = ('name', 'user_id', 'top_id', 'bottom_id')
 
 class ClothingSchema(ma.Schema):
     class Meta:

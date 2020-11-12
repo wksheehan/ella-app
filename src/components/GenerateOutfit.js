@@ -35,36 +35,18 @@ export const GenerateOutfit = ( {outfit} ) => {
         <div>
             { outfit.name &&
                 <Card.Group centered stackable>
-                        <Card>
+                    {[top, bottom, shoes].map(clothing => (
+                        <Card key={clothing.id}>
                             <Card.Content>
                                 <Image src={process.env.PUBLIC_URL + 'ella.jpeg'}></Image>
-                                <Card.Header> {top.name} </Card.Header>
-                                <Card.Description> {top.type} </Card.Description>
+                                <Card.Header> {clothing.name} </Card.Header>
+                                <Card.Description> {clothing.type} </Card.Description>
                             </Card.Content>
                             <Card.Content extra>
-                                {top.occasion}
+                                {clothing.occasion}
                             </Card.Content>
                         </Card>
-                        <Card>
-                            <Card.Content>
-                                <Image src={process.env.PUBLIC_URL + 'ella.jpeg'}></Image>
-                                <Card.Header> {bottom.name} </Card.Header>
-                                <Card.Description> {bottom.type} </Card.Description>
-                            </Card.Content>
-                            <Card.Content extra>
-                                {bottom.occasion}
-                            </Card.Content>
-                        </Card>
-                        <Card>
-                            <Card.Content>
-                                <Image src={process.env.PUBLIC_URL + 'ella.jpeg'}></Image>
-                                <Card.Header> {shoes.name} </Card.Header>
-                                <Card.Description> {shoes.type} </Card.Description>
-                            </Card.Content>
-                            <Card.Content extra>
-                                {shoes.occasion}
-                            </Card.Content>
-                        </Card>
+                    ))}
                 </Card.Group>
             }
         </div>

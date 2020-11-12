@@ -39,15 +39,15 @@ function MainContent() {
         <Typography paragraph>
         Welcome to Ella App, Your closet simplified. Generate an outfit here.
         </Typography>
-        <GenerateOutfit outfit={outfit} />
-        <Button primary onClick={async() => {
-            fetch("/outfit").then(response =>
-                response.json().then(data => {
-                    getOutfit(data);
-            }))
-            }}>
-        GenerateOutfit
-        </Button>
+            <GenerateOutfit outfit={outfit} />
+            <Button secondary onClick={async() => {
+                fetch("/outfit").then(response =>
+                    response.json().then(data => {
+                        getOutfit(data);
+                }))
+                }}>
+            Generate Outfit
+            </Button>
       </div>
     </main>
   );

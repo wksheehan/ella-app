@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
-import { Users } from '../components/Users';
+import {GenerateOutfit} from '../components/GenerateOutfit';
+import {Button} from 'semantic-ui-react';
 
 const useStyles = makeStyles(theme => ({
   toolbar: theme.mixins.toolbar,
@@ -27,16 +28,7 @@ const useStyles = makeStyles(theme => ({
 
 function MainContent() {
   const classes = useStyles();
-  const [users, getUsers] = useState([]);
-
-  useEffect(() => {
-      fetch("/user").then(response =>
-          response.json().then(data => {
-              getUsers(data);
-      })
-  );
-  }, []);
-  console.log(users);
+  const [outfit, getOutfit] = useState([]);
 
   return (
     <main className={classes.fullWidth}>
@@ -47,7 +39,15 @@ function MainContent() {
         Welcome to Ella App, Your closet simplified. Please upload pictures of your clothing items.
         </Typography>
         <h2>All users:</h2>
-        <Users users={users} />
+        <Button onClick={async() => {
+                fetch("/outfit").then(response =>
+                    response.json().then(data => {
+                        getOutfit(data);
+                }))
+                }}>
+            GenerateOutfit
+        </Button>
+        <GenerateOutfit outfit={outfit} />
       </div>
     </main>
   );

@@ -179,10 +179,18 @@ def add_clothing():
 # GET: Get all clothing for the logged in user
 @app.route('/clothing', methods=['GET'])
 @login_required
-def get_clothing():
+def get_all_clothing():
   all_clothing = Clothing.query.filter_by(user_id = current_user.get_id())
   result = clothings_schema.dump(all_clothing)
   return jsonify(result)
+
+# GET: Get a SINGLE clothing item for the logged in user
+# @app.route('/clothing/<id>', methods=['GET'])
+# @login_required
+# def get_clothing(cid):
+#   item = Clothing.query.filter_by(user_id = current_user.get_id() and id=id)
+#   # result = clothings_schema.dump(all_clothing)
+#   return item
 
 # DELETE: Delete a clothing item
 @app.route('/clothing/<id>', methods=['DELETE'])

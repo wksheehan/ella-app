@@ -49,6 +49,7 @@ class Clothing(db.Model):
     type = db.Column(db.String(100))
 
     def __init__(self, user_id, name, color, occasion, type):
+        # self.id = id
         self.user_id = user_id
         self.name = name
         self.color = color

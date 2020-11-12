@@ -5,6 +5,7 @@ import { Typography } from '@material-ui/core';
 import {Form, Rating, Input, Header, Button, Dropdown } from 'semantic-ui-react';
 import { useHistory, withRouter, BrowserRouter } from 'react-router-dom';
 
+
 var angryEmoji = String.fromCodePoint(0x1F621); 
 var confidentEmoji = String.fromCodePoint(0x1F920); 
 var complimentEmjoi = String.fromCodePoint(0x1F601); 
@@ -125,6 +126,13 @@ const useStyles = makeStyles(theme => ({
       const [occasion, setOccasion] = useState("");
       const [type, setType] = useState("");
       const [error, setError] = useState("");
+
+
+      let history = useHistory();
+
+      const redirectToHome = () => {
+        history.push("/")
+      }
   
       return (
           <main className={classes.fullWidth}>
@@ -160,7 +168,7 @@ const useStyles = makeStyles(theme => ({
                           ></Input>
                       </Form.Field>
                       <Form.Field>
-                        <Rating icon='star' defaultRating={3} maxRating={5}/>
+                        <Rating icon='star' defaultRating={3} maxRating={5} size='huge'/>
                       </Form.Field>
                    
                       <Button primary onClick={async() => {
@@ -185,6 +193,11 @@ const useStyles = makeStyles(theme => ({
                           }
                   }}> Submit </Button>
               { {error} && <Header as='h4' color='red'> {error} </Header> }
+              <Button secondary className={classes.centered} onClick={async() => {
+              redirectToHome();
+              }}>
+                Generate More Outfits 
+            </Button>
               </Form>
           </div>
       </main>

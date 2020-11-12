@@ -135,7 +135,6 @@ def logout():
     return redirect(url_for('index'))
 
 
-
 ########## PROFILE ##########
 
 @app.route('/edit_profile', methods=['PUT'])
@@ -158,6 +157,7 @@ def edit_profile():
     flash('Your changes have been saved.')
 
     return redirect(url_for('edit_profile'))
+
 
 ########## CLOTHING ##########
 
@@ -196,6 +196,7 @@ def delete_clothing(id):
 
     return clothing_schema.jsonify(clothing)
 
+
 ########## MATCHES ##########
 
 # POST: Create a match
@@ -207,6 +208,7 @@ def add_match():
     id2 = request.json['clothing_id2']
 
     new_match = Matches(id1, id2, user_id)
+    update_outfits(new_match)
 
     db.session.add(new_match)
     db.session.commit()
@@ -221,7 +223,71 @@ def get_matches():
   result = matches_schema.dump(all_matches)
   return jsonify(result)
 
+
 ########## OUTFIT ##########
+
+# POST: Update a user's outfits when they create a new match
+@app.route('/outfit', methods=['POST'])
+@login_required
+def update_outfits(match_added):
+    curr_user = get_current_user()
+    matches = get_matches()
+    clothing_article_1 = Clothing.query.get(match_added.clothing_id1)
+    clothing_article_2 = Clothing.query.get(match_added.clothing_id2)
+
+    # Generate outfits with all shoes that match at least one of the clothing articles
+    if (clothing_article_1.type == 'Top' and clothing_article_2 == 'Bottom') or (clothing_article_1.type == 'Bottom' and clothing_article_2.type == 'Top'):
+        shoes = Clothing.query.filter_by(type = 'Shoes')
+        for shoe in shoes:
+            match_count = Matches.query.filter_by(clothing_id1 = shoe.id, clothing_id2 = clothing_article_1.id).count() + \
+                            Matches.query.filter_by(clothing_id1 = clothing_article_1.id, clothing_id2 = shoe.id).count() + \
+                            Matches.query.filter_by(clothing_id1 = shoe.id, clothing_id2 = clothing_article_2.id).count() + \
+                            Matches.query.filter_by(clothing_id1 = clothing_article_2.id, clothing_id2 = shoe.id).count()
+
+            if match_count > 0:
+                if clothing_article_1.type == 'Top':
+                    new_outfit = Outfit(clothing_article_1, clothing_article_2, shoe)
+                else:
+                    new_outfit = Outfit(clothing_article_2, clothing_article_1, shoe)
+
+                db.session.add(new_outfit)
+
+    # Generate outfits with all bottoms that match at least one of the clothing articles
+    elif (clothing_article_1.type == 'Top' and clothing_article_2 == 'Shoes') or (clothing_article_1.type == 'Shoes' and clothing_article_2.type == 'Top'):
+        bottoms = Clothing.query.filter_by(type = 'Bottom')
+        for bottom in bottoms:
+            match_count = Matches.query.filter_by(clothing_id1 = bottom.id, clothing_id2 = clothing_article_1.id).count() + \
+                            Matches.query.filter_by(clothing_id1 = clothing_article_1.id, clothing_id2 = bottom.id).count() + \
+                            Matches.query.filter_by(clothing_id1 = bottom.id, clothing_id2 = clothing_article_2.id).count() + \
+                            Matches.query.filter_by(clothing_id1 = clothing_article_2.id, clothing_id2 = bottom.id).count()
+
+            if match_count > 0:
+                if clothing_article_1.type == 'Top':
+                    new_outfit = Outfit(clothing_article_1, bottom, clothing_article_2)
+                else:
+                    new_outfit = Outfit(clothing_article_2, bottom, clothing_article_1)
+
+                db.session.add(new_outfit)
+
+    # Generate outfits with all tops that match at least one of the clothing articles
+    else:
+        tops = Clothing.query.filter_by(type = 'Top')
+        for top in tops:
+            match_count = Matches.query.filter_by(clothing_id1 = top.id, clothing_id2 = clothing_article_1.id).count() + \
+                            Matches.query.filter_by(clothing_id1 = clothing_article_1.id, clothing_id2 = top.id).count() + \
+                            Matches.query.filter_by(clothing_id1 = top.id, clothing_id2 = clothing_article_2.id).count() + \
+                            Matches.query.filter_by(clothing_id1 = clothing_article_2.id, clothing_id2 = top.id).count()
+
+            if match_count > 0:
+                if clothing_article_1.type == 'Bottom':
+                    new_outfit = Outfit(top, clothing_article_1, clothing_article_2)
+                else:
+                    new_outfit = Outfit(top, clothing_article_2, clothing_article_1)
+
+                db.session.add(new_outfit)
+
+    db.session.commit()
+    return jsonify(new_outfit)
 
 # GET: Get all matches
 @app.route('/outfit', methods=['GET'])

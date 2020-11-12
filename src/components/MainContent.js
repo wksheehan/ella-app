@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import {GenerateOutfit} from '../components/GenerateOutfit';
-import {Button} from 'semantic-ui-react';
+import { Button, Form, Input } from 'semantic-ui-react';
 
 const useStyles = makeStyles(theme => ({
   toolbar: theme.mixins.toolbar,
@@ -13,6 +13,7 @@ const useStyles = makeStyles(theme => ({
     textAlign: "center",
   },
   content: {
+    textAlign: "center",
     flexGrow: 1,
     padding: theme.spacing(3),
   },
@@ -36,18 +37,17 @@ function MainContent() {
       <img className ={classes.centered} src={process.env.PUBLIC_URL + 'ella.jpeg'}/>
       <div className={classes.content}>
         <Typography paragraph>
-        Welcome to Ella App, Your closet simplified. Please upload pictures of your clothing items.
+        Welcome to Ella App, Your closet simplified. Generate an outfit here.
         </Typography>
-        <h2>All users:</h2>
-        <Button onClick={async() => {
-                fetch("/outfit").then(response =>
-                    response.json().then(data => {
-                        getOutfit(data);
-                }))
-                }}>
-            GenerateOutfit
-        </Button>
         <GenerateOutfit outfit={outfit} />
+        <Button primary onClick={async() => {
+            fetch("/outfit").then(response =>
+                response.json().then(data => {
+                    getOutfit(data);
+            }))
+            }}>
+        GenerateOutfit
+        </Button>
       </div>
     </main>
   );

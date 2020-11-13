@@ -56,18 +56,17 @@ class Clothing(db.Model):
         self.type = type
 
 class Outfit(db.Model):
-    name = db.Column(db.String(100), primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     top_id = db.Column(db.Integer, db.ForeignKey('clothing.id'))
     bottom_id = db.Column(db.Integer, db.ForeignKey('clothing.id'))
     shoes_id = db.Column(db.Integer, db.ForeignKey('clothing.id'))
 
-    def __init__(self, name, user_id, top_id, bottom_id, shoes_id):
-        self.name = name
+    def __init__(self, user_id, top_id, bottom_id, shoes_id):
+        self.user_id = user_id
         self.top_id = top_id
         self.bottom_id = bottom_id
         self.shoes_id = shoes_id
-        self.user_id = user_id
 
 class Matches(db.Model):
     clothing_id1 = db.Column(db.Integer, db.ForeignKey('clothing.id'), primary_key=True)
@@ -79,6 +78,17 @@ class Matches(db.Model):
         self.clothing_id2 = clothing_id2
         self.user_id = user_id
 
+class Review(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    outfit_id = db.Column(db.Integer, db.ForeignKey('outfit.id'))
+    text = db.Column(db.String(400))
+
+    def __init__(self, user_id, outfit_id, text, feels):
+        self.user_id = user_id
+        self.outfit_id = outfit_id
+        self.text = text
+
 class Belongs(db.Model):
     clothing_id = db.Column(db.Integer, db.ForeignKey('clothing.id'), primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
@@ -89,7 +99,7 @@ class UserSchema(ma.Schema):
 
 class OutfitSchema(ma.Schema):
     class Meta:
-        fields = ('name', 'user_id', 'top_id', 'bottom_id', 'shoes_id')
+        fields = ('id', 'user_id', 'top_id', 'bottom_id', 'shoes_id')
 
 class ClothingSchema(ma.Schema):
     class Meta:
@@ -98,6 +108,10 @@ class ClothingSchema(ma.Schema):
 class MatchesSchema(ma.Schema):
     class Meta:
         fields = ('clothing_id1', 'clothing_id2', 'user_id')
+
+class ReviewSchema(ma.Schema):
+    class Meta:
+        fields = ('id', 'user_id', 'outfit_id', 'text')
 
 class BelongsSchema(ma.Schema):
     class Meta:

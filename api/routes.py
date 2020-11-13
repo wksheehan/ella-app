@@ -1,8 +1,9 @@
 from flask import Flask, request, jsonify, flash, redirect, url_for
 from api import app, db
-from api.models import User, UserSchema, Clothing, ClothingSchema, Matches, MatchesSchema
+from api.models import User, UserSchema, Clothing, ClothingSchema, Matches, MatchesSchema, Outfit, OutfitSchema
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
+import random
 
 # Init schema
 user_schema = UserSchema()
@@ -11,6 +12,7 @@ match_schema = MatchesSchema();
 users_schema = UserSchema(many=True)
 clothings_schema = ClothingSchema(many=True);
 matches_schema = MatchesSchema(many=True);
+outfits_schema = OutfitSchema(many=True);
 
 @app.route('/')
 def index():
@@ -184,13 +186,12 @@ def get_all_clothing():
   result = clothings_schema.dump(all_clothing)
   return jsonify(result)
 
-# GET: Get a SINGLE clothing item for the logged in user
+# GET: Get a specific clothing
 # @app.route('/clothing/<id>', methods=['GET'])
 # @login_required
-# def get_clothing(cid):
-#   item = Clothing.query.filter_by(user_id = current_user.get_id() and id=id)
-#   # result = clothings_schema.dump(all_clothing)
-#   return item
+# def get_clothing_id(id):
+#   result = Clothing.query.get(id)
+#   return clothing_schema.jsonify(result)
 
 # DELETE: Delete a clothing item
 @app.route('/clothing/<id>', methods=['DELETE'])
@@ -226,6 +227,16 @@ def get_matches():
   all_matches = Matches.query.filter_by(user_id = current_user.get_id())
   result = matches_schema.dump(all_matches)
   return jsonify(result)
+
+########## OUTFIT ##########
+
+# GET: Get all matches
+@app.route('/outfit', methods=['GET'])
+@login_required
+def get_outfit():
+    all_outfits = Outfit.query.filter_by(user_id = current_user.get_id())
+    result = random.choice(outfits_schema.dump(all_outfits))
+    return jsonify(result)
 
 # Run Server
 if __name__ == '__main__':

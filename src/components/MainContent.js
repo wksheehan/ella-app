@@ -40,13 +40,13 @@ function MainContent() {
         Welcome to Ella App, Your closet simplified. Generate an outfit here.
         </Typography>
             <GenerateOutfit outfit={outfit} />
-            <Button secondary onClick={async() => {
+            <Button secondary size="huge" onClick={async() => {
                 fetch("/outfit").then(response =>
                     response.json().then(data => {
                         getOutfit(data);
                 }))
                 }}>
-            Generate Outfit
+            Generate Outfit!
             </Button>
       </div>
     </main>

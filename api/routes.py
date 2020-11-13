@@ -215,6 +215,12 @@ def add_match():
     id1 = request.json['clothing_id1']
     id2 = request.json['clothing_id2']
 
+    clothing_article_1 = Clothing.query.get(id1)
+    clothing_article_2 = Clothing.query.get(id2)
+
+    if (clothing_article_1.type == clothing_article_2.type):
+        return "", "500 invalid match pairing"
+
     new_match = Matches(id1, id2, user_id)
     update_outfits(new_match)
 

@@ -83,11 +83,13 @@ class Review(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     outfit_id = db.Column(db.Integer, db.ForeignKey('outfit.id'))
     text = db.Column(db.String(400))
+    stars = db.Column(db.Integer)
 
-    def __init__(self, user_id, outfit_id, text, feels):
+    def __init__(self, user_id, outfit_id, text, stars):
         self.user_id = user_id
         self.outfit_id = outfit_id
         self.text = text
+        self.stars = stars
 
 class Belongs(db.Model):
     clothing_id = db.Column(db.Integer, db.ForeignKey('clothing.id'), primary_key=True)
@@ -111,7 +113,7 @@ class MatchesSchema(ma.Schema):
 
 class ReviewSchema(ma.Schema):
     class Meta:
-        fields = ('id', 'user_id', 'outfit_id', 'text')
+        fields = ('id', 'user_id', 'outfit_id', 'text', 'stars')
 
 class BelongsSchema(ma.Schema):
     class Meta:

@@ -187,11 +187,11 @@ def get_all_clothing():
   return jsonify(result)
 
 # GET: Get a specific clothing
-# @app.route('/clothing/<id>', methods=['GET'])
-# @login_required
-# def get_clothing_id(id):
-#   result = Clothing.query.get(id)
-#   return clothing_schema.jsonify(result)
+@app.route('/clothing/<id>', methods=['GET'])
+@login_required
+def get_clothing_id(id):
+  result = Clothing.query.get(id)
+  return clothing_schema.jsonify(result)
 
 # DELETE: Delete a clothing item
 @app.route('/clothing/<id>', methods=['DELETE'])

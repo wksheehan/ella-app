@@ -53,11 +53,20 @@ const useStyles = makeStyles(theme => ({
 function MatchesContent({onNewUser}) {
   const classes = useStyles();
   const [matches, getMatches] = useState([]);
+  const [clothes, getClothes] = useState([]);
 
   useEffect(() => {
       fetch("/matches").then(response =>
           response.json().then(data => {
               getMatches(data);
+      })
+  );
+  }, []);
+
+  useEffect(() => {
+      fetch("/clothing").then(response =>
+          response.json().then(data => {
+              getClothes(data);
       })
   );
   }, []);
@@ -68,10 +77,16 @@ function MatchesContent({onNewUser}) {
       <img className ={classes.centered} src={process.env.PUBLIC_URL + 'ella.jpeg'}/>
       <div className={classes.content}>
         <Typography paragraph>
-          Welcome to your matches page.
         </Typography>
-        <MatchCards matches={matches}/>
-        <AddMatch onNewMatch={matches => getMatches(currentMatches => [...currentMatches, matches])}/>
+        <MatchCards
+          matches={matches}
+          clothes={clothes}
+          onDeleteMatch={"hi"}
+        />
+        <AddMatch
+          clothes={clothes}
+          onNewMatch={matches => getMatches(currentMatches => [...currentMatches, matches])}
+        />
     </div>
     </main>
   );

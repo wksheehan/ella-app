@@ -8,13 +8,13 @@ import MenuIcon from '@material-ui/icons/Face';
 import { MenuItem } from '@material-ui/core';
 import { Link } from "react-router-dom";
 
-const drawerWidth = 240;
+
+function findSideMenuWidth(currentuser) {
+  if (!currentuser.id) return 0;
+  return 240;
+}
 
 const useStyles = makeStyles(theme => ({
-  appBar: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-  },
   menuButton: {
     marginRight: theme.spacing(2),
   },
@@ -22,6 +22,7 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
   },
 }));
+
 
 function TopMenu() {
   const classes = useStyles();
@@ -34,9 +35,11 @@ function TopMenu() {
               getCurrentUser(data);
       })
   );
-  }, []);  
+  }, []);
   console.log(currentuser);
 
+  const drawerWidth = findSideMenuWidth(currentuser);
+  
 
   const SignUpLink = () => (
     <MenuItem>
@@ -55,7 +58,7 @@ function TopMenu() {
   )
 
   return (
-    <AppBar position='fixed' className={classes.appBar}>
+    <AppBar position='fixed' style={{left: drawerWidth}}>
       <Toolbar>
         <IconButton
           edge='start'

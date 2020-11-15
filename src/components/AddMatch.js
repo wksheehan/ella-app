@@ -56,11 +56,20 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function AddMatch({onNewMatch}) {
+function AddMatch({clothes, onNewMatch}) {
     const classes = useStyles();
     const [clothing_id1, setId1] = useState("");
     const [clothing_id2, setId2] = useState("");
     const [error, setError] = useState("");
+    const clothingOptions = clothes.map(clothing =>
+      {
+        return(
+          {
+            "key" : clothing.id,
+            "value" : clothing.id,
+            "text" : clothing.name
+          })
+        });
 
     return (
         <main className={classes.fullWidth}>
@@ -69,44 +78,51 @@ function AddMatch({onNewMatch}) {
                 <h2> Make matches below </h2>
                 <Form>
                 <Form.Field>
-                    <Input
-                        width={3}
-                        placeholder="Clothing ID 1 "
-                        value={clothing_id1}
-                        onChange={(e,data) => setId1(data.value)}
-                    ></Input>
+                  <Dropdown
+                    placeholder='Item #1'
+                    fluid
+                    search
+                    selection
+                    onChange={(e,data) => setId1(data.value)}
+                    options={clothingOptions}
+                  />
                 </Form.Field>
                 <Form.Field>
-                    <Input
-                        type="id2"
-                        placeholder="Clothing ID 2 "
-                        value={clothing_id2}
-                        onChange={(e,data) => setId2(data.value)}
-                    ></Input>
+                  <Dropdown
+                    placeholder='Item #2'
+                    fluid
+                    search
+                    selection
+                    onChange={(e,data) => setId2(data.value)}
+                    options={clothingOptions}
+                  />
                 </Form.Field>
 
-                <Button primary onClick={async() => {
-                    console.log("Clicked!");
-                    const match = {clothing_id1, clothing_id2};
-                    console.log(JSON.stringify(match));
-                    const response = await fetch("/matches", {
+                <Button
+                  primary
+                  onClick=
+                  {
+                    async() => {
+                      const match = {clothing_id1, clothing_id2};
+                      const response = await fetch("/matches", {
                         method: 'POST',
                         headers: {
-                            'Content-type': 'application/json'
+                          'Content-type': 'application/json'
                         },
                         body: JSON.stringify(match)
-                    });
-                    if (response.ok) {
+                      });
+                      if (response.ok) {
                         console.log('success');
                         onNewMatch(match);
-                        setId1("");
-                        setId2("");
+                        // setId1("");
+                        // setId2("");
                     }
                     else {
                         setError("Invalid match, please try again!");
                     }
-                  }}> Make Match
-                  </Button>
+                  }
+                }> Make Match
+                </Button>
             { {error} && <Header as='h4' color='red'> {error} </Header> }
             </Form>
         </div>

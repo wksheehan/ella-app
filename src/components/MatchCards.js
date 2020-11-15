@@ -1,21 +1,52 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Card, Button, Container, Image } from 'semantic-ui-react'
 
-export const MatchCards = ( {matches, onDeleteMatch} ) => {
-    console.log(matches);
+export const MatchCards = ( {matches, clothes, onDeleteMatch} ) => {
+
+    const [clothingPairs, setClothingPairs] = useState([]);
+
+    function getClothingInfo(id){
+      for(var i = 0; i < clothes.length; i++)
+      {
+        if(clothes[i].id == id)
+        {
+          return clothes[i];
+        }
+      }
+      return null;
+    }
+
+    const loadClothingPairs = async () => {
+      var loadedPairs = matches.map(match => {
+        const item1 = getClothingInfo(match.clothing_id1);
+        const item2 = getClothingInfo(match.clothing_id2);
+        if(item1 && item2){
+          return {
+            item1: item1,
+            item2: item2,
+          }
+        }
+        return null;
+      }).filter(element => {return element != null});
+      setClothingPairs(loadedPairs);
+    }
+
+    useEffect(() => {loadClothingPairs()}, [clothes, matches]);
+
     return (
-        <Card.Group itemsPerRow={6}>
-        {matches.map(match => {
+          <Card.Group itemsPerRow={6}>
+          {clothingPairs.map(pair => {
             return (
-                <Card key={match.clothing_id1}>
-                    <Card.Content>
-                        <Image src={process.env.PUBLIC_URL + 'ella.jpeg'}></Image>
-                        <Card.Header> {match.clothing_id1} - {match.clothing_id2} </Card.Header>
-                        <Card.Description> {match.clothing_id2} </Card.Description>
-                    </Card.Content>
-                </Card>
+                  <Card key={pair.cid1}>
+                      <Card.Content>
+                          <Image src={process.env.PUBLIC_URL + 'ella.jpeg'}></Image>
+                          <Card.Header> {pair.item1.name} - {pair.item2.name} </Card.Header>
+                          <Card.Description> {pair.item1.type} - {pair.item2.type} </Card.Description>
+                      </Card.Content>
+                  </Card>
             );
-        })}
-    </Card.Group>
-    )
+          })}
+      </Card.Group>
+      )
+
 }

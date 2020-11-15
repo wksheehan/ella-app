@@ -10,10 +10,12 @@ user_schema = UserSchema()
 clothing_schema = ClothingSchema();
 match_schema = MatchesSchema();
 outfit_schema = OutfitSchema();
+review_schema = ReviewSchema();
 users_schema = UserSchema(many=True)
 clothings_schema = ClothingSchema(many=True);
 matches_schema = MatchesSchema(many=True);
 outfits_schema = OutfitSchema(many=True);
+reviews_schema = ReviewSchema(many=True);
 
 @app.route('/')
 def index():
@@ -324,22 +326,28 @@ def get_outfit():
 @login_required
 def add_review():
     user_id = current_user.get_id()
-    outfit_id = request.json['outfit_id']
+    clothing_id = request.json['clothing_id']
+    clothing_name = Clothing.query.get(clothing_id).name
+    impression = request.json['impression']
+    stars = request.json['rating']
     text = request.json['text']
 
-    new_review = Review(user_id, outfit_id, text)
+    if Review.query.filter_by(clothing_id=clothing_id).count() > 0:
+        return "", "500 Review of item already exists"
+
+    new_review = Review(user_id, clothing_id, clothing_name, impression, stars, text)
 
     db.session.add(new_review)
     db.session.commit()
 
-    return clothing_schema.jsonify(new_review)
+    return review_schema.jsonify(new_review)
 
 # GET: Get all reviews for the logged in user
-@app.route('/review', methods=['GET'])
+@app.route('/reviews', methods=['GET'])
 @login_required
 def get_reviews():
   all_reviews = Review.query.filter_by(user_id = current_user.get_id())
-  result = review_schema.dump(all_reviews)
+  result = reviews_schema.dump(all_reviews)
   return jsonify(result)
 
 ########## RUN SERVER ##########

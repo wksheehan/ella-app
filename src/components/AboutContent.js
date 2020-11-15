@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
     margin: 5,
     border: 1,
     float: 'left',
-    width: 180,
+    width: '18%',
   },
   
   picture: {
@@ -64,51 +64,53 @@ function AboutContent() {
           in addition to two honorary mentions!
         </Typography>
         
-        <div className={classes.centered} >
-          <Typography variant='h3' align='left' >
+        <Typography variant='h3' align='left' >
             Founders:
           </Typography>
-          <div className ={classes.gallery}>
-            <a target="_blank" >
-              <img className ={classes.picture} src={process.env.PUBLIC_URL + 'kate.jpg'} width="600" height="400"/>
-            </a>
-            <div className ={classes.desc}>This is Kate Straneva! Hay Kate!</div>
-          </div>
+        <div className={classes.centered}>
+          <div width="100%">
+            <div className ={classes.gallery}>
+              <a target="_blank" >
+                <img className ={classes.picture} src={process.env.PUBLIC_URL + 'kate.jpg'} width="600" height="400"/>
+              </a>
+              <div className ={classes.desc}>This is Kate Straneva! Hay Kate!</div>
+            </div>
 
-          <div className ={classes.gallery}>
-            <a target="_blank">
-              <img className ={classes.picture} src={process.env.PUBLIC_URL + 'dan.jpg'} width="600" height="400"/>
-            </a>
-            <div className ={classes.desc}>This is Dan Berlin! Berlin, Germany!</div>
-          </div>
+            <div className ={classes.gallery}>
+              <a target="_blank">
+                <img className ={classes.picture} src={process.env.PUBLIC_URL + 'dan.jpg'} width="600" height="400"/>
+              </a>
+              <div className ={classes.desc}>This is Dan Berlin! Berlin, Germany!</div>
+            </div>
 
-          <div className ={classes.gallery}>
-            <a target="_blank" >
-              <img className ={classes.picture} src={process.env.PUBLIC_URL + 'will.jpg'} width="600" height="400"/>
-            </a>
-            <div className ={classes.desc}>This is Will Sheehan! Must have been cold!</div>
-          </div>
+            <div className ={classes.gallery}>
+              <a target="_blank" >
+                <img className ={classes.picture} src={process.env.PUBLIC_URL + 'will.jpg'} width="600" height="400"/>
+              </a>
+              <div className ={classes.desc}>This is Will Sheehan! Must have been cold!</div>
+            </div>
 
-          <div className ={classes.gallery}>
-            <a target="_blank" >
-              <img className ={classes.picture} src={process.env.PUBLIC_URL + 'danny.jpg'} width="600" height="400"/>
-            </a>
-            <div className ={classes.desc}>This is Danny Wu! He looks like he lost!</div>
-          </div>
+            <div className ={classes.gallery}>
+              <a target="_blank" >
+                <img className ={classes.picture} src={process.env.PUBLIC_URL + 'danny.jpg'} width="600" height="400"/>
+              </a>
+              <div className ={classes.desc}>This is Danny Wu! He looks like he lost!</div>
+            </div>
 
-          <div className ={classes.gallery} >
-            <a target="_blank">
-              <img className ={classes.picture} src={process.env.PUBLIC_URL + 'brandon.jpg'} width="600" height="400"/>
-            </a>
-            <div className ={classes.desc}>This is Brandon! What a dork!</div>
+            <div className ={classes.gallery} >
+              <a target="_blank">
+                <img className ={classes.picture} src={process.env.PUBLIC_URL + 'brandon.jpg'} width="600" height="400"/>
+              </a>
+              <div className ={classes.desc}>This is Brandon! What a dork!</div>
+            </div>
           </div>
         </div>
         
 
-        <div className={classes.centered} >
-          <Typography variant='h3' align='left'>
+        <Typography variant='h3' align='left'>
             Honorable Mentions:
           </Typography>
+        <div width="100%">
           <div className ={classes.gallery}>
             <a target="_blank" >
               <img className ={classes.picture} src={process.env.PUBLIC_URL + 'jane.jpg'} width="600" height="400"/>

@@ -3,7 +3,7 @@ import './FormContent.css';
 import axios from "axios";
 import { usePosition } from 'use-position';
 import { makeStyles } from '@material-ui/core/styles';
-import { Card, Icon, Image } from 'semantic-ui-react'
+import { Card, Button, Form, Icon, Image } from 'semantic-ui-react'
 
 
 const useStyles = makeStyles(theme => ({
@@ -16,8 +16,8 @@ const useStyles = makeStyles(theme => ({
       marginRight: 'auto',
       width: "30%",
       height: "5%",
-      backgroundColor: "blue",
       paddingTop: "8px",
+      //paddingBottom: "8px",
       fontSize: 30,
       color: "white",
       fontfamily: "Open Sans",
@@ -109,18 +109,18 @@ function WeatherContent() {
 
     }
 
-    getWeather(); 
-
     return (
         <main className={classes.fullWidth}>
         <div className={classes.toolbar} />
         <img className ={classes.centered} src={process.env.PUBLIC_URL + 'ella.jpeg'}/>
-        <div className = {classes.title}> 
-              Weather
-              </div>
+        <div className = {classes.content}> 
+         <Button primary size = "huge" onClick={async() => {
+                       getWeather(); 
+                }}> Get Weather 
+          </Button>
+          </div>
         <div className={classes.content}>  
             City: {city}
-  
         </div>
         <div className={classes.content}>  
             Current Temperature : {temp} °F
@@ -134,10 +134,10 @@ function WeatherContent() {
         <div className={classes.content}>  
          Description : {description}
         </div>
-       
-            <div className = {classes.content}>
-                < img src={"http://openweathermap.org/img/wn/" + iconID + "@2x.png"}/>
-
+  
+          <div className = {classes.content}>
+                < img src={"http://openweathermap.org/img/wn/" + iconID + "@2x.png"}
+                />
         </div>
 
         </main>

@@ -79,6 +79,20 @@ function MainContent() {
     </main>
   )
 
+  const AddtoFavoritesButton = () => (
+    <main className={classes.content}>
+     <GenerateOutfit outfit={outfit} />
+      <Button secondary size="huge" onClick={async() => {
+          fetch("/outfit").then(response =>
+              response.json().then(data => {
+                  getOutfit(data);
+          }))
+          }}>
+        Add to favorites
+      </Button>
+    </main>
+  )
+
   return (
     <main className={classes.fullWidth}>
       <div className={classes.toolbar} />
@@ -89,6 +103,7 @@ function MainContent() {
         </Typography>
         { currentuser.id && <LoggedInMessage />}
         { currentuser.id && <GenerateOutfitButton /> }
+        { currentuser.id && <AddtoFavoritesButton /> }
         { !currentuser.id && <LoggedOutMessage />}
       </div>
     </main>

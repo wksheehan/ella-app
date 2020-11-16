@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import { Form, Input, Header, Button, Dropdown } from 'semantic-ui-react';
-import { Clothes } from '../components/Clothes';
 
 const useStyles = makeStyles(theme => ({
   toolbar: theme.mixins.toolbar,

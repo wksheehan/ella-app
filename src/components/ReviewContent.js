@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
-import { Reviews } from '../components/Reviews';
+import { ReviewCards } from '../components/ReviewCards';
 import AddReview from '../components/AddReview';
 
 
@@ -80,7 +80,7 @@ function ReviewContent({onNewUser}) {
       Welcome to the reviews page.
       </Typography>
       <h2>All reviews:</h2>
-        <Reviews reviews={reviews}/>
+        <ReviewCards reviews={reviews}/>
         <AddReview
           clothes={clothes}
           onNewReview={reviews => getReviews(currentReviews => [...currentReviews, reviews])}

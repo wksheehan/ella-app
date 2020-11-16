@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
-import { Clothes } from '../components/Clothes';
+import { ClothingCards } from '../components/ClothingCards';
 import AddClothing from '../components/AddClothing';
 
 const useStyles = makeStyles(theme => ({
@@ -48,7 +48,7 @@ function ClothingContent() {
         Welcome to the closet page.
         </Typography>
         <h2>All clothing:</h2>
-        <Clothes clothes={clothes} onDeleteClothing={
+        <ClothingCards clothes={clothes} onDeleteClothing={
                 deletedClothing => getClothes(currentClothes => currentClothes.filter(clothing => clothing.id !== deletedClothing.id))
             } />
         <AddClothing onNewClothing = {

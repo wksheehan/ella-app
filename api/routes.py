@@ -358,6 +358,16 @@ def get_reviews():
   result = reviews_schema.dump(all_reviews)
   return jsonify(result)
 
+# DELETE: Delete a review
+@app.route('/review/<id>', methods=['DELETE'])
+def delete_review(id):
+    review = Review.query.get(id)
+
+    db.session.delete(review)
+    db.session.commit()
+
+    return review_schema.jsonify(review)
+
 ########## RUN SERVER ##########
 
 if __name__ == '__main__':

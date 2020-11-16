@@ -11,7 +11,6 @@ export const GenerateOutfit = ( {outfit} ) => {
         const response = await fetch("/clothing/" + outfit.top_id);
         const top = await response.json();
         console.log("top= ", top);
-        console.log("response = ", response);
         getTop(top);
     }
 
@@ -33,7 +32,7 @@ export const GenerateOutfit = ( {outfit} ) => {
 
     return (
         <div>
-            { outfit.name &&
+            { outfit.id &&
                 <Card.Group centered stackable>
                     {[top, bottom, shoes].map(clothing => (
                         <Card key={clothing.id}>

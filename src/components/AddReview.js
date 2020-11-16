@@ -61,7 +61,7 @@ const useStyles = makeStyles(theme => ({
       alignContent: "center",
     },
   }));
-  const impressionOptions = [
+const impressionOptions = [
     {
       key: 'Confidnece',
       text: 'This outfit makes me feel confident ' + confidentEmoji,
@@ -84,8 +84,8 @@ const useStyles = makeStyles(theme => ({
       value: 'green',
 
     },
-  ];
-  const occasionOptions = [
+];
+const occasionOptions = [
     {
       key: 'Athletic',
       text: 'Athletic',
@@ -116,98 +116,99 @@ const useStyles = makeStyles(theme => ({
       text: 'Stylish',
       value: 'Stylish',
     },
-  ];
+];
 
-  function AddReview({clothes, onNewReview}) {
-      const classes = useStyles();
-      const [clothing_id, setClothingId] = useState("");
-      const [impression, setImpression] = useState("");
-      const [rating, setStars] = useState("");
-      const [text, setText] = useState("");
-      const [error, setError] = useState("");
-      const clothingOptions = clothes.map(clothing =>
+function AddReview({clothes, onNewReview}) {
+  const classes = useStyles();
+  const [clothing_id, setClothingId] = useState("");
+  const [impression, setImpression] = useState("");
+  const [rating, setStars] = useState("");
+  const [text, setText] = useState("");
+  const [error, setError] = useState("");
+  const clothingOptions = clothes.map(clothing =>
+    {
+      return(
         {
-          return(
-            {
-              "key" : clothing.id,
-              "value" : clothing.id,
-              "text" : clothing.name
-            })
-        });
+          "key" : clothing.id,
+          "value" : clothing.id,
+          "text" : clothing.name
+        })
+    });
 
-      let history = useHistory();
+  let history = useHistory();
 
-      const redirectToHome = () => {
-        history.push("/")
-      }
-
-      return (
-          <main className={classes.fullWidth}>
-              <div className={classes.toolbar} />
-              <div className={classes.content}>
-                  <h2> Review an outfit </h2>
-                  <Form>
-                      <Form.Field>
-                          <Dropdown
-                              placeholder='Select Clothing Item to Review'
-                              fluid
-                              search
-                              selection
-                              options={clothingOptions}
-                              onChange={(e,data) => setClothingId(data.value)}
-                          />
-                      </Form.Field>
-                      <Form.Field>
-                          <Dropdown
-                              placeholder='Clothing Impression'
-                              fluid
-                              selection
-                              options={impressionOptions}
-                              onChange={(e,data) => setImpression(data.value)}
-                              value={impression}
-                          />
-                      </Form.Field>
-                      <Form.Field>
-                          <Input
-                              placeholder="Write a review of this outfit"
-                              value={text}
-                              onChange={(e,data) => setText(data.value)}
-                          ></Input>
-                      </Form.Field>
-                      <Form.Field>
-                        <Rating icon='star' defaultRating={3} maxRating={5}
-                          value={rating}
-                          onRate={(e, {rating}) => {e.preventDefault(); setStars(rating)}}
-                          size='huge'/>
-                      </Form.Field>
-
-                      <Button primary onClick={async() => {
-                          const review = {clothing_id, impression, rating, text};
-                          const response = await fetch("/review", {
-                              method: 'POST',
-                              headers: {
-                                  'Content-type': 'application/json'
-                              },
-                              body: JSON.stringify(review)
-                          });
-                          if (response.ok) {
-                              console.log('success');
-                              onNewReview(review);
-                          }
-                          else {
-                              setError("Invalid review, please try again!");
-                          }
-                  }}> Submit </Button>
-              { {error} && <Header as='h4' color='red'> {error} </Header> }
-              <Button secondary className={classes.centered} onClick={async() => {
-              redirectToHome();
-              }}>
-                Generate More Outfits
-              </Button>
-              </Form>
-          </div>
-      </main>
-      );
+  const redirectToHome = () => {
+    history.push("/")
   }
+
+  return (
+      <main className={classes.fullWidth}>
+          <div className={classes.toolbar} />
+          <div className={classes.content}>
+              <h2> Review an outfit </h2>
+              <Form>
+                  <Form.Field>
+                      <Dropdown
+                          placeholder='Select Clothing Item to Review'
+                          fluid
+                          search
+                          selection
+                          options={clothingOptions}
+                          onChange={(e,data) => setClothingId(data.value)}
+                      />
+                  </Form.Field>
+                  <Form.Field>
+                      <Dropdown
+                          placeholder='Clothing Impression'
+                          fluid
+                          selection
+                          options={impressionOptions}
+                          onChange={(e,data) => setImpression(data.value)}
+                          value={impression}
+                      />
+                  </Form.Field>
+                  <Form.Field>
+                      <Input
+                          placeholder="Write a review of this outfit"
+                          value={text}
+                          onChange={(e,data) => setText(data.value)}
+                      ></Input>
+                  </Form.Field>
+                  <Form.Field>
+                    <Rating icon='star' defaultRating={3} maxRating={5}
+                      value={rating}
+                      onRate={(e, {rating}) => {e.preventDefault(); setStars(rating)}}
+                      size='huge'/>
+                  </Form.Field>
+
+                  <Button primary onClick={async() => {
+                      const review = {clothing_id, impression, rating, text};
+                      const response = await fetch("/review", {
+                          method: 'POST',
+                          headers: {
+                              'Content-type': 'application/json'
+                          },
+                          body: JSON.stringify(review)
+                      });
+                      if (response.ok) {
+                          console.log('success');
+                          onNewReview(review);
+                          setError("");
+                      }
+                      else {
+                          setError("Invalid review, please try again!");
+                      }
+              }}> Submit </Button>
+          { {error} && <Header as='h4' color='red'> {error} </Header> }
+          <Button secondary className={classes.centered} onClick={async() => {
+          redirectToHome();
+          }}>
+            Generate More Outfits
+          </Button>
+          </Form>
+      </div>
+  </main>
+  );
+}
 
   export default AddReview;

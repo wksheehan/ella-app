@@ -241,14 +241,16 @@ def get_matches():
 
 # DELETE: Delete a match
 @app.route('/matches/<id1>/<id2>', methods=['DELETE'])
-def delete_clothing(id1, id2):
-    match = Matches.query.filter_by(user_id = current_user.get_id()).get(id1, id2)
+def delete_match(id1, id2):
+    match = Matches.query.get({
+        "clothing_id1": id1,
+        "clothing_id2": id2
+    })
 
     db.session.delete(match)
     db.session.commit()
 
     return match_schema.jsonify(match)
-
 
 ########## OUTFIT ##########
 

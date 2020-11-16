@@ -32,7 +32,7 @@ export const MatchCards = ( {matches, clothes, onDeleteMatch} ) => {
       setClothingPairs(loadedPairs);
     }
 
-    useEffect(() => {loadClothingPairs()}, [clothes, matches]);
+    useEffect(() => {loadClothingPairs()}, [matches, clothes]);
 
     return (
           <Card.Group itemsPerRow={6}>
@@ -52,7 +52,8 @@ export const MatchCards = ( {matches, clothes, onDeleteMatch} ) => {
                             color='red'
                             onClick = {
                               async() => {
-                                const response = await fetch("/matches/" + pair.item1.id + "/" + pair.item2.id, {
+                                const url = "/matches/" + pair.match.clothing_id1 + "/" + pair.match.clothing_id2;
+                                const response = await fetch(url, {
                                   method: 'DELETE',
                                   headers: {
                                     'Content-type': 'application/json'
@@ -60,7 +61,7 @@ export const MatchCards = ( {matches, clothes, onDeleteMatch} ) => {
                                   body: JSON.stringify(pair.match)
                                 });
                                 if (response.ok) {
-                                  console.log('match deleted successfully');
+                                  console.log('Match deleted successfully.');
                                   onDeleteMatch(pair.match);
                                 }
                               }}>

@@ -81,7 +81,11 @@ function MatchesContent({onNewUser}) {
         <MatchCards
           matches={matches}
           clothes={clothes}
-          onDeleteMatch={"hi"}
+          onDeleteMatch={
+            deletedMatch =>
+            getMatches(currentMatches => currentMatches.filter(match =>
+              match !== deletedMatch))
+            }
         />
         <AddMatch
           clothes={clothes}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Button, Container, Image } from 'semantic-ui-react'
 
-export const Reviews = ( {reviews} ) => {
+export const ReviewCards = ( {reviews} ) => {
     return (
         <Card.Group itemsPerRow={6}>
         {reviews.map(review => {

@@ -40,8 +40,8 @@ const LoggedInMessage = () => (
 const LoggedOutMessage = () => (
   <main>
     <Typography paragraph>
-      If this is your first time to our website, thank you for coming! Please create a profile by clicking the 
-      Sign Up button above. Once you've signed up, all you have to do is upload some of your clothing items, tell 
+      If this is your first time to our website, thank you for coming! Please create a profile by clicking the
+      Sign Up button above. Once you've signed up, all you have to do is upload some of your clothing items, tell
       us which of them go together, and then you can come back here and we'll generate outfit suggestions for you!
     </Typography>
     <Typography paragraph>
@@ -59,7 +59,8 @@ function MainContent() {
   const [outfit, getOutfit] = useState([]);
 
 
-  
+
+
   useEffect(() => {
       fetch("/currentuser").then(response =>
           response.json().then(data => {

@@ -66,9 +66,9 @@ def get_current_user():
     return user_schema.jsonify(user)
 
 # PUT: Update a user
-@app.route('/user/<id>', methods=['PUT'])
-def update_user(id):
-    user = User.query.get(id)
+@app.route('/user', methods=['PUT'])
+def update_user():
+    user = User.query.get(current_user.get_id())
 
     username = request.json['username']
     email = request.json['email']
@@ -77,7 +77,8 @@ def update_user(id):
     last_name = request.json['last_name']
     location = request.json['location']
 
-    user = User(username=username, email=email)
+    user.username = username
+    user.email = email
     user.set_password(password)
     user.first_name = first_name
     user.last_name = last_name

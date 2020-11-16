@@ -136,11 +136,8 @@ function WeatherContent() {
         </div>
        
             <div className = {classes.content}>
-                < img src={"http://openweathermap.org/img/wn/" + iconID + "@2x.png"}
-                />
-    
-            
-      
+                < img src={"http://openweathermap.org/img/wn/" + iconID + "@2x.png"}/>
+
         </div>
 
         </main>

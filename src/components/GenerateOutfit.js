@@ -30,6 +30,7 @@ export const GenerateOutfit = ( {outfit} ) => {
     useEffect(() => { fetchBottom(); }, [outfit]);
     useEffect(() => { fetchShoes(); }, [outfit]);
 
+
     return (
         <div>
             { outfit.id &&

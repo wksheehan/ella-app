@@ -51,14 +51,10 @@ const LoggedOutMessage = () => (
   </main>
 )
 
-
-
 function MainContent() {
   const classes = useStyles();
   const [currentuser, getCurrentUser] = useState([]);
   const [outfit, getOutfit] = useState([]);
-
-
 
   useEffect(() => {
       fetch("/currentuser").then(response =>

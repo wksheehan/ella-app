@@ -83,6 +83,7 @@ function AddMatch({clothes, onNewMatch}) {
                     fluid
                     search
                     selection
+                    value={clothing_id1}
                     onChange={(e,data) => setId1(data.value)}
                     options={clothingOptions}
                   />
@@ -93,6 +94,7 @@ function AddMatch({clothes, onNewMatch}) {
                     fluid
                     search
                     selection
+                    value={clothing_id2}
                     onChange={(e,data) => setId2(data.value)}
                     options={clothingOptions}
                   />
@@ -114,8 +116,9 @@ function AddMatch({clothes, onNewMatch}) {
                       if (response.ok) {
                         console.log('success');
                         onNewMatch(match);
-                        // setId1("");
-                        // setId2("");
+                        setId1("");
+                        setId2("");
+                        setError("")
                     }
                     else {
                         setError("Invalid match, please try again!");

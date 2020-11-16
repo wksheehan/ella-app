@@ -222,6 +222,7 @@ function AddClothing({onNewClothing}) {
                             setColor("");
                             setOccasion("");
                             setType("");
+                            setError("");
                         }
                         else {
                             setError("Invalid clothing, please try again!");

@@ -200,7 +200,14 @@ def get_clothing_id(id):
 @app.route('/clothing/<id>', methods=['DELETE'])
 def delete_clothing(id):
     clothing = Clothing.query.get(id)
-
+    # delete all outfits
+    Outfit.query.filter_by(top_id = clothing.id).delete()
+    Outfit.query.filter_by(bottom_id = clothing.id).delete()
+    Outfit.query.filter_by(shoes_id = clothing.id).delete()
+    # delete all matches
+    Matches.query.filter_by(clothing_id1 = clothing.id).delete()
+    Matches.query.filter_by(clothing_id2 = clothing.id).delete()
+    # delete the clothing item
     db.session.delete(clothing)
     db.session.commit()
 

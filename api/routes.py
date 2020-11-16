@@ -203,10 +203,20 @@ def get_clothing_id(id):
 @app.route('/clothing/<id>', methods=['DELETE'])
 def delete_clothing(id):
     clothing = Clothing.query.get(id)
+    outfits_with_top = Outfit.query.filter_by(top_id = clothing.id)
+    outfits_with_bottom = Outfit.query.filter_by(bottom_id = clothing.id)
+    outfits_with_shoes = Outfit.query.filter_by(shoes_id = clothing.id)
+    # delete all favorites
+    for outfit in outfits_with_top:
+        Favorite.query.filter_by(outfit_id = outfit.id).delete()
+    for outfit in outfits_with_bottom:
+        Favorite.query.filter_by(outfit_id = outfit.id).delete()
+    for outfit in outfits_with_shoes:
+        Favorite.query.filter_by(outfit_id = outfit.id).delete()
     # delete all outfits
-    Outfit.query.filter_by(top_id = clothing.id).delete()
-    Outfit.query.filter_by(bottom_id = clothing.id).delete()
-    Outfit.query.filter_by(shoes_id = clothing.id).delete()
+    outfits_with_top.delete()
+    outfits_with_bottom.delete()
+    outfits_with_shoes.delete()
     # delete all matches
     Matches.query.filter_by(clothing_id1 = clothing.id).delete()
     Matches.query.filter_by(clothing_id2 = clothing.id).delete()
@@ -252,6 +262,8 @@ def get_matches():
 # DELETE: Delete a match
 @app.route('/matches/<id1>/<id2>', methods=['DELETE'])
 def delete_match(id1, id2):
+
+    # delete the match
     match = Matches.query.get({
         "clothing_id1": id1,
         "clothing_id2": id2

@@ -127,8 +127,8 @@ function EditProfile() {
             </Form.Field>
             <Button primary className={classes.centered} onClick={async() => {
                 const user = {username, email, password, first_name, last_name, location};
-                const response = await fetch("/signup", {
-                    method: 'POST',
+                const response = await fetch("/user", {
+                    method: 'PUT',
                     headers: { 'Content-type': 'application/json' },
                     body: JSON.stringify(user)
                 });
@@ -146,7 +146,7 @@ function EditProfile() {
                     setError("Problem signing up. Please try again");
                 }
             }}>
-                Sign Up
+                Edit Profile
             </Button>
             { {error} && <Header as='h4' color='red'> {error} </Header> }
         </Form>

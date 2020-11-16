@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Button, Container, Image } from 'semantic-ui-react'
 
-export const Clothes = ( {clothes, onDeleteClothing} ) => {
+export const ClothingCards = ( {clothes, onDeleteClothing} ) => {
     return (
         <Card.Group itemsPerRow={6}>
         {clothes.map(clothing => {

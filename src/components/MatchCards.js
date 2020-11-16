@@ -22,6 +22,7 @@ export const MatchCards = ( {matches, clothes, onDeleteMatch} ) => {
         const item2 = getClothingInfo(match.clothing_id2);
         if(item1 && item2){
           return {
+            match: match,
             item1: item1,
             item2: item2,
           }
@@ -42,6 +43,28 @@ export const MatchCards = ( {matches, clothes, onDeleteMatch} ) => {
                           <Image src={process.env.PUBLIC_URL + 'ella.jpeg'}></Image>
                           <Card.Header> {pair.item1.name} - {pair.item2.name} </Card.Header>
                           <Card.Description> {pair.item1.type} - {pair.item2.type} </Card.Description>
+                      </Card.Content>
+                      <Card.Content extra>
+                          {pair.item1.occasion}
+                          <Button
+                            floated='right'
+                            basic
+                            color='red'
+                            onClick = {
+                              async() => {
+                                const response = await fetch("/matches/" + pair.item1.id + "/" + pair.item2.id, {
+                                  method: 'DELETE',
+                                  headers: {
+                                    'Content-type': 'application/json'
+                                  },
+                                  body: JSON.stringify(pair.match)
+                                });
+                                if (response.ok) {
+                                  console.log('match deleted successfully');
+                                  onDeleteMatch(pair.match);
+                                }
+                              }}>
+                          Delete </Button>
                       </Card.Content>
                   </Card>
             );

@@ -60,6 +60,7 @@ function MainContent() {
 
 
 
+
   useEffect(() => {
       fetch("/currentuser").then(response =>
           response.json().then(data => {

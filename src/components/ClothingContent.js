@@ -45,7 +45,7 @@ function ClothingContent() {
       <img className ={classes.centered} src={process.env.PUBLIC_URL + 'ella.jpeg'}/>
       <div className={classes.content}>
         <Typography paragraph>
-        Welcome to the clothing page.
+        Welcome to the closet page.
         </Typography>
         <h2>All clothing:</h2>
         <Clothes clothes={clothes} onDeleteClothing={

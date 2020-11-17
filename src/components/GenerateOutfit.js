@@ -7,11 +7,9 @@ export const GenerateOutfit = ( {outfit} ) => {
     const [bottom, getBottom] = useState([]);
     const [shoes, getShoes] = useState([]);
 
-    console.log("OUTFIT BUTTHOLE = ", outfit)
     const fetchTop = async () => {
         const response = await fetch("/clothing/" + outfit.top_id);
         const top = await response.json();
-        console.log("top= ", top);
         getTop(top);
     }
 

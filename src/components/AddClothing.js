@@ -92,12 +92,6 @@ const colorOptions = [
     label: {color: 'black', empty: true, circular: true}
   },
   {
-    key: 'White',
-    text: 'White',
-    value: 'white',
-    label: {color: 'white', empty: true, circular: true}
-  },
-  {
     key: 'Grey',
     text: 'Grey',
     value: 'grey',

@@ -76,9 +76,10 @@ python3 -m venv venv
 source venv/bin/activate
 
 ==> you should now see (venv) at the begginning of the command line prompt
-
+```bash
 pip install flask python-dotenv
-
+pip install alembic Flask-Login flask-marshmallow Flask-Migrate Flask-SQLAlchemy marshmallow marshmallow-sqlalchemy psycopg2-binary SQLAlchemy
+```
 cd ..
 
 yarn start

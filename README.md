@@ -69,16 +69,16 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 
 ## Steps to get yarn start working
 
+```bash
 cd api
-
 python3 -m venv venv
-
 source venv/bin/activate
+```
 
 ==> you should now see (venv) at the begginning of the command line prompt
 ```bash
-pip install flask python-dotenv
-pip install alembic Flask-Login flask-marshmallow Flask-Migrate Flask-SQLAlchemy marshmallow marshmallow-sqlalchemy psycopg2-binary SQLAlchemy
+(venv) pip install flask python-dotenv
+(venv) pip install alembic Flask-Login flask-marshmallow Flask-Migrate Flask-SQLAlchemy marshmallow marshmallow-sqlalchemy psycopg2-binary SQLAlchemy
 ```
 cd ..
 

@@ -1,10 +1,14 @@
 import React, {useState, useEffect} from 'react';
-import { Card, Button, Segment, Header, Rating, Image } from 'semantic-ui-react'
+import { Card, Button, Modal, Form, Segment, Header, Rating, Image } from 'semantic-ui-react'
 import {GenerateOutfit} from '../components/GenerateOutfit';
 
 export const FavoriteCards = ( {favorites, outfits} ) => {
 
     const [favoriteOutfits, getFavoriteOutfits] = useState([]);
+    const [rating, setRating] = useState([]);
+    const [name, setName] = useState("");
+    const [description, setDescription] = useState("");
+    const [open, setOpen] = useState(false)
 
     // get an outfit object using id from favorites
     function getOutfitFromFavorite(id) {
@@ -28,8 +32,23 @@ export const FavoriteCards = ( {favorites, outfits} ) => {
         getFavoriteOutfits(favOutfits);
     }
 
-  useEffect(() => { loadOutfitParts() }, [favorites, outfits])
+    useEffect(() => { loadOutfitParts() }, [favorites, outfits])
 
+    function handleChangeOnRate(e, {rating}, outfit) {
+        e.preventDefault();
+        setRating(rating);
+        const outfit_id = outfit.favorite.outfit_id
+        const name = outfit.favorite.name
+        const description = outfit.favorite.description
+        const updated_favorite = {outfit_id, name, description, rating};
+        const response = fetch("/favorite", {
+            method: 'PUT',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(updated_favorite)
+        });
+    }
 
     return (
         <div>
@@ -37,9 +56,54 @@ export const FavoriteCards = ( {favorites, outfits} ) => {
             {favoriteOutfits.map((outfit, index) => {
                 return (
                     <div>
-                        <Segment inverted color='blue' size='big'> {outfit.favorite.name}</Segment>
-                        <Rating icon='star' size='huge' maxRating={5} defaultRating={outfit.favorite.rating}></Rating>
-                        <Segment secondary inverted> {outfit.favorite.description}</Segment>
+                        <Segment color='blue' inverted> {outfit.favorite.name} </Segment>
+                        <Rating
+                            icon='star'
+                            size='huge'
+                            defaultRating={outfit.favorite.rating}
+                            maxRating={5}
+                            value={rating}
+                            onRate={(e, {rating}) => handleChangeOnRate(e, {rating}, outfit)}>
+                        </Rating>
+                        <Modal
+                          onClose={() => setOpen(false)}
+                          onOpen={() => setOpen(true)}
+                          open={open}
+                          trigger={<Button>Edit this outfit</Button>}
+                        >
+                          <Modal.Header>Edit this outfit</Modal.Header>
+                          <Modal.Content>
+                              <Form>
+                                  <Form.Input
+                                          placeholder={outfit.favorite.name}
+                                          value={name}
+                                          onChange={(e,{name,value}) => setName(value)}>
+                                  </Form.Input>
+                                  <Form.Input
+                                          placeholder={outfit.favorite.description}
+                                          value={description}
+                                          onChange={(e,{name, value}) => setDescription(value)}>
+                                  </Form.Input>
+                                  <Form.Button type="button" onClick={() => {
+                                          const outfit_id = outfit.favorite.outfit_id
+                                          const rating = outfit.favorite.rating
+                                          const updated_favorite = {outfit_id, name, description, rating}
+                                          console.log(updated_favorite)
+                                          const response = fetch("/favorite", {
+                                              method: 'PUT',
+                                              headers: {
+                                                  'Content-type': 'application/json'
+                                              },
+                                              body: JSON.stringify(updated_favorite)
+                                          });
+                                          setOpen(false);
+                                      }}>
+                                      Update
+                                  </Form.Button>
+                                  </Form>
+                          </Modal.Content>
+                        </Modal>
+                        <Segment secondary inverted> {outfit.favorite.description} </Segment>
                         <GenerateOutfit outfit={outfit.outfit} />
                         <Header></Header>
                     </div>

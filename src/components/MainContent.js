@@ -124,7 +124,7 @@ function MainContent() {
                                 defaultRating={3}
                                 maxRating={5}
                                 value={rating}
-                                onRate={(e, {rating}) => setRating(rating)}
+                                onRate={(e,{name, value}) => setRating(value)}
                                 size='huge'
                             />
                         </Form.Field>

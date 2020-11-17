@@ -79,6 +79,10 @@ function MatchesContent({onNewUser}) {
       <Typography paragraph>
       Welcome to the matches page.
       </Typography>
+          <AddMatch
+            clothes={clothes}
+            onNewMatch={matches => getMatches(currentMatches => [...currentMatches, matches])}
+          />
         <MatchCards
           matches={matches}
           clothes={clothes}
@@ -87,10 +91,6 @@ function MatchesContent({onNewUser}) {
             getMatches(currentMatches => currentMatches.filter(match =>
               match !== deletedMatch))
             }
-        />
-        <AddMatch
-          clothes={clothes}
-          onNewMatch={matches => getMatches(currentMatches => [...currentMatches, matches])}
         />
     </div>
     </main>

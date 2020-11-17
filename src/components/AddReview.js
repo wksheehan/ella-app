@@ -145,7 +145,7 @@ function AddReview({clothes, onNewReview}) {
       <main className={classes.fullWidth}>
           <div className={classes.toolbar} />
           <div className={classes.content}>
-              <h2> Review an outfit </h2>
+              <h2> Review a clothing item </h2>
               <Form>
                   <Form.Field>
                       <Dropdown
@@ -169,7 +169,7 @@ function AddReview({clothes, onNewReview}) {
                   </Form.Field>
                   <Form.Field>
                       <Input
-                          placeholder="Write a review of this outfit"
+                          placeholder="Write a review of this clothing item"
                           value={text}
                           onChange={(e,data) => setText(data.value)}
                       ></Input>

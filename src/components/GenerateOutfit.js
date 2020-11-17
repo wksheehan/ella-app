@@ -36,7 +36,7 @@ export const GenerateOutfit = ( {outfit} ) => {
                 <Card.Group centered stackable>
                     {[top, bottom, shoes].map(clothing => {
                         if(clothing.type == 'Top') var pic = 'top.png'
-                        else if(clothing.type == 'Bottom') var pic = 'pants.png'
+                        else if(clothing.type == 'Bottom') var pic = 'bottom.png'
                         else var pic = 'shoes.png'
                         return (
                             <Card key={clothing.id}>

@@ -6,7 +6,7 @@ export const ClothingCards = ( {clothes, onDeleteClothing} ) => {
         <Card.Group itemsPerRow={6}>
         {clothes.map(clothing => {
             if(clothing.type == 'Top') var pic = 'top.png'
-            else if(clothing.type == 'Bottom') var pic = 'pants.png'
+            else if(clothing.type == 'Bottom') var pic = 'bottom.png'
             else var pic = 'shoes.png'
             return (
                 <Card key={clothing.id} color={clothing.color}>

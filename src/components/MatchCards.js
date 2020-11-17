@@ -40,15 +40,17 @@ export const MatchCards = ( {matches, clothes, onDeleteMatch} ) => {
             return (
                   <Card key={pair.cid1}>
                       <Card.Content>
-                      <div>
-                          <Image src={process.env.PUBLIC_URL + 'ella.jpeg'} floated='left'></Image>
-                          <Image src={process.env.PUBLIC_URL + 'ella.jpeg'} floated='right'></Image>
-                      </div>
-                          <Card.Header> {pair.item1.name} - {pair.item2.name} </Card.Header>
-                          <Card.Description> {pair.item1.type} - {pair.item2.type} </Card.Description>
+                          <img class="ui avatar image" src={process.env.PUBLIC_URL + pair.item1.type + '.png'}/>
+                          <Card.Header> {pair.item1.name}</Card.Header>
+                          <Card.Description> {pair.item1.occasion} - {pair.item1.type}</Card.Description>
+                      </Card.Content>
+                      <Card.Content>
+                          <img class="ui avatar image" src={process.env.PUBLIC_URL + pair.item2.type + '.png'}/>
+                          <Card.Header>{pair.item2.name} </Card.Header>
+                          <Card.Description>{pair.item2.occasion} - {pair.item2.type} </Card.Description>
                       </Card.Content>
                       <Card.Content extra>
-                          {pair.item1.occasion}
+
                           <Button
                             floated='right'
                             basic

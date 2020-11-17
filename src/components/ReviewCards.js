@@ -1,14 +1,26 @@
 import React from 'react';
 import { Card, Button, Container, Image } from 'semantic-ui-react'
 
-export const ReviewCards = ( {reviews, onDeleteReview} ) => {
+export const ReviewCards = ( {reviews, clothes, onDeleteReview} ) => {
+
+  function getClothingInfo(id){
+    for(var i = 0; i < clothes.length; i++)
+    {
+      if(clothes[i].id == id)
+      {
+        return clothes[i];
+      }
+    }
+    return null;
+  }
     return (
         <Card.Group itemsPerRow={6}>
         {reviews.map(review => {
+          const item = getClothingInfo(review.clothing_id)
             return (
                 <Card key={review.id} color={review.impression}>
                     <Card.Content>
-                        <Image src={process.env.PUBLIC_URL + 'ella.jpeg'}></Image>
+                        <Image src={process.env.PUBLIC_URL + item.type + '.png'}></Image>
                         <Card.Header> {review.clothing_name} </Card.Header>
                         <Card.Description> {review.text} </Card.Description>
                     </Card.Content>

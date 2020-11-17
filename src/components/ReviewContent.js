@@ -61,7 +61,7 @@ function ReviewContent({onNewUser}) {
               getReviews(data);
       })
   );
-  }, []);
+}, [reviews]);
 
   useEffect(() => {
       fetch("/clothing").then(response =>
@@ -80,7 +80,7 @@ function ReviewContent({onNewUser}) {
       Welcome to the reviews page.
       </Typography>
       <h2>All reviews:</h2>
-        <ReviewCards reviews={reviews} onDeleteReview={
+        <ReviewCards reviews={reviews} clothes={clothes} onDeleteReview={
                 deletedReviews => getReviews(currentReviews => currentReviews.filter(review => review.id !== deletedReviews.id))
             }/>
         <AddReview

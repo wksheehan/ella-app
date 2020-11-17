@@ -141,30 +141,6 @@ def logout():
     return redirect(url_for('index'))
 
 
-########## PROFILE ##########
-
-@app.route('/edit_profile', methods=['PUT'])
-@login_required
-def edit_profile():
-    username = request.json['username']
-    email = request.json['email']
-    password = request.json['password']
-    first_name = request.json['first_name']
-    last_name = request.json['last_name']
-    location = request.json['location']
-
-    user = User(username=username, email=email)
-    user.set_password(password)
-    user.first_name = first_name
-    user.last_name = last_name
-    user.location = location
-
-    db.session.commit()
-    flash('Your changes have been saved.')
-
-    return redirect(url_for('edit_profile'))
-
-
 ########## CLOTHING ##########
 
 # POST: Create a clothing item
@@ -480,6 +456,27 @@ def add_favorite():
     db.session.commit()
 
     return favorite_schema.jsonify(new_favorite)
+
+# PUT: Update a favorited outfit
+@app.route('/favorite', methods=['PUT'])
+@login_required
+def update_favorite():
+    user_id = current_user.get_id()
+    outfit_id = request.json['outfit_id']
+    name = request.json['name']
+    description = request.json['description']
+    rating = request.json['rating']
+
+    favorite = Favorite.query.get(outfit_id)
+    favorite.user_id = user_id
+    favorite.outfit_id = outfit_id
+    favorite.name = name
+    favorite.description = description
+    favorite.rating = rating
+
+    db.session.commit()
+
+    return favorite_schema.jsonify(favorite)
 
 # DELETE: Delete a favorite
 @app.route('/favorite/<outfit_id>', methods=['DELETE'])

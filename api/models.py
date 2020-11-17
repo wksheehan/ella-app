@@ -123,7 +123,7 @@ class OutfitSchema(ma.Schema):
 
 class FavoriteSchema(ma.Schema):
     class Meta:
-        fields = ('user_id', 'outfit_id', 'name', 'description', 'rating')
+        fields = ('outfit_id', 'user_id', 'name', 'description', 'rating')
 
 class ClothingSchema(ma.Schema):
     class Meta:

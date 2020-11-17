@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, flash, redirect, url_for
 from api import app, db
-from api.models import User, UserSchema, Clothing, ClothingSchema, Matches, MatchesSchema, Outfit, OutfitSchema, Review, ReviewSchema
+from api.models import User, UserSchema, Clothing, ClothingSchema, Matches, MatchesSchema, Outfit, Favorite, FavoriteSchema, OutfitSchema, Review, ReviewSchema
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 import random
@@ -11,11 +11,13 @@ clothing_schema = ClothingSchema();
 match_schema = MatchesSchema();
 outfit_schema = OutfitSchema();
 review_schema = ReviewSchema();
+favorite_schema = FavoriteSchema();
 users_schema = UserSchema(many=True)
 clothings_schema = ClothingSchema(many=True);
 matches_schema = MatchesSchema(many=True);
 outfits_schema = OutfitSchema(many=True);
 reviews_schema = ReviewSchema(many=True);
+favorites_schema = FavoriteSchema(many=True);
 
 @app.route('/')
 def index():
@@ -201,10 +203,22 @@ def get_clothing_id(id):
 @app.route('/clothing/<id>', methods=['DELETE'])
 def delete_clothing(id):
     clothing = Clothing.query.get(id)
+    outfits_with_top = Outfit.query.filter_by(top_id = clothing.id)
+    outfits_with_bottom = Outfit.query.filter_by(bottom_id = clothing.id)
+    outfits_with_shoes = Outfit.query.filter_by(shoes_id = clothing.id)
+    # delete all favorites
+    for outfit in outfits_with_top:
+        Favorite.query.filter_by(outfit_id = outfit.id).delete()
+    for outfit in outfits_with_bottom:
+        Favorite.query.filter_by(outfit_id = outfit.id).delete()
+    for outfit in outfits_with_shoes:
+        Favorite.query.filter_by(outfit_id = outfit.id).delete()
+    # delete all reviews
+    Review.query.filter_by(clothing_id = clothing.id).delete()
     # delete all outfits
-    Outfit.query.filter_by(top_id = clothing.id).delete()
-    Outfit.query.filter_by(bottom_id = clothing.id).delete()
-    Outfit.query.filter_by(shoes_id = clothing.id).delete()
+    outfits_with_top.delete()
+    outfits_with_bottom.delete()
+    outfits_with_shoes.delete()
     # delete all matches
     Matches.query.filter_by(clothing_id1 = clothing.id).delete()
     Matches.query.filter_by(clothing_id2 = clothing.id).delete()
@@ -250,6 +264,8 @@ def get_matches():
 # DELETE: Delete a match
 @app.route('/matches/<id1>/<id2>', methods=['DELETE'])
 def delete_match(id1, id2):
+
+    # delete the match
     match = Matches.query.get({
         "clothing_id1": id1,
         "clothing_id2": id2
@@ -331,13 +347,54 @@ def update_outfits(match_added):
                         db.session.add(new_outfit)
                         db.session.commit()
 
-# GET: Get all matches
+# GET: Get one outfit
 @app.route('/outfit', methods=['GET'])
 @login_required
 def get_outfit():
     all_outfits = Outfit.query.filter_by(user_id = current_user.get_id())
     result = random.choice(outfits_schema.dump(all_outfits))
     return jsonify(result)
+
+# GET: Get all outfits
+@app.route('/outfits', methods=['GET'])
+@login_required
+def get_outfits():
+    all_outfits = Outfit.query.filter_by(user_id = current_user.get_id())
+    result = outfits_schema.dump(all_outfits)
+    return jsonify(result)
+
+# GET: Get one specific outfit by id
+@app.route('/outfit/<id>', methods=['GET'])
+@login_required
+def get_outfit_id(id):
+    outfit = Outfit.query.filter_by(id = id)
+    return outfit_schema.jsonify(result)
+
+########## FAVORITES ##########
+
+# GET: Get all favorited items for current user
+@app.route('/favorite', methods=['GET'])
+@login_required
+def get_favorites():
+    all_favorites = Favorite.query.filter_by(user_id = current_user.get_id())
+    result = favorites_schema.dump(all_favorites)
+    return jsonify(result)
+
+# POST: Add an outfit to favorited table
+@app.route('/favorite', methods=['POST'])
+@login_required
+def add_favorite():
+    user_id = current_user.get_id()
+    outfit_id = request.json['outfit_id']
+    description = request.json['description']
+    rating = request.json['rating']
+
+    new_favorite = Favorite(outfit_id, user_id, description, rating)
+
+    db.session.add(new_favorite)
+    db.session.commit()
+
+    return favorite_schema.jsonify(new_favorite)
 
 ########## REVIEW ##########
 

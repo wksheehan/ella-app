@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './FormContent.css';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
+import { FavoriteCards } from '../components/FavoriteCards';
 import { Form, Input, Button } from 'semantic-ui-react';
 
 
@@ -49,12 +50,28 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-
-
-
 function ProfileContent() {
   const classes = useStyles();
   const [currentuser, getCurrentUser] = useState([]);
+  const [favorites, getFavorites] = useState([]);
+  const [outfits, setOutfits] = useState([]);
+
+  useEffect(() => {
+      fetch("/favorite").then(response =>
+          response.json().then(data => {
+              getFavorites(data);
+      })
+  );
+  }, []);
+
+  // get all outfits for the current user
+  useEffect(() => {
+    fetch("/outfits").then(response =>
+        response.json().then(data => {
+            setOutfits(data);
+        })
+      );
+  }, []);
 
   useEffect(() => {
       fetch("/currentuser").then(response =>
@@ -75,7 +92,6 @@ function ProfileContent() {
   }, []);
 
   const numOfClothes = clothes.length;
-  console.log(currentuser);
 
   return (
     <main className={classes.fullWidth}>
@@ -84,13 +100,14 @@ function ProfileContent() {
       <img className ={classes.centered} src={process.env.PUBLIC_URL + 'ella.jpeg'}/>
       <div className={classes.content}>
         <Typography paragraph>
-          Welcome, {currentuser.first_name}. Hope you're enjoying {currentuser.location}! Oops here's your password {currentuser.password}.
+          Welcome, {currentuser.first_name}. Hope you're enjoying {currentuser.location}!
         </Typography>
         <Typography paragraph>
           So far, you have uploaded {numOfClothes} different clothing item(s). Make sure to update your matches
           so that we can generate your favorite outfits!
         </Typography>
-
+        <FavoriteCards favorites={favorites} outfits={outfits}>
+        </FavoriteCards>
 
       </div>
     </main>

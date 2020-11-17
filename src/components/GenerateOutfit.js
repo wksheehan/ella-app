@@ -7,6 +7,7 @@ export const GenerateOutfit = ( {outfit} ) => {
     const [bottom, getBottom] = useState([]);
     const [shoes, getShoes] = useState([]);
 
+    console.log("OUTFIT BUTTHOLE = ", outfit)
     const fetchTop = async () => {
         const response = await fetch("/clothing/" + outfit.top_id);
         const top = await response.json();
@@ -35,18 +36,23 @@ export const GenerateOutfit = ( {outfit} ) => {
         <div>
             { outfit.id &&
                 <Card.Group centered stackable>
-                    {[top, bottom, shoes].map(clothing => (
-                        <Card key={clothing.id}>
-                            <Card.Content>
-                                <Image src={process.env.PUBLIC_URL + 'ella.jpeg'}></Image>
-                                <Card.Header> {clothing.name} </Card.Header>
-                                <Card.Description> {clothing.type} </Card.Description>
-                            </Card.Content>
-                            <Card.Content extra>
-                                {clothing.occasion}
-                            </Card.Content>
-                        </Card>
-                    ))}
+                    {[top, bottom, shoes].map(clothing => {
+                        if(clothing.type == 'Top') var pic = 'top.png'
+                        else if(clothing.type == 'Bottom') var pic = 'pants.png'
+                        else var pic = 'shoes.png'
+                        return (
+                            <Card key={clothing.id}>
+                                <Card.Content>
+                                    <Image src={process.env.PUBLIC_URL + pic}></Image>
+                                    <Card.Header> {clothing.name} </Card.Header>
+                                    <Card.Description> {clothing.type} </Card.Description>
+                                </Card.Content>
+                                <Card.Content extra>
+                                    {clothing.occasion}
+                                </Card.Content>
+                            </Card>
+                        )
+                    })}
                 </Card.Group>
             }
         </div>

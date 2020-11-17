@@ -386,10 +386,11 @@ def get_favorites():
 def add_favorite():
     user_id = current_user.get_id()
     outfit_id = request.json['outfit_id']
+    name = request.json['name']
     description = request.json['description']
     rating = request.json['rating']
 
-    new_favorite = Favorite(outfit_id, user_id, description, rating)
+    new_favorite = Favorite(outfit_id, user_id, name, description, rating)
 
     db.session.add(new_favorite)
     db.session.commit()

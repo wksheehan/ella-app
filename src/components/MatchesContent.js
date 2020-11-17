@@ -76,12 +76,9 @@ function MatchesContent({onNewUser}) {
       <div className={classes.toolbar} />
       <img className ={classes.centered} src={process.env.PUBLIC_URL + 'ella.jpeg'}/>
       <div className={classes.content}>
-        <Typography paragraph>
-        </Typography>
-        <AddMatch
-          clothes={clothes}
-          onNewMatch={matches => getMatches(currentMatches => [...currentMatches, matches])}
-        />
+      <Typography paragraph>
+      Welcome to the matches page.
+      </Typography>
         <MatchCards
           matches={matches}
           clothes={clothes}
@@ -90,6 +87,10 @@ function MatchesContent({onNewUser}) {
             getMatches(currentMatches => currentMatches.filter(match =>
               match !== deletedMatch))
             }
+        />
+        <AddMatch
+          clothes={clothes}
+          onNewMatch={matches => getMatches(currentMatches => [...currentMatches, matches])}
         />
     </div>
     </main>

@@ -29,12 +29,12 @@ const useStyles = makeStyles(theme => ({
     float: 'left',
     width: '18%',
   },
-  
+
   picture: {
     width: '100%',
     height: 'auto',
   },
-  
+
   desc: {
     padding: 10,
     paddingTop: 0,
@@ -58,12 +58,12 @@ function AboutContent() {
           groundbreaking and revolutionary website which is disrupting a trillion-dollar industry.
         </Typography>
         <Typography paragraph>
-          Ella was founded in September 2020 by a group of five students from Duke University. While their primary 
+          Ella was founded in September 2020 by a group of five students from Duke University. While their primary
           impetus for creating this website was to change the world, they were also concerned about getting an exemplary
           grade in their Computer Science 316 class, Introduction to Databases. Here is a look at the five founders,
           in addition to two honorary mentions!
         </Typography>
-        
+
         <Typography variant='h3' align='left' >
             Founders:
           </Typography>
@@ -105,7 +105,7 @@ function AboutContent() {
             </div>
           </div>
         </div>
-        
+
 
         <Typography variant='h3' align='left'>
             Honorable Mentions:
@@ -115,7 +115,7 @@ function AboutContent() {
             <a target="_blank" >
               <img className ={classes.picture} src={process.env.PUBLIC_URL + 'jane.jpg'} width="600" height="400"/>
             </a>
-            <div className ={classes.desc}>This is our TA, Jane Li! Jane is the goat! Thanks, Jain!</div>
+            <div className ={classes.desc}>This is our TA, Jane Li! Jane is the goat! Thanks, Jane!</div>
           </div>
 
           <div className ={classes.gallery}>
@@ -126,9 +126,9 @@ function AboutContent() {
           </div>
         </div>
 
-        
-        
-        
+
+
+
       </div>
     </main>
   );

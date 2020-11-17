@@ -11,12 +11,13 @@ export const ReviewCards = ( {reviews, clothes, onDeleteReview} ) => {
         return clothes[i];
       }
     }
-    return null;
+    return {type: "top"};
   }
     return (
         <Card.Group itemsPerRow={6}>
         {reviews.map(review => {
           const item = getClothingInfo(review.clothing_id)
+
             return (
                 <Card key={review.id} color={review.impression}>
                     <Card.Content>

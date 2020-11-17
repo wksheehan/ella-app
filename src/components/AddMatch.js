@@ -49,6 +49,7 @@ function AddMatch({clothes, onNewMatch}) {
     const [clothing_id1, setId1] = useState("");
     const [clothing_id2, setId2] = useState("");
     const [error, setError] = useState("");
+    const [confirmation, setConfirmation] = useState([]);
     const clothingOptions = clothes.map(clothing =>
       {
         return(
@@ -61,7 +62,6 @@ function AddMatch({clothes, onNewMatch}) {
 
     return (
         <main className={classes.fullWidth}>
-            <div className={classes.toolbar} />
             <div className={classes.content}>
                 <h2> Make matches below </h2>
                 <Form>
@@ -93,6 +93,8 @@ function AddMatch({clothes, onNewMatch}) {
                   onClick=
                   {
                     async() => {
+                      setError("")
+                      setConfirmation("")
                       const match = {clothing_id1, clothing_id2};
                       const response = await fetch("/matches", {
                         method: 'POST',
@@ -106,7 +108,7 @@ function AddMatch({clothes, onNewMatch}) {
                         onNewMatch(match);
                         setId1("");
                         setId2("");
-                        setError("")
+                        setConfirmation("Match added successfully!")
                     }
                     else {
                         setError("Invalid match, please try again!");
@@ -114,6 +116,7 @@ function AddMatch({clothes, onNewMatch}) {
                   }
                 }> Make Match
                 </Button>
+            { {confirmation} && <Header as='h4' color='green'> {confirmation} </Header> }
             { {error} && <Header as='h4' color='red'> {error} </Header> }
             </Form>
         </div>

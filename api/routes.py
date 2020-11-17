@@ -271,6 +271,79 @@ def delete_match(id1, id2):
         "clothing_id2": id2
     })
 
+    if Outfit.query.filter_by(top_id=id1, bottom_id=id2).count() > 0:
+        outfits = Outfit.query.filter_by(top_id=id1, bottom_id=id2)
+        for outfit in outfits:
+            favorite = Favorite.query.filter_by(outfit_id=outfit.id)
+            if Matches.query.filter_by(clothing_id1=id1, clothing_id2=outfit.shoes_id).count() \
+            + Matches.query.filter_by(clothing_id1=id2, clothing_id2=outfit.shoes_id).count() \
+            + Matches.query.filter_by(clothing_id1=outfit.shoes_id, clothing_id2=id1).count() \
+            + Matches.query.filter_by(clothing_id1=outfit.shoes_id, clothing_id2=id2).count() == 0:
+                if favorite.count() > 0:
+                    delete_favorite(outfit.id)
+                delete_outfit(outfit.id)
+
+
+    if Outfit.query.filter_by(top_id=id2, bottom_id=id1).count() > 0:
+        outfits = Outfit.query.filter_by(top_id=id2, bottom_id=id1)
+        for outfit in outfits:
+            favorite = Favorite.query.filter_by(outfit_id=outfit.id)
+            if Matches.query.filter_by(clothing_id1=id1, clothing_id2=outfit.shoes_id).count() \
+            + Matches.query.filter_by(clothing_id1=id2, clothing_id2=outfit.shoes_id).count() \
+            + Matches.query.filter_by(clothing_id1=outfit.shoes_id, clothing_id2=id1).count() \
+            + Matches.query.filter_by(clothing_id1=outfit.shoes_id, clothing_id2=id2).count() == 0:
+                if favorite.count() > 0:
+                    delete_favorite(outfit.id)
+                delete_outfit(outfit.id)
+
+    if Outfit.query.filter_by(bottom_id=id1, shoes_id=id2).count() > 0:
+        outfits = Outfit.query.filter_by(bottom_id=id1, shoes_id=id2)
+        for outfit in outfits:
+            favorite = Favorite.query.filter_by(outfit_id=outfit.id)
+            if Matches.query.filter_by(clothing_id1=id1, clothing_id2=outfit.top_id).count() \
+            + Matches.query.filter_by(clothing_id1=id2, clothing_id2=outfit.top_id).count() \
+            + Matches.query.filter_by(clothing_id1=outfit.top_id, clothing_id2=id1).count() \
+            + Matches.query.filter_by(clothing_id1=outfit.top_id, clothing_id2=id2).count() == 0:
+                if favorite.count() > 0:
+                    delete_favorite(outfit.id)
+                delete_outfit(outfit.id)
+
+    if Outfit.query.filter_by(bottom_id=id2, shoes_id=id1).count() > 0:
+        outfits = Outfit.query.filter_by(bottom_id=id2, shoes_id=id1)
+        for outfit in outfits:
+            favorite = Favorite.query.filter_by(outfit_id=outfit.id)
+            if Matches.query.filter_by(clothing_id1=id1, clothing_id2=outfit.top_id).count() \
+            + Matches.query.filter_by(clothing_id1=id2, clothing_id2=outfit.top_id).count() \
+            + Matches.query.filter_by(clothing_id1=outfit.top_id, clothing_id2=id1).count() \
+            + Matches.query.filter_by(clothing_id1=outfit.top_id, clothing_id2=id2).count() == 0:
+                if favorite.count() > 0:
+                    delete_favorite(outfit.id)
+                delete_outfit(outfit.id)
+
+    if Outfit.query.filter_by(top_id=id1, shoes_id=id2).count() > 0:
+        outfits = Outfit.query.filter_by(top_id=id1, shoes_id=id2)
+        for outfit in outfits:
+            favorite = Favorite.query.filter_by(outfit_id=outfit.id)
+            if Matches.query.filter_by(clothing_id1=id1, clothing_id2=outfit.bottom_id).count() \
+            + Matches.query.filter_by(clothing_id1=id2, clothing_id2=outfit.bottom_id).count() \
+            + Matches.query.filter_by(clothing_id1=outfit.bottom_id, clothing_id2=id1).count() \
+            + Matches.query.filter_by(clothing_id1=outfit.bottom_id, clothing_id2=id2).count() == 0:
+                if favorite.count() > 0:
+                    delete_favorite(outfit.id)
+                delete_outfit(outfit.id)
+
+    if Outfit.query.filter_by(top_id=id2, shoes_id=id1).count() > 0:
+        outfits = Outfit.query.filter_by(top_id=id2, shoes_id=id1)
+        for outfit in outfits:
+            favorite = Favorite.query.filter_by(outfit_id=outfit.id)
+            if Matches.query.filter_by(clothing_id1=id1, clothing_id2=outfit.bottom_id).count() \
+            + Matches.query.filter_by(clothing_id1=id2, clothing_id2=outfit.bottom_id).count() \
+            + Matches.query.filter_by(clothing_id1=outfit.bottom_id, clothing_id2=id1).count() \
+            + Matches.query.filter_by(clothing_id1=outfit.bottom_id, clothing_id2=id2).count() == 0:
+                if favorite.count() > 0:
+                    delete_favorite(outfit.id)
+                delete_outfit(outfit.id)
+
     db.session.delete(match)
     db.session.commit()
 
@@ -370,6 +443,17 @@ def get_outfit_id(id):
     outfit = Outfit.query.filter_by(id = id)
     return outfit_schema.jsonify(result)
 
+# DELETE: Delete one specific outfit by id
+@app.route('/outfit/<id>', methods=['DELETE'])
+@login_required
+def delete_outfit(id):
+    outfit = Outfit.query.get(id)
+
+    db.session.delete(outfit)
+    db.session.commit()
+
+    return outfit_schema.jsonify(outfit)
+
 ########## FAVORITES ##########
 
 # GET: Get all favorited items for current user
@@ -396,6 +480,17 @@ def add_favorite():
     db.session.commit()
 
     return favorite_schema.jsonify(new_favorite)
+
+# DELETE: Delete a favorite
+@app.route('/favorite/<outfit_id>', methods=['DELETE'])
+@login_required
+def delete_favorite(outfit_id):
+    favorite = Favorite.query.get(outfit_id)
+
+    db.session.delete(favorite)
+    db.session.commit()
+
+    return favorite_schema.jsonify(favorite)
 
 ########## REVIEW ##########
 

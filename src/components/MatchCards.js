@@ -42,7 +42,7 @@ export const MatchCards = ( {matches, clothes, onDeleteMatch} ) => {
                       <Card.Content>
                           <img class="ui avatar image" src={process.env.PUBLIC_URL + pair.item1.type + '.png'}/>
                           <Card.Header> {pair.item1.name}</Card.Header>
-                          <Card.Description> {pair.item1.occasion} - {pair.item1.type}</Card.Description>
+                          <Card.Description>{pair.item1.occasion} - {pair.item1.type}</Card.Description>
                       </Card.Content>
                       <Card.Content>
                           <img class="ui avatar image" src={process.env.PUBLIC_URL + pair.item2.type + '.png'}/>

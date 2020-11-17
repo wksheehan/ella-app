@@ -35,12 +35,15 @@ export const MatchCards = ( {matches, clothes, onDeleteMatch} ) => {
     useEffect(() => {loadClothingPairs()}, [matches, clothes]);
 
     return (
-          <Card.Group itemsPerRow={6}>
+          <Card.Group itemsPerRow={3}>
           {clothingPairs.map(pair => {
             return (
                   <Card key={pair.cid1}>
                       <Card.Content>
-                          <Image src={process.env.PUBLIC_URL + 'ella.jpeg'}></Image>
+                      <div>
+                          <Image src={process.env.PUBLIC_URL + 'ella.jpeg'} floated='left'></Image>
+                          <Image src={process.env.PUBLIC_URL + 'ella.jpeg'} floated='right'></Image>
+                      </div>
                           <Card.Header> {pair.item1.name} - {pair.item2.name} </Card.Header>
                           <Card.Description> {pair.item1.type} - {pair.item2.type} </Card.Description>
                       </Card.Content>

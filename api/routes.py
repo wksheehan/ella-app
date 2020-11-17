@@ -213,6 +213,8 @@ def delete_clothing(id):
         Favorite.query.filter_by(outfit_id = outfit.id).delete()
     for outfit in outfits_with_shoes:
         Favorite.query.filter_by(outfit_id = outfit.id).delete()
+    # delete all reviews
+    Review.query.filter_by(clothing_id = clothing.id).delete()
     # delete all outfits
     outfits_with_top.delete()
     outfits_with_bottom.delete()
@@ -345,13 +347,28 @@ def update_outfits(match_added):
                         db.session.add(new_outfit)
                         db.session.commit()
 
-# GET: Get all matches
+# GET: Get one outfit
 @app.route('/outfit', methods=['GET'])
 @login_required
 def get_outfit():
     all_outfits = Outfit.query.filter_by(user_id = current_user.get_id())
     result = random.choice(outfits_schema.dump(all_outfits))
     return jsonify(result)
+
+# GET: Get all outfits
+@app.route('/outfits', methods=['GET'])
+@login_required
+def get_outfits():
+    all_outfits = Outfit.query.filter_by(user_id = current_user.get_id())
+    result = outfits_schema.dump(all_outfits)
+    return jsonify(result)
+
+# GET: Get one specific outfit by id
+@app.route('/outfit/<id>', methods=['GET'])
+@login_required
+def get_outfit_id(id):
+    outfit = Outfit.query.filter_by(id = id)
+    return outfit_schema.jsonify(result)
 
 ########## FAVORITES ##########
 

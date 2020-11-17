@@ -1,7 +1,7 @@
 from api import app, db
 from api.models import User, Clothing, Outfit, Matches, Belongs, UserSchema, \
                        ClothingSchema, OutfitSchema, MatchesSchema, BelongsSchema, \
-                       Favorite, FavoriteSchema
+                       Favorite, FavoriteSchema, Review, ReviewSchema
 
 @app.shell_context_processor
 def make_shell_context():

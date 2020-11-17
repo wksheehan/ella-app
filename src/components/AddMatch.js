@@ -37,22 +37,10 @@ const useStyles = makeStyles(theme => ({
     marginBottom: 10,
     display: 'block',
   },
-  cancelbtn:{
-    fontSize: 20,
-    marginLeft: 300,
-    marginRight: 20,
-
-  },
-  signupbtn:{
-    fontSize: 20,
-    marginLeft: 50,
-    //marginRight: 20,
-
-  },
   image: {
     paddingTop: "0px",
     paddingLeft: "295px",
-    alignContent: "center",
+    alignContent: "left",
   },
 }));
 

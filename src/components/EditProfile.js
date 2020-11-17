@@ -56,13 +56,13 @@ const useStyles = makeStyles(theme => ({
 
 function EditProfile() {
   const classes = useStyles();
-  const [currentuser, getCurrentUser] = useState([]);
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [first_name, setFirstName] = useState("");
-  const [last_name, setLastName] = useState("");
-  const [location, setLocation] = useState("");
+  let [currentuser, getCurrentUser] = useState([]);
+  let [username, setUsername] = useState("");
+  let [email, setEmail] = useState("");
+  let [password, setPassword] = useState("");
+  let [first_name, setFirstName] = useState("");
+  let [last_name, setLastName] = useState("");
+  let [location, setLocation] = useState("");
   const [error, setError] = useState("");
 
 
@@ -126,7 +126,16 @@ function EditProfile() {
                 ></Input>
             </Form.Field>
             <Button primary className={classes.centered} onClick={async() => {
-                const user = {username, email, password, first_name, last_name, location};
+              
+              if (username == "") username = currentuser.username;
+              if (password == "") password = currentuser.password;
+              if (email == "") email = currentuser.email;
+              if (first_name == "") first_name = currentuser.first_name;
+              if (last_name == "") last_name = currentuser.last_name;
+              if (location == "") location = currentuser.location;
+              
+
+                const user = {username, email, password, first_name, last_name, location };
                 const response = await fetch("/user", {
                     method: 'PUT',
                     headers: { 'Content-type': 'application/json' },

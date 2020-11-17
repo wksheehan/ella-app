@@ -88,8 +88,9 @@ function MainContent() {
               setError("")
               const outfit_id = outfit.id
               const user_id = currentuser.id
+              const name = "You can name this outfit here"
               const description = "You can describe this outfit here"
-              const new_favorite = {outfit_id, user_id, description, rating}
+              const new_favorite = {outfit_id, user_id, name, description, rating}
               const response = await fetch("/favorite", {
                   method: 'POST',
                   headers: {

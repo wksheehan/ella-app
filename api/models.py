@@ -71,12 +71,14 @@ class Outfit(db.Model):
 class Favorite(db.Model):
     outfit_id = db.Column(db.Integer, db.ForeignKey('outfit.id'), primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    name = db.Column(db.String(100))
     description = db.Column(db.String(400))
     rating = db.Column(db.Integer)
 
-    def __init__(self, outfit_id, user_id, description, rating):
+    def __init__(self, outfit_id, user_id, name, description, rating):
         self.outfit_id = outfit_id
         self.user_id = user_id
+        self.name = name
         self.description = description
         self.rating = rating
 
@@ -121,7 +123,7 @@ class OutfitSchema(ma.Schema):
 
 class FavoriteSchema(ma.Schema):
     class Meta:
-        fields = ('user_id', 'outfit_id', 'description', 'rating')
+        fields = ('user_id', 'outfit_id', 'name', 'description', 'rating')
 
 class ClothingSchema(ma.Schema):
     class Meta:

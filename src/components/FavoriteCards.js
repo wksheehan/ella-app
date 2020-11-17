@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Card, Button, Header, Rating, Image } from 'semantic-ui-react'
+import { Card, Button, Segment, Header, Rating, Image } from 'semantic-ui-react'
 import {GenerateOutfit} from '../components/GenerateOutfit';
 
 export const FavoriteCards = ( {favorites, outfits} ) => {
@@ -33,11 +33,13 @@ export const FavoriteCards = ( {favorites, outfits} ) => {
 
     return (
         <div>
-            <Header as='h1'> Your Favorite Outfits: </Header>
+            <Segment inverted><Header as='h1'> Your Favorite Outfits: </Header></Segment>
             {favoriteOutfits.map((outfit, index) => {
                 return (
                     <div>
+                        <Segment inverted color='blue' size='big'> {outfit.favorite.name}</Segment>
                         <Rating icon='star' size='huge' maxRating={5} defaultRating={outfit.favorite.rating}></Rating>
+                        <Segment secondary inverted> {outfit.favorite.description}</Segment>
                         <GenerateOutfit outfit={outfit.outfit} />
                         <Header></Header>
                     </div>

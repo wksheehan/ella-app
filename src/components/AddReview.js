@@ -122,7 +122,7 @@ function AddReview({clothes, onNewReview}) {
   const classes = useStyles();
   const [clothing_id, setClothingId] = useState("");
   const [impression, setImpression] = useState("");
-  const [rating, setStars] = useState("");
+  const [rating, setStars] = useState(3);
   const [text, setText] = useState("");
   const [error, setError] = useState("");
   const clothingOptions = clothes.map(clothing =>
@@ -153,6 +153,7 @@ function AddReview({clothes, onNewReview}) {
                           fluid
                           search
                           selection
+                          value={clothing_id}
                           options={clothingOptions}
                           onChange={(e,data) => setClothingId(data.value)}
                       />
@@ -194,6 +195,10 @@ function AddReview({clothes, onNewReview}) {
                           console.log('success');
                           onNewReview(review);
                           setError("");
+                          setStars(3);
+                          setClothingId("");
+                          setText("");
+                          setImpression("");
                       }
                       else {
                           setError("Invalid review, please try again!");

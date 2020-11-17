@@ -52,11 +52,11 @@ export const FavoriteCards = ( {favorites, outfits} ) => {
 
     return (
         <div>
-            <Segment inverted><Header as='h1'> Your Favorite Outfits: </Header></Segment>
+            <Segment padded><Header as='h1'> Your Favorite Outfits: </Header></Segment>
             {favoriteOutfits.map((outfit, index) => {
                 return (
                     <div>
-                        <Segment color='blue' inverted> {outfit.favorite.name} </Segment>
+                        <Header as='h2'> {outfit.favorite.name} </Header>
                         <Rating
                             icon='star'
                             size='huge'
@@ -103,7 +103,7 @@ export const FavoriteCards = ( {favorites, outfits} ) => {
                                   </Form>
                           </Modal.Content>
                         </Modal>
-                        <Segment secondary inverted> {outfit.favorite.description} </Segment>
+                        <Segment secondary> {outfit.favorite.description} </Segment>
                         <GenerateOutfit outfit={outfit.outfit} />
                         <Header></Header>
                     </div>

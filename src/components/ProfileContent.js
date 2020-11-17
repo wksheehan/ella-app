@@ -4,7 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import { FavoriteCards } from '../components/FavoriteCards';
 import { Form, Input, Button } from 'semantic-ui-react';
-
+import ToggleBox from '../components/ToggleBox'
+import EditProfile from '../components/EditProfile'
 
 const useStyles = makeStyles(theme => ({
   toolbar: theme.mixins.toolbar,
@@ -106,6 +107,7 @@ function ProfileContent() {
           So far, you have uploaded {numOfClothes} different clothing item(s). Make sure to update your matches
           so that we can generate your favorite outfits!
         </Typography>
+        <EditProfile onUpdateUser={user => getCurrentUser(user)}/>
         <FavoriteCards favorites={favorites} outfits={outfits}>
         </FavoriteCards>
 

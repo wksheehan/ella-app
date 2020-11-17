@@ -3,7 +3,7 @@ import { useHistory, withRouter, BrowserRouter } from 'react-router-dom';
 import './FormContent.css';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
-import { Form, Input, Button, Header } from 'semantic-ui-react';
+import { Form, Modal, Input, Button, Header } from 'semantic-ui-react';
 import ToggleBox from '../components/ToggleBox'
 
 
@@ -54,7 +54,7 @@ const useStyles = makeStyles(theme => ({
 
 
 
-function EditProfile() {
+function EditProfile({onUpdateUser}) {
   const classes = useStyles();
   let [currentuser, getCurrentUser] = useState([]);
   let [username, setUsername] = useState("");
@@ -64,6 +64,7 @@ function EditProfile() {
   let [last_name, setLastName] = useState("");
   let [location, setLocation] = useState("");
   const [error, setError] = useState("");
+  const [open, setOpen] = useState(false);
 
 
   useEffect(() => {
@@ -77,90 +78,98 @@ function EditProfile() {
 
   return (
     <main className={classes.fullWidth}>
-      <div className={classes.toolbar} />
-
       <div className={classes.content}>
+        <Modal
+            onClose={() => setOpen(false)}
+            onOpen={() => setOpen(true)}
+            open={open}
+            trigger={<Button>Edit Profile</Button>}
+        >
+        <Modal.Header>Edit Profile</Modal.Header>
+            <Modal.Content>
+                <Form>
+                      <Form.Field>
+                          <Input
+                              placeholder={currentuser.username}
+                              value={username}
+                              onChange={(e,data) => setUsername(data.value)}
+                          ></Input>
+                      </Form.Field>
+                      <Form.Field>
+                          <Input
+                              type="password"
+                              placeholder={currentuser.password}
+                              value={password}
+                              onChange={(e,data) => setPassword(data.value)}
+                          ></Input>
+                      </Form.Field>
+                      <Form.Field>
+                          <Input
+                              placeholder={currentuser.first_name}
+                              value={first_name}
+                              onChange={(e,data) => setFirstName(data.value)}
+                          ></Input>
+                      </Form.Field>
+                      <Form.Field>
+                          <Input
+                              placeholder={currentuser.last_name}
+                              value={last_name}
+                              onChange={(e,data) => setLastName(data.value)}
+                          ></Input>
+                      </Form.Field>
+                      <Form.Field>
+                          <Input
+                                  placeholder={currentuser.email}
+                                  value={email}
+                                  onChange={(e,data) => setEmail(data.value)}
+                          ></Input>
+                      </Form.Field>
+                      <Form.Field>
+                          <Input
+                                  placeholder={currentuser.location}
+                                  value={location}
+                                  onChange={(e,data) => setLocation(data.value)}
+                          ></Input>
+                      </Form.Field>
+                      <Button primary className={classes.centered} onClick={async() => {
 
-      <Form>
-            <Form.Field>
-                <Input
-                    placeholder={currentuser.username}
-                    value={username}
-                    onChange={(e,data) => setUsername(data.value)}
-                ></Input>
-            </Form.Field>
-            <Form.Field>
-                <Input
-                    type="password"
-                    placeholder={currentuser.password}
-                    value={password}
-                    onChange={(e,data) => setPassword(data.value)}
-                ></Input>
-            </Form.Field>
-            <Form.Field>
-                <Input
-                    placeholder={currentuser.first_name}
-                    value={first_name}
-                    onChange={(e,data) => setFirstName(data.value)}
-                ></Input>
-            </Form.Field>
-            <Form.Field>
-                <Input
-                    placeholder={currentuser.last_name}
-                    value={last_name}
-                    onChange={(e,data) => setLastName(data.value)}
-                ></Input>
-            </Form.Field>
-            <Form.Field>
-                <Input
-                        placeholder={currentuser.email}
-                        value={email}
-                        onChange={(e,data) => setEmail(data.value)}
-                ></Input>
-            </Form.Field>
-            <Form.Field>
-                <Input
-                        placeholder={currentuser.location}
-                        value={location}
-                        onChange={(e,data) => setLocation(data.value)}
-                ></Input>
-            </Form.Field>
-            <Button primary className={classes.centered} onClick={async() => {
-              
-              if (username == "") username = currentuser.username;
-              if (password == "") password = currentuser.password;
-              if (email == "") email = currentuser.email;
-              if (first_name == "") first_name = currentuser.first_name;
-              if (last_name == "") last_name = currentuser.last_name;
-              if (location == "") location = currentuser.location;
-              
+                        if (username == "") username = currentuser.username;
+                        if (password == "") password = currentuser.password;
+                        if (email == "") email = currentuser.email;
+                        if (first_name == "") first_name = currentuser.first_name;
+                        if (last_name == "") last_name = currentuser.last_name;
+                        if (location == "") location = currentuser.location;
 
-                const user = {username, email, password, first_name, last_name, location };
-                const response = await fetch("/user", {
-                    method: 'PUT',
-                    headers: { 'Content-type': 'application/json' },
-                    body: JSON.stringify(user)
-                });
-                if (response.ok) {
-                    console.log('success');
-                    console.log(user);
-                    setLastName("");
-                    setFirstName("");
-                    setUsername("");
-                    setEmail("");
-                    setPassword("");
-                    setLocation("");
-                }
-                else {
-                    setError("Problem signing up. Please try again");
-                }
-            }}>
-                Edit Profile
-            </Button>
-            { {error} && <Header as='h4' color='red'> {error} </Header> }
-        </Form>
-
-      </div>
+                          const user = {username, email, password, first_name, last_name, location };
+                          const response = await fetch("/user", {
+                              method: 'PUT',
+                              headers: { 'Content-type': 'application/json' },
+                              body: JSON.stringify(user)
+                          });
+                          if (response.ok) {
+                              console.log('success');
+                              console.log(user);
+                              onUpdateUser(user);
+                              getCurrentUser(user);
+                              setOpen(false);
+                              setLastName("");
+                              setFirstName("");
+                              setUsername("");
+                              setEmail("");
+                              setPassword("");
+                              setLocation("");
+                          }
+                          else {
+                              setError("Problem signing up. Please try again");
+                          }
+                      }}>
+                          Edit Profile
+                      </Button>
+                      { {error} && <Header as='h4' color='red'> {error} </Header> }
+                  </Form>
+            </Modal.Content>
+        </Modal>
+    </div>
     </main>
   );
 }

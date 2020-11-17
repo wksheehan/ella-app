@@ -335,7 +335,7 @@ def update_outfits(match_added):
 
     # Generate outfits with all shoes that match at least one of the clothing articles
     if (clothing_article_1.type == 'Top' and clothing_article_2.type == 'Bottom') or (clothing_article_1.type == 'Bottom' and clothing_article_2.type == 'Top'):
-        shoes = Clothing.query.filter_by(type = 'Shoes')
+        shoes = Clothing.query.filter_by(user_id = current_user.get_id(), type = 'Shoes')
         for shoe in shoes:
             match_count = Matches.query.filter_by(user_id=current_user.get_id(), clothing_id1 = shoe.id, clothing_id2 = clothing_article_1.id).count() + \
                             Matches.query.filter_by(user_id=current_user.get_id(), clothing_id1 = clothing_article_1.id, clothing_id2 = shoe.id).count() + \
@@ -356,7 +356,7 @@ def update_outfits(match_added):
 
     # Generate outfits with all bottoms that match at least one of the clothing articles
     elif (clothing_article_1.type == 'Top' and clothing_article_2.type == 'Shoes') or (clothing_article_1.type == 'Shoes' and clothing_article_2.type == 'Top'):
-        bottoms = Clothing.query.filter_by(type = 'Bottom')
+        bottoms = Clothing.query.filter_by(user_id = current_user.get_id(), type = 'Bottom')
         for bottom in bottoms:
             match_count = Matches.query.filter_by(user_id=current_user.get_id(), clothing_id1 = bottom.id, clothing_id2 = clothing_article_1.id).count() + \
                             Matches.query.filter_by(user_id=current_user.get_id(), clothing_id1 = clothing_article_1.id, clothing_id2 = bottom.id).count() + \
@@ -377,7 +377,7 @@ def update_outfits(match_added):
 
     # Generate outfits with all tops that match at least one of the clothing articles
     else:
-        tops = Clothing.query.filter_by(type = 'Top')
+        tops = Clothing.query.filter_by(user_id = current_user.get_id(), type = 'Top')
         for top in tops:
             match_count = Matches.query.filter_by(user_id=current_user.get_id(), clothing_id1 = top.id, clothing_id2 = clothing_article_1.id).count() + \
                             Matches.query.filter_by(user_id=current_user.get_id(), clothing_id1 = clothing_article_1.id, clothing_id2 = top.id).count() + \

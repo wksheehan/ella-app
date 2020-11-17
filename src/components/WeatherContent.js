@@ -3,7 +3,7 @@ import './FormContent.css';
 import axios from "axios";
 import { usePosition } from 'use-position';
 import { makeStyles } from '@material-ui/core/styles';
-import { Card, Button, Form, Icon, Image } from 'semantic-ui-react'
+import { Card, Button, Table, Form, Icon, Image } from 'semantic-ui-react'
 
 
 const useStyles = makeStyles(theme => ({
@@ -22,6 +22,11 @@ const useStyles = makeStyles(theme => ({
       color: "white",
       fontfamily: "Open Sans",
       textAlign: "center",
+    },
+    table:{
+      textAlign: "center",
+      textAlign: "center",
+
     },
     content: {
       textAlign: "center",
@@ -80,6 +85,8 @@ function WeatherContent() {
     const [temp_max, setTemp_max] = useState("");
     const [temp, setTemp] = useState("");
 
+   
+
 
     const key = '754c84dda245d4975159e2096407f3a6';
     const [feels_like, setFeelsLike] = useState('');
@@ -113,28 +120,44 @@ function WeatherContent() {
         <main className={classes.fullWidth}>
         <div className={classes.toolbar} />
         <img className ={classes.centered} src={process.env.PUBLIC_URL + 'ella.jpeg'}/>
-        <div className = {classes.content}> 
+        <div className = {classes.table}> 
          <Button primary size = "huge" onClick={async() => {
                        getWeather(); 
+                    
                 }}> Get Weather 
           </Button>
           </div>
-        <div className={classes.content}>  
-            City: {city}
-        </div>
-        <div className={classes.content}>  
-            Current Temperature : {temp} °F
-        </div>
-        <div className={classes.content}>  
-            High :  {temp_max} °F
-        </div>
-        <div className={classes.content}>  
-             Low : {temp_min} °F
-        </div>
-        <div className={classes.content}>  
-         Description : {description}
-        </div>
-  
+          <div className={classes.content}>
+          <Table color= 'blue' key='blue' inverted >
+            <Table.Header>
+            <Table.HeaderCell ></Table.HeaderCell>
+            <Table.HeaderCell ></Table.HeaderCell>
+            </Table.Header>
+    
+            <Table.Body>
+              <Table.Row>
+                <Table.Cell>City</Table.Cell>
+                <Table.Cell>{city}</Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell>Current Temperature</Table.Cell>
+                <Table.Cell>{temp} °F</Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell>High</Table.Cell>
+                <Table.Cell>{temp_max} °F</Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell>Low</Table.Cell>
+                <Table.Cell>{temp_min} °F</Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell>Description</Table.Cell>
+                <Table.Cell>{description}</Table.Cell>
+              </Table.Row>
+            </Table.Body>
+          </Table>
+      </div>
           <div className = {classes.content}>
                 < img src={"http://openweathermap.org/img/wn/" + iconID + "@2x.png"}
                 />
